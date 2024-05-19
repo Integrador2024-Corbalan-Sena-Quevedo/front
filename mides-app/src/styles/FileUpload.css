@@ -9,7 +9,7 @@
     border: 3px solid #000000;
     border-radius: 15px;
     background-color: #cde4f3;
-    background-image: url("./img/midelogo.png");
+    background-image: url("../img/midelogo.png");
     background-repeat: no-repeat; /* Evita que la imagen se repita */
     background-size: auto; /* Ajusta el tamaño de la imagen */
     background-position: center 95%;

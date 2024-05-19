@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './FileUpload.css';
+import '../styles/FileUpload.css'
+
 import { Button } from 'bootstrap';
 
 const FileUpload = () => {
@@ -55,7 +56,7 @@ const FileUpload = () => {
         <h1>Subir archivo CSV</h1>
         <form id="csv-upload-form" onSubmit={handleSubmit}>
             <label for="csv-file-input" class="file-input-label" onClick={handleLabelClick}>
-                <img src="src\assets\img\upload.png" alt="Logo" class="upload-icon" />
+                <img src="src\img\upload.png" alt="Logo" class="upload-icon" />
             </label>
             <input type="file" id="csv-file-input" accept=".csv" onChange={handleFileChange} style={{ display: 'none' }} />
             <button type="sumbit" class="btn-attachment">Enviar</button>
