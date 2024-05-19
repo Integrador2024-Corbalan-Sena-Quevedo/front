@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import FileUpload from './assets/UploadCSV'
+import FileUpload from './components/UploadCSV'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
