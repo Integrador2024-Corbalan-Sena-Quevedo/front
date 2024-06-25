@@ -1,0 +1,26 @@
+.menu-container {
+    display: flex;
+  }
+  
+  .menu {
+    width: 200px; /* Ancho del menú */
+    background-color: #f0f0f0; /* Color de fondo */
+    padding: 10px;
+    border-right: 1px solid #ccc; /* Borde derecho */
+  }
+  
+  .menu-item {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .menu-item:hover {
+    background-color: #e0e0e0; /* Color de fondo al pasar el ratón */
+  }
+  
+  .selected-component {
+    flex: 1;
+    padding: 20px;
+  }
