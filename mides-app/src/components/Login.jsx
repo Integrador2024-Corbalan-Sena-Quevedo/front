@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import {  useNavigate } from "react-router-dom";
 import '../styles/Login.css'
 
 const Login = () => {
@@ -6,20 +7,73 @@ const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('');
+    let navigate = useNavigate();
 
     const handleSubmit = (e) => {
       e.preventDefault();
       
-      // Validar campos
+     
       if (!username || !password) {
         setError('Por favor, complete todos los campos.');
         return;
       }
   
-      // Aquí se puede agregar la lógica de autenticación
+  
+ 
+      let nombre = username;
+        console.log(nombre);
+        let pass = password;
+        console.log(pass);
+
+
+        let elUsuario = {
+            
+            usuario: nombre,
+            password: pass,
+
+        }
+ 
+    
+   
+  
+         fetch('http://localhost:8080/api/login-usuario', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+        },
+          body: JSON.stringify(elUsuario),
+        })
+          .then(function (response) {
+            return response.json()
+        })
+
+        .then(function (data) {
+            console.log(data)
+           
+
+            if (data.codigo == 200) {
+                
+                    localStorage.setItem("iduser", data.id)
+                    localStorage.setItem("apiKey", data.apiKey)
+                    localStorage.setItem("user", nombre)
+                 
+                navigate("/menu");
+
+            }
+            else{
+              setError('Usuario y/o contraseña incorrectos');
+            }
+
+
+        })
+        .catch(error => {
+          setError(error.message);
+          console.error(error);
+        });
+
       console.log('Username:', username);
       console.log('Password:', password);
-  
+     
       // Limpiar el formulario
       setUsername('');
       setPassword('');
@@ -35,6 +89,7 @@ const Login = () => {
             <label>Usuario:</label>
             <input
               type="text"
+             
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
