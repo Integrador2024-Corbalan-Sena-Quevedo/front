@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Menu.css'; // Importa tus estilos CSS
 
 const Menu = ({ items, components }) => {
-  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [selectedComponent, setSelectedComponent] = useState(components['Home']);
 
+  
   const handleItemClick = (item) => {
     setSelectedComponent(components[item]);
   };
@@ -21,13 +22,11 @@ const Menu = ({ items, components }) => {
           </div>
         ))}
       </div>
-      {selectedComponent && (
-        <div className="selected-component">
-          {selectedComponent}
-        </div>
-      )}
+      <div className="selected-component">
+        {selectedComponent}
+      </div>
     </div>
   );
 };
 
-export default Menu
+export default Menu;
