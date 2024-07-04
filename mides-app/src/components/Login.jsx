@@ -36,50 +36,40 @@ const Login = () => {
     
    
   
-         fetch('http://localhost:8080/api/login-usuario', {
+        fetch('http://localhost:8080/login-usuario', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
-        },
+              'Content-Type': 'application/json',
+          },
           body: JSON.stringify(elUsuario),
-        })
-          .then(function (response) {
-            return response.json()
-        })
-
-        .then(function (data) {
-            console.log(data)
-           
-
-            if (data.codigo == 200) {
-                
-                    localStorage.setItem("iduser", data.id)
-                    localStorage.setItem("apiKey", data.apiKey)
-                    localStorage.setItem("user", nombre)
-                 
-                navigate("/menu");
-
-            }
-            else{
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log(data);
+          if (data.codigo === 200) {
+              localStorage.setItem("iduser", data.id);
+              localStorage.setItem("apiKey", data.apiKey);
+              localStorage.setItem("user", nombre);
+              navigate("/menu");
+          } else {
               setError('Usuario y/o contraseña incorrectos');
-            }
+          }
+      })
+      .catch(error => {
+          setError('Ocurrió un error durante el login');
+          console.error('Error:', error);
+      });
+    
 
-
-        })
-        .catch(error => {
-          setError(error.message);
-          console.error(error);
-        });
-
-      console.log('Username:', username);
-      console.log('Password:', password);
+      console.log('Username:', nombre);
+      console.log('Password:', pass);
+  
      
       // Limpiar el formulario
       setUsername('');
       setPassword('');
       setError('');
     };
-  
 
     return (
         <div className="login-container">

@@ -8,24 +8,33 @@ import Logout from './components/Logout'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 const App = () => {
+  
   const components = {
     'Subir archivo': <FileUpload />,
     'Home': <Home />,
     'Logout': <Logout />
   };
 
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+       
         <Route path="/menu" element={<Menu items={['Home', 'Subir archivo', 'Logout']} components={components} />}>
           <Route index element={<Navigate to="home" />} />
           <Route path="home" element={<Home />} />
           <Route path="subirarchivo" element={<FileUpload />} />
           <Route path="logout" element={<Logout />} />
         </Route>
-        <Route path="/uploadCSV" element={<FileUpload />} />
-        <Route path="/home" element={<Home />} />
+       
+         
+       
+            <Route path="/uploadCSV" element={ <FileUpload /> } />
+            <Route path="/home" element={ <Home /> } />
+        
+      
+     
       </Routes>
     </BrowserRouter>
   );
