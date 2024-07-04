@@ -11,8 +11,8 @@
     background-color: #cde4f3;
     background-image: url("../img/midelogo.png");
     background-repeat: no-repeat; /* Evita que la imagen se repita */
-    background-size: auto; /* Ajusta el tamaño de la imagen */
-    background-position: center 95%;
+    background-size: 200px; /* Ajusta el tamaño de la imagen */
+    background-position: center 99%;
 }
 
 h1 {
@@ -88,3 +88,23 @@ form {
   .upload-icon:hover{
     transform: translateY(-5px);
   }
+
+  .styled-select {
+    margin: 10px 0;
+    font-size: 16px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+    color: #ffffff;
+    background-color: #034C8C;
+}
+
+.styled-select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.styled-select option {
+    padding: 10px;
+}

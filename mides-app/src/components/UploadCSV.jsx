@@ -6,6 +6,7 @@ import { Button } from 'bootstrap';
 const FileUpload = () => {
   const [file, setFile] = useState(null);
   const [uploadMessage, setUploadMessage] = useState('');
+  const [selectedOptionTypeFile, setSelectedOptionTypeFile] = useState('');
 
 
   const handleFileChange = (e) => {
@@ -13,6 +14,10 @@ const FileUpload = () => {
     setUploadMessage(e.target.files[0].name)
     setFile(e.target.files[0]);
   };
+
+  const handleTypeFileChange = (e) => {
+    setSelectedOptionTypeFile(e.target.value);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,13 +27,19 @@ const FileUpload = () => {
       return;
     }
 
+    if (!selectedOptionTypeFile) {
+      setUploadMessage("Seleccione un tipo");
+      return;
+    }
+
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('type', selectedOptionTypeFile);
 
     try {
       const response = await fetch('http://localhost:8080/upload-csv', {
         method: 'POST',
-        body: formData,
+        body: formData
       })
 
       console.log(response)
@@ -36,6 +47,7 @@ const FileUpload = () => {
        const data = await response.text()
         setUploadMessage(data)
         setFile(null);
+        setSelectedOptionTypeFile('');
         document.getElementById('csv-file-input').value = '';
       }else{
         const data = await response.text()
@@ -59,6 +71,11 @@ const FileUpload = () => {
                 <img src="src\img\upload.png" alt="Logo" class="upload-icon" />
             </label>
             <input type="file" id="csv-file-input" accept=".csv" onChange={handleFileChange} style={{ display: 'none' }} />
+            <select class="styled-select" value={selectedOptionTypeFile} onChange={handleTypeFileChange}>
+              <option value="">Seleccione un tipo</option>
+              <option value="CANDIDATE">Candidato</option>
+              <option value="COMPANY">Empresa</option>
+            </select>
             <button type="sumbit" class="btn-attachment">Enviar</button>
         </form>
         {uploadMessage && <p id="upload-message">{uploadMessage}</p>}
