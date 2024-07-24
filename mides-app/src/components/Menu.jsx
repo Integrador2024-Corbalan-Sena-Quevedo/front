@@ -1,46 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/Menu.css'; 
+import '../styles/Menu.css';
 import FileUpload from './UploadCSV';
 import Home from './Home';
 import Logout from './Logout';
 import { useNavigate } from 'react-router-dom';
-
-
-
+import ListaOperadores from './ListaOperadores'; 
 
 const Menu = ({ onLogout }) => {
+  const navigate = useNavigate();
+  const [selectedComponent, setSelectedComponent] = useState('Home');
+  const rol = localStorage.getItem('rol');
+
   const components = {
     'Home': <Home />,
     'Subir archivo': <FileUpload />,
+    'Lista de Operadores' : <ListaOperadores/>,
     'Logout': <Logout onLogout={onLogout} />
+    
   };
-  const [selectedComponent, setSelectedComponent] = useState(components['Home']);
-  const navigate = useNavigate();
-  
+
+  const menuItems = {
+    'ADMIN': ['Home', 'Subir archivo', 'Lista de Operadores', 'Logout'],
+    'OPERADOR_LABORAL_SUPERIOR': ['Home', 'Subir archivo', 'Logout'],
+    'OPERADOR_LABORAL_NOVATO': ['Home', 'Logout']
+  };
 
   const handleItemClick = (item) => {
-    setSelectedComponent(components[item]);
-    navigate(`/menu/${item.toLowerCase().replace(' ', '-')}`);
+    setSelectedComponent(item);
+    navigate(`/menu/${item.toLowerCase().replaceAll(' ', '-')}`);
   };
+
   return (
     <div className="menu-container">
       <div className="menu">
-        {Object.keys(components).map((item, index) => (
-          <div
+        {menuItems[rol]?.map((item, index) => (
+          <button
             key={index}
-            className={`menu-item ${selectedComponent === components[item] ? 'active' : ''}`}
+            className={`menu-item ${selectedComponent === item ? 'active' : ''}`}
             onClick={() => handleItemClick(item)}
           >
             {item}
-          </div>
+          </button>
         ))}
       </div>
       <div className="selected-component">
-        {selectedComponent}
+        {components[selectedComponent]}
       </div>
     </div>
   );
 };
-
 
 export default Menu;

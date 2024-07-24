@@ -46,6 +46,7 @@ const Login = () => {
           if (data.token && data.username) {
               localStorage.setItem("token", data.token);
               localStorage.setItem("user", data.username);
+              localStorage.setItem("rol", data.rol);
              navigate("/menu/home")
           } else {
             setError("Los datos recibidos no contienen 'token' o 'username'.");
