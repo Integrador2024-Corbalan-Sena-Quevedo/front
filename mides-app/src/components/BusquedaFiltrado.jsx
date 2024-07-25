@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css'
 import '../styles/BusquedaConFiltros.css';
+import CandidatoPopup from './CandidatoPopup';
+import { Modal, Button } from 'react-bootstrap';
+
 
 
 const Filtro = ({ filtro, onRemoveFiltro, onRemoveSubFiltro }) => {
@@ -11,7 +15,7 @@ const Filtro = ({ filtro, onRemoveFiltro, onRemoveSubFiltro }) => {
       <button onClick={() => onRemoveFiltro(filtro.name)}>X</button>
       <ul>
         {filtro.subFiltros.map((subFiltro, index) => (
-          <li key={index}>
+          <li key={index} className='subFiltro'>
             {subFiltro}
             <button onClick={() => onRemoveSubFiltro(filtro.name, subFiltro)}>X</button>
           </li>
@@ -27,12 +31,45 @@ const BusquedaConFiltros = () => {
   const [nuevoFiltro, setNuevoFiltro] = useState('');
   const [subFiltro, setSubFiltro] = useState('');
   const [candidatos, setCandidatos] = useState([]);
+  const [selectedNombreLista, setSelectedNombreLista] = useState('');
+  const [SelectedCandidato, setSelectedCandidato] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [showSelect, setShowSelect] = useState(false);
+  const [selectedCandidadoCombo, setSelectedCandidadoCombo] = useState(-1);
+  const [selectedRama, setSelectedRama] = useState('');
+
+  const handleSelectShow = (candidato) => {
+    setShowSelect(true);
+    setSelectedCandidadoCombo(candidato.id);
+
+
+  };
+
+  const handleShowPopup = (e, candidato) => {
+      const [rama, nombre] = e.target.value.split('|');
+      setShowPopup(true);
+      setSelectedNombreLista(nombre);
+      setSelectedCandidato(candidato);
+      setSelectedRama(rama);
+
+    };
+  
+      const handleClosePopup = () => {
+      setShowPopup(false);
+      setShowSelect(false);
+     };
+
+     const handleCandidato = (candidato) => {
+      setSelectedCandidato(candidato);
+    };
 
   const manejarAgregarFiltro = () => {
     if (nuevoFiltro) {
       
       let filtroExistente = filtros.find(filtro => filtro.name === nuevoFiltro);
 
+      
+      
       if (filtroExistente) {
         
         if (subFiltro && !filtroExistente.subFiltros.includes(subFiltro)) {
@@ -92,7 +129,7 @@ const BusquedaConFiltros = () => {
     console.log(JSON.stringify(datos));
 
     
-    const response = await fetch('http://localhost:8080/filtro/candidatos', {
+    fetch('http://localhost:8080/filtro/candidatos', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -101,26 +138,649 @@ const BusquedaConFiltros = () => {
     })
     //console.log(response);
 
-    const algo = await response.json();
-    console.log(algo);
-
-  //   .then(response => response.json())
-  //   .then(candidatos=> {
-  //     const resultados = Object.values(candidatos);
-  //        resultados.forEach(key => {
+    .then(response => response.json())
+    .then(candidatos=> {
+      const resultados = Object.values(candidatos);
+         resultados.forEach(key => {
            
-  //          console.log("Nombre: "+ key.nombre);
-  //          console.log("Apellido: "+ key.apellido);
+           console.log("Nombre: "+ key.nombre);
+           console.log("Apellido: "+ key.apellido);
            
-  //         });
+          });
         
-  //       console.log("Cantidad: "+ resultados.length);
-  //       debugger
-  //        setCandidatos(resultados);
-  //  })
-  //   .catch(error => {
-  //     console.error('Error:', error);
-  //   });
+        console.log("Cantidad: "+ resultados.length);
+        debugger
+         setCandidatos(resultados);
+   })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  };
+
+  const mostrarEstructura = () => {
+
+
+    if(SelectedCandidato){
+
+      if (selectedRama == 'educacion') {
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Educacion'} nombreCandidato={SelectedCandidato.nombre}>
+            {
+              <div>
+                {
+                  <ul>
+                    <li>
+                      <strong>Años de educacion: </strong>
+                      <span>{SelectedCandidato[selectedRama].aniosEducacion}</span>
+                    </li>
+                    <li>
+                      <strong>Desea participar en alguna institucion: </strong>
+                      <span>{SelectedCandidato[selectedRama].deseaParticiparEnAlgunaInstitucion}</span>
+                    </li>
+                    <li>
+                      <strong>Deseo de otras instituciones: </strong>
+                      <span>{SelectedCandidato[selectedRama].deseoDeOtrasInstituciones}</span>
+                    </li>
+                    <li>
+                      <strong>Educacion no formal: </strong>
+                      <span>{SelectedCandidato[selectedRama].educacionNoFormal}</span>
+                    </li>
+                    <li>
+                      <strong>Nivel educativo: </strong>
+                      <span>{SelectedCandidato[selectedRama].nivelEducativo}</span>
+                    </li>
+                    <li>
+                      <strong>Nombre institucion: </strong>
+                      <span>{SelectedCandidato[selectedRama].nombreInstitucion}</span>
+                    </li>
+                    <li>
+                      <strong>Participacion institucion: </strong>
+                      <span>{SelectedCandidato[selectedRama].participacionInstitucion}</span>
+                    </li>
+                    <li>
+                      <strong>Razon por la que deja estudios: </strong>
+                      <span>{SelectedCandidato[selectedRama].razonDejaEstudios}</span>
+                    </li>
+                    <li>
+                      <strong>Situacion actual: </strong>
+                      <span>{SelectedCandidato[selectedRama].situacionActual}</span>
+                    </li>
+                    
+                    <li>
+                      <strong>Instituciones deseo: </strong>
+                      <ul>
+                        {
+                          SelectedCandidato[selectedRama][selectedNombreLista] && Object.values(SelectedCandidato[selectedRama][selectedNombreLista]).map((item, index) => (
+                          <li key={index}>{item.tipo}</li>
+                          ))
+                        }
+                      </ul>
+                    </li>
+                    
+                  </ul>
+                }
+              </div>
+            }
+
+          </ListaPopup>
+        );
+      }
+
+      if (selectedRama == 'disponibilidadHoraria') {
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Disponibilidad Horaria'} nombreCandidato={SelectedCandidato.nombre}>
+            {
+              <div>
+                {
+                  <ul>
+                    <li>
+                      <strong>Dias de la semana: </strong>
+                      <span>{SelectedCandidato[selectedRama].diasDeLaSemana}</span>
+                    </li>
+                    <li>
+                      <strong>Horas semanales: </strong>
+                      <span>{SelectedCandidato[selectedRama].horasSemanales}</span>
+                    </li>
+                    <li>
+                      <strong>Otro departamento: </strong>
+                      <span>{SelectedCandidato[selectedRama].otroDepartamento}</span>
+                    </li>
+                    <li>
+                      <strong>Turnos: </strong>
+                      <ul>
+                        {
+                          SelectedCandidato[selectedRama][selectedNombreLista] && Object.values(SelectedCandidato[selectedRama][selectedNombreLista]).map((item, index) => (
+                          <li key={index}>{item.turno}</li>
+                          ))
+                        }
+                      </ul>
+                    </li>
+                    
+                  </ul>
+                }
+              </div>
+            }
+
+          </ListaPopup>
+        );
+      }
+
+      if(selectedNombreLista == 'encuestaCandidato'){
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Datos de la encuesta'} nombreCandidato={SelectedCandidato.nombre}>
+              {
+                <div>
+                  {
+                    <ul>
+                      <li>
+                        <strong>Creada por: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].creadaPor}</span>
+                      </li>
+                      <li>
+                        <strong>Estado: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].estado}</span>
+                      </li>
+                      <li>
+                        <strong>Id Flow: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].idFlow}</span>
+                      </li>
+                      <li>
+                        <strong>id Flow AFAM: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].idFlowAFAM}</span>
+                      </li>
+                      <li>
+                        <strong>Fecha de creación: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista]['fechaCreacion'][2]}/{SelectedCandidato[selectedNombreLista]['fechaCreacion'][1]}/{SelectedCandidato[selectedNombreLista]['fechaCreacion'][0]} </span>
+                      </li>
+                      <li>
+                        <strong>Fecha de finalización: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista]['fechaFinalizacion'][2]}/{SelectedCandidato[selectedNombreLista]['fechaFinalizacion'][1]}/{SelectedCandidato[selectedNombreLista]['fechaFinalizacion'][0]}</span>
+                      </li>
+                      
+                      
+                      
+                    </ul>
+                  }
+                </div>
+               } 
+          </ListaPopup>
+        );
+      }
+
+      if(selectedNombreLista == 'salud'){
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Salud'} nombreCandidato={SelectedCandidato.nombre}>
+              {
+                <div>
+                  {
+                    <ul>
+                      <li>
+                        <strong>Atención médica: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].atencionMedica}</span>
+                      </li>
+                      <li>
+                        <strong>Carnet salud: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].carnetSalud}</span>
+                      </li>
+                      <li>
+                        <strong>Medicamento: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].medicamento}</span>
+                      </li>
+                      
+                      <li>
+                        <strong>Cuales medicamentos: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].cualesMedicamentos}</span>
+                      </li>
+                      
+                      <li>
+                        <strong>Salud mental: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].saludMental}</span>
+                      </li>
+                      
+                       
+                      
+                    </ul>
+                  }
+                </div>
+               } 
+          </ListaPopup>
+        );
+      }
+
+      if(selectedNombreLista == 'telefonos'){
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Telefonos'} nombreCandidato={SelectedCandidato.nombre}>
+              {
+                <div>
+                  {
+                    <ul>
+                      {
+                        Object.values(SelectedCandidato[selectedNombreLista]).map((item, index) => (
+                        <ul key={index}>
+                          <li>
+                            <strong>Duenio uno: </strong>
+                            <span >{item.duenioUno}</span>
+                          </li>
+                          <li>
+                            <strong>Número uno: </strong>
+                            <span >{item.numeroUno}</span>
+                          </li> 
+                          <li>
+                            <strong>Duenio dos: </strong>
+                            <span >{item.duenioDos}</span>
+                          </li>
+                          <li>
+                            <strong>Número dos: </strong>
+                            <span >{item.numeroDos}</span>
+                          </li>
+                        </ul>
+                        ))
+                      }
+                      
+                       
+                    </ul>
+                  }
+                </div>
+               } 
+          </ListaPopup>
+        );
+      }
+
+      if(selectedNombreLista == 'habilidad'){
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Habilidades'} nombreCandidato={SelectedCandidato.nombre}>
+              {
+                <div>
+                  {
+                    <ul>
+                      <li>
+                        <strong>Descripción: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].descripcion}</span>
+                      </li>
+                      <li>
+                        <strong>Autonomia en transporte público: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].autonomia_en_transporte_publico}</span>
+                      </li>
+                      
+                      <li>
+                        <strong>Excel: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].excel}</span>
+                      </li>
+                      <li>
+                        <strong>Imagen personal: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].imagen_personal}</span>
+                      </li>
+                      <li>
+                        <strong>Internet: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].internet}</span>
+                      </li>
+                      <li>
+                        <strong>lsu: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].lsu}</span>
+                      </li>
+                      <li>
+                        <strong>Manejo de dinero: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].manejo_de_dinero}</span>
+                      </li>
+                      <li>
+                        <strong>Power point: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].power_point}</span>
+                      </li>
+                      <li>
+                        <strong>Word: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].word}</span>
+                      </li>
+                      <li>
+                        <strong>Otras Habilidades: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].otrasHabilidades}</span>
+                      </li>
+                      
+                    </ul>
+                  }
+                </div>
+               } 
+          </ListaPopup>
+        );
+      }
+
+
+
+      if(selectedNombreLista == 'dirreccion'){
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Direccion'} nombreCandidato={SelectedCandidato.nombre}>
+              {
+                <div>
+                  {
+                    <ul>
+                      <li>
+                        <strong>Apartamento: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].apartamento}</span>
+                      </li>
+                      <li>
+                        <strong>Calle: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].calle}</span>
+                      </li>
+                      <li>
+                        <strong>Calle Incluida: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].calleIncluida}</span>
+                      </li>
+                      <li>
+                        <strong>Departamento: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].departamento}</span>
+                      </li>
+                      <li>
+                        <strong>Esquina Uno: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].esquinaUno}</span>
+                      </li>
+                      <li>
+                        <strong>Esquina Dos: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].esquinaDos}</span>
+                      </li>
+                      <li>
+                        <strong>Kilometro: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].kilometro}</span>
+                      </li>
+                      <li>
+                        <strong>Localidad: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].localidad}</span>
+                      </li>
+                      <li>
+                        <strong>Numero de puerta: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].numeroPuerta}</span>
+                      </li>
+                      <li>
+                        <strong>Observaciones Direccion: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].observacionesDireccion}</span>
+                      </li>
+                      
+                    </ul>
+                  }
+                </div>
+               } 
+          </ListaPopup>
+        );
+      }
+
+      if (selectedNombreLista == 'emails') {
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Emails'} nombreCandidato={SelectedCandidato.nombre}>
+              {
+                <ul>
+                  {
+                    Object.values(SelectedCandidato[selectedNombreLista]).map((item, index) => (
+                      <li key={index}>{item.email}</li>
+                    ))
+                  }
+                </ul>
+              
+               } 
+          </ListaPopup>
+        );
+      }
+
+      
+
+      if(selectedNombreLista == 'datosAdicionalesCandidato'){
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Datos Adicionales'} nombreCandidato={SelectedCandidato.nombre}>
+              {
+                <div>
+                  {
+                    <ul className='ulEditable'>
+                      <li>
+                        <button onclick="handleClick()">
+                          <img src="src/img/edit.png" alt="Edit"/>
+                        </button>
+                        <strong>Autorizacion a brindar datos: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].autorizacionDarDatos}</span>
+                      </li>
+                      <li>
+                      <button onclick="handleClick()">
+                          <img src='src/img/edit.png' alt="Edit"/>
+                      </button>
+                        <strong>Cantidad de hijos: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].cantHijos}</span>
+                      </li>
+                      <li>
+                      <button onclick="handleClick()">
+                          <img src="src/img/edit.png" alt="Edit"/>
+                      </button>
+                        <strong>Conduce: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].conduce}</span>
+                      </li>
+                      <li>
+                      <button onclick="handleClick()">
+                          <img src="src/img/edit.png" alt="Edit"/>
+                      </button>
+                        <strong>Tipo de libreta de conducir: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].tipoLibreta}</span>
+                      </li>
+                      <li>
+                      <button onclick="handleClick()">
+                          <img src="src/img/edit.png" alt="Edit"/>
+                      </button>
+                        <strong>Cuidados: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].cuidados}</span>
+                      </li>
+                      <li>
+                      <button onclick="handleClick()">
+                          <img src="src/img/edit.png" alt="Edit"/>
+                      </button>
+                        <strong>Envia CV: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].enviaCV}</span>
+                      </li>
+                      <li>
+                      <button onclick="handleClick()">
+                          <img src="src/img/edit.png" alt="Edit"/>
+                      </button>
+                        <strong>Grupo familiar: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].grupoFamiliar}</span>
+                      </li>
+                      <li>
+                      <button onclick="handleClick()">
+                          <img src="src/img/edit.png" alt="Edit"/>
+                      </button>
+                        <strong>Hijos: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].hijos}</span>
+                      </li>
+                      <li>
+                      <button onclick="handleClick()">
+                          <img src="src/img/edit.png" alt="Edit"/>
+                      </button>
+                        <strong>Informacion personal: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].infomacionPersonal}</span>
+                      </li>
+                      <li>
+                      <button onclick="handleClick()">
+                          <img src="src/img/edit.png" alt="Edit"/>
+                      </button>
+                        <strong>Registro en CNHD: </strong>
+                        <span>{SelectedCandidato[selectedNombreLista].registoEnCNHD}</span>
+                      </li>
+                      
+                    </ul>
+                  }
+                </div>
+               } 
+          </ListaPopup>
+        );
+      }
+      
+
+      if (selectedRama == '') {
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={selectedNombreLista} nombreCandidato={SelectedCandidato.nombre}>
+              {
+                <ul>
+                  {
+                    Object.values(SelectedCandidato[selectedNombreLista]).map((item, index) => (
+                      <li key={index}>{item.nombre}</li>
+                    ))
+                  }
+                </ul>
+              
+               } 
+          </ListaPopup>
+        );
+      }
+      
+      if (selectedRama == 'experienciaLaboral') {
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Experiencia laboral'} nombreCandidato={SelectedCandidato.nombre}>
+              {
+                <ul>
+                  <li>
+                    <strong>Descripcion situacion laboral: </strong>
+                    <span>{SelectedCandidato[selectedRama].descripcionSituacionLaboral}</span>
+                  </li>
+                  <li>
+                    <strong>Experiencia laboral: </strong>
+                    <span>{SelectedCandidato[selectedRama].experienciaLaboral}</span>
+                  </li>
+                  <li>
+                    <strong>Inicio trabajo: </strong>
+                    <span>{SelectedCandidato[selectedRama].inicioTrabajo}</span>
+                  </li>
+                  <li>
+                    <strong>Fin trabajo: </strong>
+                    <span>{SelectedCandidato[selectedRama].finTrabajo}</span>
+                  </li>
+                  <li>
+                    <strong>Puesto actual: </strong>
+                    <span>{SelectedCandidato[selectedRama].puestoActual}</span>
+                  </li>
+                  <li>
+                    <strong>Situacion laboral: </strong>
+                    <span>{SelectedCandidato[selectedRama].situacionLaboral}</span>
+                  </li>
+                  <li>
+                    <strong>Tareas: </strong>
+                    <span>{SelectedCandidato[selectedRama].tareas}</span>
+                  </li>
+                  <li>
+                    <strong>Tipo de trabajo otros: </strong>
+                    <span>{SelectedCandidato[selectedRama].tipoDeTrabajoOtros}</span>
+                  </li>
+                  <li>
+                    <strong>Tipo trabajo: </strong>
+                    <span>{SelectedCandidato[selectedRama].situacitipoTrabajoonLaboral}</span>
+                  </li>
+                  <li>
+                    <strong>Trabajo alguna vez: </strong>
+                    <span>{SelectedCandidato[selectedRama].trabajoAlgunaVez}</span>
+                  </li>
+                  <li>
+                    <strong>Ultimo puesto: </strong>
+                    <span>{SelectedCandidato[selectedRama].ultimoPuesto}</span>
+                  </li>
+                  <li>
+                      <strong>Motivos de desempleo: </strong>
+                      <ul>
+                        { 
+                          SelectedCandidato[selectedRama]['motivosDesempleo'] && Object.values(SelectedCandidato[selectedRama]['motivosDesempleo']).map((item, index) => (
+                            <li key={index}>{item.motivo}</li>
+                          ))
+                        }
+                      </ul>
+                  </li>
+                  <li>
+                      <strong>Actitudes: </strong>
+                      <ul>
+                        { 
+                          SelectedCandidato[selectedRama]['actitudes'] && Object.values(SelectedCandidato[selectedRama]['actitudes']).map((item, index) => (
+                            <li key={index}>{item.nombre}</li>
+                          ))
+                        }
+                      </ul>
+                  </li>
+                  <li>
+                      <strong>Gustos laborales: </strong>
+                      <ul>
+                        { 
+                          SelectedCandidato[selectedRama]['gustosLaborales'] && Object.values(SelectedCandidato[selectedRama]['gustosLaborales']).map((item, index) => (
+                            <li key={index}>{item.gusto}</li>
+                          ))
+                        }
+                      </ul>
+                  </li>
+                  
+                </ul>
+               
+              }
+          </ListaPopup>
+        );
+      }
+
+      if(selectedRama == 'candidatoIdiomas'){
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Idiomas'} nombreCandidato={SelectedCandidato.nombre}>
+            {
+              SelectedCandidato[selectedRama] && Object.values(SelectedCandidato[selectedRama]).map((item, index) => (
+                <ul key={index}>
+                  <strong>{item[selectedNombreLista].nombre}</strong>
+                  <li>{item.nivel}</li>
+                </ul>
+              ))
+            }
+
+          </ListaPopup>
+        );
+
+      }
+
+      if (selectedRama == 'discapacidad') {
+        
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Tipos de discapacidades'} nombreCandidato={SelectedCandidato.nombre}>
+              {
+                <div>
+                  <p>Diagnostico: {SelectedCandidato[selectedRama].diagnostico}</p>
+                  <h5>Tipo de discapacidades: </h5>
+                  {
+                    <ul>
+                      
+                      {
+                        SelectedCandidato[selectedRama][selectedNombreLista] && Object.values(SelectedCandidato[selectedRama][selectedNombreLista]).map((item, index) => (   
+                          <li className='unCandidato' key={index}>{item.nombre}: {item.descripcion}</li>
+                            ))
+                      }
+                      
+                    </ul>
+                  }
+                </div>
+              }
+          </ListaPopup>
+
+        );
+
+      }
+      
+    }
+
+      
+  }
+
+  const ListaPopup = ({ show, onHide, nombreLista, nombreCandidato, children}) => {
+    // const datos = lista[sub];
+    debugger
+    return (
+      <Modal show = {show} onHide={onHide}>
+        <Modal.Header closeButton className='modalHeder'>
+        <Modal.Title className='titulosListas'>{nombreLista} de {nombreCandidato}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='modalBody'>
+          {children}
+        </Modal.Body>
+        <Modal.Footer>
+        
+        <Button variant="primary" onClick={onHide}>
+          Cerrar
+        </Button>
+        
+        </Modal.Footer>
+
+      </Modal>
+    );
   };
 
   return (
@@ -141,6 +801,8 @@ const BusquedaConFiltros = () => {
         <select value={nuevoFiltro} onChange={manejarCambioNuevoFiltro}>
           <option value="">Seleccionar filtro...</option>
           <option value="documento">Documento</option>
+          <option value="mayores a">Mayores a...(edad)</option>
+          <option value="menores a">Menores a...(edad)</option>
           <option value="Area">Área</option>
           <option value="Apoyo">Apoyo</option>
           <option value="Habilidad">Habilidad</option>
@@ -149,6 +811,12 @@ const BusquedaConFiltros = () => {
           <option value="motivo_desempleo">Motivo de desempleo</option>
           <option value="ayuda_tecnica">Ayuda Técnica</option>
         </select>
+        {nuevoFiltro === 'mayores a' && (
+          <input type='number' value={subFiltro} onChange={manejarCambioSubFiltro}/>
+        )}
+        {nuevoFiltro === 'menores a' && (
+          <input type='number' value={subFiltro} onChange={manejarCambioSubFiltro}/>
+        )}
         {nuevoFiltro === 'documento' && (
           <input type='text' value={subFiltro} onChange={manejarCambioSubFiltro}/>
         )}
@@ -291,20 +959,86 @@ const BusquedaConFiltros = () => {
           </select>
         )}
         <button onClick={manejarAgregarFiltro}>Agregar Filtro</button>
-      </div>
-      <button onClick={enviarFiltros}>Enviar Filtros</button>
-      <div>
-        <h3>Resultados</h3>
-        <ul>
-          {candidatos.map(candidato => (
-            <li key={candidato.id}>
-              {candidato.nombre} ({candidato.apellido})
+          </div>
+          <button className='buttonEnviar' onClick={enviarFiltros}>Obtener Candidatos</button>
+        <div>
+        
+      <div className="result">
+        {/* ... */}
+        <h4>Resultados</h4>
+
+        <div className='encabezado'>
+          <span>Nombre</span>
+          <span>|</span>
+          <span>Apellido</span>
+          <span>|</span>
+          <span>Documento</span>
+          <span>|</span>
+          <span>Documento tipo</span>
+          <span>|</span>
+          <span>Nacimiento</span>
+          <span>|</span>
+          <span>Sexo</span>
+          <span>|</span>
+          <span>Estado Civil</span>
+        </div>
+
+          <ul >
+            {candidatos.map((candidato) => (
+            <li className='unCandidato' key={candidato.id}>
+              <span>{candidato.nombre}</span>
+      
+              <span>{candidato.apellido}</span>
+      
+              <span>{candidato.documento}</span>
+      
+              <span>{candidato.tipoDocumento}</span>
+      
+              <span>{candidato.fecha_de_nacimiento}</span>
+    
+              <span>{candidato.sexo}</span>
+              
+              <span>{candidato.estadoCivil}</span>
+              
+              <span className='masDetalles' onClick={()=> handleSelectShow(candidato)}> Mas detalles... </span> 
+              
+              {showSelect && selectedCandidadoCombo == candidato.id && (
+            <select onChange={(e) => handleShowPopup(e, candidato)}>
+            <option value= "">Seleccionar...</option>
+              <option value= "|apoyos">Apoyos</option>
+              <option value= "|ayudaTecnicas">Ayudas Técnicas</option>
+              <option value= "experienciaLaboral|">Experiencia Laboral</option>
+              <option value= "|areas">Áreas</option>
+              <option value= "|prestaciones">Prestaciones</option>
+              <option value= "discapacidad|tipoDiscapacidades">Discapacidades</option>
+              <option value= "|datosAdicionalesCandidato">Datos Adicionales</option>
+              <option value= "candidatoIdiomas|idioma">Idiomas</option>
+              <option value= "|dirreccion">Dirección</option>
+              <option value= "disponibilidadHoraria|turnos">Disponibilidad Horaria</option>
+              <option value= "educacion|institucionesDeseo">Educación</option>
+              <option value= "|emails">Emails</option>
+              <option value= "|encuestaCandidato">Encuesta</option>
+              <option value= "|habilidad">Habilidades</option>
+              <option value= "|salud">Salud</option>
+              <option value= "|telefonos">Teléfonos</option>
+            </select>
+          )}
             </li>
-          ))}
-        </ul>
+            ))}
+          </ul>
+        <div>
+          {showPopup && (
+              mostrarEstructura()
+            ) 
+          }
+      </div>
+      
+    </div>
       </div>
     </div>
   );
+
+
 };
 
 export default BusquedaConFiltros;

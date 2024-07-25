@@ -118,13 +118,22 @@ input[type="text"] {
 }*/
 
 .contenedor {
-  max-width: 600px;
+  max-width: 80%;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
 }
+.result {
+  max-width: 100%;
+  margin: 1% auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
 
 h2, h3 {
   color: #333;
@@ -245,9 +254,93 @@ input[type="text"] {
   margin-bottom: 5px;
 }
 
+.subFiltro{
+  color:forestgreen
+}
 
+.buttonEnviar{
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.buttonEnviar:hover {
+  background-color: #45a049;
+}
 .resultados {
   border-top: 1px solid #ddd;
   padding-top: 10px;
   margin-top: 10px;
+}
+
+.unCandidato{
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 5px;
+}
+
+.unCandidato span{
+  margin-left: 10px;
+}
+
+.masDetalles{
+  color: #45a049;
+}
+
+.masDetalles:hover{
+  color:#ff1a1a;
+}
+
+.titulosListas{
+  color:#45a049;
+  
+}
+.modalHeder{
+  background-color: #403d3d;
+}
+
+.modalBody{
+  background-color: #f9f9f9;
+}
+
+.encabezado {
+  margin-left: 50px;
+
+}
+
+
+.encabezado span{
+  margin-left: 5px;
+
+}
+
+.ulEditable li  {
+  margin-bottom: 10px;
+}
+
+.ulEditable li strong {
+  margin-left: 5px;
+}
+
+.ulEditable img {
+  width: 15px; 
+  height: 15px;
+  display: block;
+  
+
+  
+
+}
+
+.ulEditable img:hover {
+  width: 20px; 
+  height: 20px;
+
 }
