@@ -5,6 +5,8 @@ import '../styles/ListaOperadores.css';
 const ListaOperadores = () => {
   const [operadores, setOperadores] = useState([]);
   const [error, setError] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const operadoresPorPagina = 4;
   let navigate = useNavigate();
 
   const fetchOperadores = async () => {
@@ -19,7 +21,10 @@ const ListaOperadores = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setOperadores(data);
+    
+        const listaOrdenada = data.sort((a, b) => a.name.localeCompare(b.name));
+        setOperadores(listaOrdenada);
+        
       } else {
         console.error('Error al obtener la lista de operadores:', response.status);
         setError('No se pudo obtener la lista de operadores');
@@ -82,7 +87,15 @@ const ListaOperadores = () => {
     }
   };
 
-  
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Obtener los operadores de la página actual
+  const indexOfLastOperator = currentPage * operadoresPorPagina;
+  const indexOfFirstOperator = indexOfLastOperator - operadoresPorPagina;
+  const currentOperators = operadores.slice(indexOfFirstOperator, indexOfLastOperator);
+
+  // Calcular el número total de páginas
+  const totalPages = Math.ceil(operadores.length / operadoresPorPagina);
 
   return (
 <div className="operator-list-container">
@@ -98,27 +111,38 @@ const ListaOperadores = () => {
         </tr>
       </thead>
       <tbody>
-        {operadores.map((operator, index) => (
-          <tr key={index}>
-            <td>{operator.name}</td>
-            <td>{operator.username}</td>
-            <td>
-              <select 
-                onChange={(e) => handleChangeRole(operator.id, e.target.value)} 
-                value={operator.rol}
-              >
-                <option value="OPERADOR_LABORAL_NOVATO">Operador Laboral Novato</option>
-                <option value="OPERADOR_LABORAL_SUPERIOR">Operador Laboral Superior</option>
-                <option value="ADMIN">Administrador</option>
-              </select>
-            </td>
-            <td>
-              <button onClick={() => handleDelete(operator.id)}>Eliminar</button>
-            </td>
-          </tr>
+          {currentOperators.map((operator, index) => (
+            <tr key={index}>
+              <td>{operator.name}</td>
+              <td>{operator.username}</td>
+              <td>
+                <select 
+                  onChange={(e) => handleChangeRole(operator.id, e.target.value)} 
+                  value={operator.rol}
+                >
+                  <option value="OPERADOR_LABORAL_NOVATO">Operador Laboral Novato</option>
+                  <option value="OPERADOR_LABORAL_SUPERIOR">Operador Laboral Superior</option>
+                  <option value="ADMIN">Administrador</option>
+                </select>
+              </td>
+              <td>
+                <button onClick={() => handleDelete(operator.id)}>Eliminar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    <div className="pagination">
+        {Array.from({ length: totalPages }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => paginate(i + 1)}
+            className={currentPage === i + 1 ? 'active' : ''}
+          >
+            {i + 1}
+          </button>
         ))}
-      </tbody>
-    </table>
+      </div>
       
     </div>
   );
