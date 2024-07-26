@@ -6,6 +6,7 @@ import Logout from './Logout';
 import { useNavigate } from 'react-router-dom';
 import ListaOperadores from './ListaOperadores'; 
 import { JobMatch } from './JobMatch';
+import BusquedaConFiltros from './BusquedaFiltrado';
 
 const Menu = ({ onLogout }) => {
   const navigate = useNavigate();
@@ -17,12 +18,15 @@ const Menu = ({ onLogout }) => {
     'Subir archivo': <FileUpload />,
     'Match' : <JobMatch/>,
     'Lista de Operadores' : <ListaOperadores/>,
+    'Filtro de candidatos': <BusquedaConFiltros/>,
     'Logout': <Logout onLogout={onLogout} />
+    
+
     
   };
 
   const menuItems = {
-    'ADMIN': ['Home', 'Subir archivo', 'Match','Lista de Operadores', 'Logout'],
+    'ADMIN': ['Home', 'Subir archivo', 'Match','Lista de Operadores', 'Filtro de candidatos', 'Logout'],
     'OPERADOR_LABORAL_SUPERIOR': ['Home', 'Subir archivo', 'Logout'],
     'OPERADOR_LABORAL_NOVATO': ['Home', 'Logout']
   };
