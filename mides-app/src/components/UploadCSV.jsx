@@ -4,6 +4,7 @@ import '../styles/FileUpload.css'
 import { Button } from 'bootstrap';
 
 const FileUpload = () => {
+  const token = localStorage.getItem('token');
   const [file, setFile] = useState(null);
   const [uploadMessage, setUploadMessage] = useState('');
   const [selectedOptionTypeFile, setSelectedOptionTypeFile] = useState('');
@@ -39,6 +40,10 @@ const FileUpload = () => {
     try {
       const response = await fetch('http://localhost:8080/upload-csv', {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
         body: formData
       })
 
