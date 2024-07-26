@@ -3,11 +3,14 @@ import '../styles/FileUpload.css'
 
 import { Button } from 'bootstrap';
 
+import uploadIcon from "../img/upload.png"
+
 const FileUpload = () => {
   const token = localStorage.getItem('token');
   const [file, setFile] = useState(null);
   const [uploadMessage, setUploadMessage] = useState('');
   const [selectedOptionTypeFile, setSelectedOptionTypeFile] = useState('');
+
 
 
   const handleFileChange = (e) => {
@@ -72,8 +75,8 @@ const FileUpload = () => {
     <div className="upload-container">
         <h1>Subir archivo CSV</h1>
         <form id="csv-upload-form" onSubmit={handleSubmit}>
-            <label for="csv-file-input" className="file-input-label" onClick={handleLabelClick}>
-                <img src="src\img\upload.png" alt="Logo" className="upload-icon" />
+        <label htmlFor="csv-file-input" className="file-input-label" onClick={handleLabelClick}>
+                <img src={uploadIcon} alt="Logo" className="upload-icon" />
             </label>
             <input type="file" id="csv-file-input" accept=".csv" onChange={handleFileChange} style={{ display: 'none' }} />
             <select className="styled-select" value={selectedOptionTypeFile} onChange={handleTypeFileChange}>
