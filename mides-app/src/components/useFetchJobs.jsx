@@ -7,10 +7,15 @@ const useFetchJobs = () => {
     const [messageFetchJobs, setMessageFetchJobs] =  useState('')
     
     useEffect(() => {
-    
+        const token = localStorage.getItem('token');
         const fetchJobs = async () => {
             try{
-                const response = await fetch('http://localhost:8080/empleos')
+                const response = await fetch('http://localhost:8080/empleos',{
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                })
                 if(response.status === 200){
                     const data = await response.json()
                     setJobs(data)
@@ -36,7 +41,8 @@ const useFetchJobs = () => {
             const response = await fetch('http://localhost:8080/preFilto',{
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(jobId)
             })
@@ -63,6 +69,7 @@ const useFetchJobs = () => {
             const response = await fetch('http://localhost:8080/filtroIA',{
                 method: 'POST',
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ empleoId: jobId, candidatosId:candidateIds })
@@ -89,7 +96,8 @@ const useFetchJobs = () => {
             const response = await fetch('http://localhost:8080/sendEmail',{
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({candidatosId: candidateIds, empresaId: companyId, empresaMail:companyMail })
             })
