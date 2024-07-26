@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../styles/JobMatch.css';
-import '../styles/Modal.css';
+import stylesModal from '../styles/Modal.module.css';
 import '../styles/TableMatch.css'
 import useFetchJobs from "./useFetchJobs";
 import Candidato from './Candidate';
@@ -151,8 +151,8 @@ const JobMatch = () => {
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
                 contentLabel="Lista de Candidatos"
-                className="modal"
-                overlayClassName="overlay"
+                className={stylesModal.modal}
+                overlayClassName={stylesModal.overlay}
             >
                 <h2>Lista de Candidatos</h2>
                 <button onClick={closeModal}>Cerrar</button>
@@ -166,8 +166,8 @@ const JobMatch = () => {
                 isOpen={isIAModalOpen}
                 onRequestClose={closeIAModal}
                 contentLabel="Comentarios de la IA"
-                className="modal"
-                overlayClassName="overlay"
+                className={stylesModal.modal}
+                overlayClassName={stylesModal.overlay}
             >
                 <h2>Comentarios de la IA</h2>
                 <button onClick={closeIAModal}>Cerrar</button>
@@ -181,8 +181,8 @@ const JobMatch = () => {
                 isOpen={isTaskDetailsModalOpen}
                 onRequestClose={closeModalTaskDetails}
                 contentLabel="Detalles de Tareas"
-                className="modal"
-                overlayClassName="overlay"
+                className={stylesModal.modal}
+                overlayClassName={stylesModal.overlay}
             >
                 <h2>Detalles de Tareas</h2>
                 <button onClick={closeModalTaskDetails}>Cerrar</button>
