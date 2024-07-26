@@ -1,8 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
+import '../styles/Logout.css'
 const Logout = () => {
+  const navigate = useNavigate();
     const borrarSesion = () => {
       localStorage.clear();
       console.log("Sesión cerrada");
+      navigate("/");
+      
     };
   
     return (
