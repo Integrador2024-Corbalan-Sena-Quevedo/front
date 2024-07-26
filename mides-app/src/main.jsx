@@ -5,12 +5,14 @@ import Login from './components/Login'
 import Menu from './components/Menu'
 import Home from './components/Home'
 import Logout from './components/Logout'
+import { JobMatch } from './components/JobMatch'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 const App = () => {
   const components = {
     'Subir archivo': <FileUpload />,
     'Home': <Home />,
+    'Match': <JobMatch/>,
     'Logout': <Logout />
   };
 
@@ -18,7 +20,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/menu" element={<Menu items={['Home', 'Subir archivo', 'Logout']} components={components} />}>
+        <Route path="/menu" element={<Menu items={['Home', 'Subir archivo','Match','Logout']} components={components} />}>
           <Route index element={<Navigate to="home" />} />
           <Route path="home" element={<Home />} />
           <Route path="subirarchivo" element={<FileUpload />} />

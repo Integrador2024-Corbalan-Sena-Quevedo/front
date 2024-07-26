@@ -1,0 +1,68 @@
+div {
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #cde4f3;
+}
+
+th {
+    background-color: #034C8C;
+    color: white;
+    text-transform: uppercase;
+}
+
+tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.button {
+    background-color: #034C8C;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover:enabled  {
+    background-color: #F2CB05;
+    transform: translateY(-2px);
+}
+
+button:focus {
+    outline: none;
+}
+
+.td, .th {
+    text-align: center;
+}

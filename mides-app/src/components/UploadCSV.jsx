@@ -64,19 +64,19 @@ const FileUpload = () => {
   };
 
   return (
-    <div class="upload-container">
+    <div className="upload-container">
         <h1>Subir archivo CSV</h1>
         <form id="csv-upload-form" onSubmit={handleSubmit}>
-            <label for="csv-file-input" class="file-input-label" onClick={handleLabelClick}>
-                <img src="src\img\upload.png" alt="Logo" class="upload-icon" />
+            <label for="csv-file-input" className="file-input-label" onClick={handleLabelClick}>
+                <img src="src\img\upload.png" alt="Logo" className="upload-icon" />
             </label>
             <input type="file" id="csv-file-input" accept=".csv" onChange={handleFileChange} style={{ display: 'none' }} />
-            <select class="styled-select" value={selectedOptionTypeFile} onChange={handleTypeFileChange}>
+            <select className="styled-select" value={selectedOptionTypeFile} onChange={handleTypeFileChange}>
               <option value="">Seleccione un tipo</option>
               <option value="CANDIDATE">Candidato</option>
               <option value="COMPANY">Empresa</option>
             </select>
-            <button type="sumbit" class="btn-attachment">Enviar</button>
+            <button type="sumbit" className="btn-attachment">Enviar</button>
         </form>
         {uploadMessage && <p id="upload-message">{uploadMessage}</p>}
     </div>
