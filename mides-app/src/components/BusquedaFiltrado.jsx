@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
 import '../styles/BusquedaConFiltros.css';
-import CandidatoPopup from './CandidatoPopup';
+
 import { Modal, Button } from 'react-bootstrap';
 
 
@@ -117,6 +117,9 @@ const BusquedaConFiltros = () => {
   };
 
   const enviarFiltros = async() => {
+    const token = localStorage.getItem('token');
+ 
+    
     const filtrosSeleccionados = filtros.map(filtro => ({
       name: filtro.name,
       subFiltros: filtro.subFiltros,
@@ -132,24 +135,23 @@ const BusquedaConFiltros = () => {
     fetch('http://localhost:8080/filtro/candidatos', {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
+      
       body: JSON.stringify(datos)
     })
-    //console.log(response);
-
+    
+    
+     
     .then(response => response.json())
     .then(candidatos=> {
+      
       const resultados = Object.values(candidatos);
-         resultados.forEach(key => {
-           
-           console.log("Nombre: "+ key.nombre);
-           console.log("Apellido: "+ key.apellido);
-           
-          });
+         
         
         console.log("Cantidad: "+ resultados.length);
-        debugger
+        
          setCandidatos(resultados);
    })
     .catch(error => {
@@ -762,7 +764,7 @@ const BusquedaConFiltros = () => {
 
   const ListaPopup = ({ show, onHide, nombreLista, nombreCandidato, children}) => {
     // const datos = lista[sub];
-    debugger
+    
     return (
       <Modal show = {show} onHide={onHide}>
         <Modal.Header closeButton className='modalHeder'>
