@@ -5,6 +5,7 @@ import Login from './components/Login'
 import Menu from './components/Menu'
 import Home from './components/Home'
 import Logout from './components/Logout'
+import { JobMatch } from './components/JobMatch'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute'
 import Register from './components/Register'

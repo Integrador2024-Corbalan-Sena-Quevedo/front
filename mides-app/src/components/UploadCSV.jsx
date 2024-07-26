@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import '../styles/FileUpload.css'
+
 import { Button } from 'bootstrap';
-import uploadIcon from "../img/upload.png"
 
 const FileUpload = () => {
+  const token = localStorage.getItem('token');
   const [file, setFile] = useState(null);
   const [uploadMessage, setUploadMessage] = useState('');
   const [selectedOptionTypeFile, setSelectedOptionTypeFile] = useState('');
-  const [userToken, setUserToken] = useState(localStorage.getItem("token") || '');
 
 
   const handleFileChange = (e) => {
@@ -22,7 +22,6 @@ const FileUpload = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
 
     if (!file) {
       setUploadMessage("Seleccione un archivo")
@@ -41,10 +40,11 @@ const FileUpload = () => {
     try {
       const response = await fetch('http://localhost:8080/upload-csv', {
         method: 'POST',
-        body: formData,
         headers: {
-          'Authorization': `Bearer ${userToken}`
-      }
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: formData
       })
 
       console.log(response)
@@ -72,8 +72,8 @@ const FileUpload = () => {
     <div className="upload-container">
         <h1>Subir archivo CSV</h1>
         <form id="csv-upload-form" onSubmit={handleSubmit}>
-            <label htmlFor="csv-file-input" className="file-input-label" onClick={handleLabelClick}>
-                <img src={uploadIcon} alt="Logo" className="upload-icon" />
+            <label for="csv-file-input" className="file-input-label" onClick={handleLabelClick}>
+                <img src="src\img\upload.png" alt="Logo" className="upload-icon" />
             </label>
             <input type="file" id="csv-file-input" accept=".csv" onChange={handleFileChange} style={{ display: 'none' }} />
             <select className="styled-select" value={selectedOptionTypeFile} onChange={handleTypeFileChange}>

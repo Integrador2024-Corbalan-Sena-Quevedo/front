@@ -1,0 +1,110 @@
+.container {
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .th, .td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .button {
+    background-color: #87CEEB;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 5px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .button:hover {
+    background-color: #00BFFF;
+  }
+
+  .button:disabled {
+    background-color: #ccc; /* Color gris para indicar que está deshabilitado */
+    cursor: not-allowed; /* Cursor de no permitido */
+    opacity: 0.6; /* Opacidad reducida */
+}
+
+.popup {
+  position: absolute;
+  top: 110px; /* Ajusta este valor según sea necesario */
+  left: 90%;
+  transform: translateX(-50%);
+  width: 150px;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.task-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.task-list {
+  width: 45%;
+  padding: 10px;
+  border: 1px solid #00000044;
+  border-radius: 10px;
+  max-height: 400px; /* Limita la altura máxima de las listas */
+  overflow-y: auto; 
+  background-color: rgb(255, 255, 255);
+}
+
+.task-list h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #034c8c; ;
+}
+
+.task-list ul {
+  padding-left: 20px;
+}
+
+.task-list li {
+  padding: 10px 0;
+}
+
+.task-list li:last-child {
+  border-bottom: none;
+}
+
+
+.task-list::-webkit-scrollbar {
+  width: 12px; 
+}
+
+.task-list::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 5px;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+  background: #034C8C;
+  border-radius: 5px;
+}
+
+
