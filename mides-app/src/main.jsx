@@ -7,27 +7,22 @@ import Home from './components/Home'
 import Logout from './components/Logout'
 import { JobMatch } from './components/JobMatch'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute'
+import Register from './components/Register'
+
+
 
 const App = () => {
-  const components = {
-    'Subir archivo': <FileUpload />,
-    'Home': <Home />,
-    'Match': <JobMatch/>,
-    'Logout': <Logout />
-  };
+  const token = localStorage.getItem('token');
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/menu" element={<Menu items={['Home', 'Subir archivo','Match','Logout']} components={components} />}>
-          <Route index element={<Navigate to="home" />} />
-          <Route path="home" element={<Home />} />
-          <Route path="subirarchivo" element={<FileUpload />} />
-          <Route path="logout" element={<Logout />} />
-        </Route>
-        <Route path="/uploadCSV" element={<FileUpload />} />
-        <Route path="/home" element={<Home />} />
+    
+        <Route path="/" element={token ? <Navigate to="/menu/home" replace /> : <Login />} />
+        <Route path="/register" element={<Register />} /> 
+        <Route path="/menu/:component" element={<PrivateRoute />} />
+
       </Routes>
     </BrowserRouter>
   );
