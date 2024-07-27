@@ -6,7 +6,7 @@ const ListaOperadores = () => {
   const [operadores, setOperadores] = useState([]);
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const operadoresPorPagina = 4;
+  const operadoresPorPagina = 7;
   let navigate = useNavigate();
 
   const fetchOperadores = async () => {
