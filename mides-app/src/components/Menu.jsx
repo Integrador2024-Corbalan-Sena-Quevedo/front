@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ListaOperadores from './ListaOperadores'; 
 import { JobMatch } from './JobMatch';
 import BusquedaConFiltros from './BusquedaFiltrado';
+import logo from '../img/midelogo.png'
 
 const Menu = ({ onLogout }) => {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const Menu = ({ onLogout }) => {
   return (
     <div className="menu-container">
       <div className="menu">
+      <img src={logo} alt="Logo" className="menu-logo" />
         {menuItems[rol]?.map((item, index) => (
           <button
             key={index}

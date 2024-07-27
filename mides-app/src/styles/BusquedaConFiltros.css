@@ -1,23 +1,23 @@
 
-/*
+
 .contenedor {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #074180;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #f0f2f5;
 }
 
 h2, h3 {
-  color: #333;
+  color: #074180;
 }
 
 input[type="text"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #074180;
   border-radius: 4px;
   box-sizing: border-box;
 }
@@ -35,12 +35,13 @@ input[type="text"] {
   padding: 2px 2px;
   border-radius: 5px;
   padding: 5px 5px;
-  background-color:greenyellow;
+  background-color: #074180;
   margin-left: 8px;
+  color: white;
 }
 
 .filtro button {
-  background-color: grey;
+  background-color: #074180;
   border: none;
   color: white;
   padding: 5px 10px;
@@ -53,7 +54,7 @@ input[type="text"] {
 }
 
 .filtro button:hover {
-  background-color: #ff1a1a;
+  background-color: #006bb3;
 }
 
 .agregar-filtro {
@@ -66,18 +67,18 @@ input[type="text"] {
   flex-grow: 1;
   margin-right: 10px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #074180;
   border-radius: 4px;
   box-sizing: border-box;
-  background-color: #fff;
-  color: #333;
+  background-color: #ffffff;
+  color: #074180;
   font-size: 14px;
   cursor: pointer;
 }
 
 .agregar-filtro select:focus {
   outline: none;
-  border-color: #4CAF50;
+  border-color: #007bff;
 }
 
 .agregar-filtro input[type="text"] {
@@ -86,7 +87,7 @@ input[type="text"] {
 }
 
 .agregar-filtro button {
-  background-color: #4CAF50;
+  background-color: #074180;
   border: none;
   color: white;
   padding: 10px;
@@ -99,7 +100,7 @@ input[type="text"] {
 }
 
 .agregar-filtro button:hover {
-  background-color: #45a049;
+  background-color: #006bb3;
 }
 
 .filtros-seleccionados span {
@@ -112,43 +113,42 @@ input[type="text"] {
 }
 
 .resultados {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #074180;
   padding-top: 10px;
   margin-top: 10px;
-}*/
+}
 
 .contenedor {
   max-width: 80%;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #074180;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #f0f2f5;
 }
+
 .result {
   max-width: 100%;
   margin: 1% auto;
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #074180;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #f0f2f5;
 }
 
-
 h2, h3 {
-  color: #333;
+  color: #074180;
 }
 
 input[type="text"] {
   width: 5%;
   padding: 10px;
   margin-bottom: 2px;
-  border: 1px solid #ccc;
+  border: 1px solid #074180;
   border-radius: 4px;
   height: 20px;
   box-sizing: border-box;
 }
-
 
 .filtro {
   display: inline-flex;
@@ -156,11 +156,10 @@ input[type="text"] {
   margin-right: 10px;
   margin-bottom: 10px;
   font-size: 12px;
-  background-color:  rgb(71, 69, 69);
+  background-color: #074180;
   padding: 2px;
   border-radius: 5px;
 }
-
 
 .filtro label {
   color: white;
@@ -169,9 +168,8 @@ input[type="text"] {
   margin-right: 4px;
 }
 
-
 .filtro button {
-  background-color:rgb(71, 69, 69);
+  background-color: #074180;
   border: none;
   color: white;
   padding: 1px 5px;
@@ -182,11 +180,9 @@ input[type="text"] {
   cursor: pointer;
 }
 
-
 .filtro button:hover {
-  background-color: #ff1a1a;
+  background-color: #006bb3;
 }
-
 
 .agregar-filtro {
   display: flex;
@@ -194,39 +190,35 @@ input[type="text"] {
   margin-bottom: 10px;
 }
 
-
 .agregar-filtro select {
   flex-grow: 1;
   margin-right: 10px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #074180;
   border-radius: 4px;
   box-sizing: border-box;
-  background-color: #fff;
-  color: #333;
+  background-color: #ffffff;
+  color: #074180;
   font-size: 14px;
   cursor: pointer;
 }
 
-
 .agregar-filtro select:focus {
   outline: none;
-  border-color: #4CAF50;
+  border-color: #007bff;
 }
-
 
 .agregar-filtro input[type="text"] {
   flex-grow: 1;
   margin-right: 10px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #074180;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
-
 .agregar-filtro button {
-  background-color: #4CAF50;
+  background-color: #074180;
   border: none;
   color: white;
   padding: 10px;
@@ -238,12 +230,9 @@ input[type="text"] {
   cursor: pointer;
 }
 
-
 .agregar-filtro button:hover {
-  background-color: #45a049;
+  background-color: #006bb3;
 }
-
-
 
 .filtros-seleccionados span {
   display: inline-block;
@@ -254,12 +243,12 @@ input[type="text"] {
   margin-bottom: 5px;
 }
 
-.subFiltro{
-  color:forestgreen
+.subFiltro {
+  color: #074180;
 }
 
-.buttonEnviar{
-  background-color: #4CAF50;
+.buttonEnviar {
+  background-color: #074180;
   border: none;
   color: white;
   padding: 10px;
@@ -270,58 +259,57 @@ input[type="text"] {
   border-radius: 4px;
   cursor: pointer;
 }
+
 .buttonEnviar:hover {
-  background-color: #45a049;
+  background-color: #006bb3;
 }
+
 .resultados {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #074180;
   padding-top: 10px;
   margin-top: 10px;
 }
 
-.unCandidato{
-  border: 1px solid #ddd;
+.unCandidato {
+  border: 1px solid #074180;
   border-radius: 8px;
   padding: 8px;
   margin: 5px;
 }
 
-.unCandidato span{
+.unCandidato span {
   margin-left: 10px;
 }
 
-.masDetalles{
-  color: #45a049;
+.masDetalles {
+  color: #006bb3;
 }
 
-.masDetalles:hover{
-  color:#ff1a1a;
+.masDetalles:hover {
+  color: #ff1a1a;
 }
 
-.titulosListas{
-  color:#45a049;
-  
-}
-.modalHeder{
-  background-color: #403d3d;
+.titulosListas {
+  color: #006bb3;
 }
 
-.modalBody{
-  background-color: #f9f9f9;
+.modalHeder {
+  background-color: #074180;
+}
+
+.modalBody {
+  background-color: #f0f2f5;
 }
 
 .encabezado {
   margin-left: 50px;
-
 }
 
-
-.encabezado span{
+.encabezado span {
   margin-left: 5px;
-
 }
 
-.ulEditable li  {
+.ulEditable li {
   margin-bottom: 10px;
 }
 
@@ -330,17 +318,12 @@ input[type="text"] {
 }
 
 .ulEditable img {
-  width: 15px; 
+  width: 15px;
   height: 15px;
   display: block;
-  
-
-  
-
 }
 
 .ulEditable img:hover {
-  width: 20px; 
+  width: 20px;
   height: 20px;
-
 }
