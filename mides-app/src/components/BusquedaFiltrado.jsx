@@ -532,13 +532,14 @@ const BusquedaConFiltros = () => {
                     <ul className='ulEditable'>
                       <li>
                         <button onclick="handleClick()">
-                          <img src="src/img/edit.png" alt="Edit"/>
+                          <img src={editLogo} alt="Edit"/>
                         </button>
                         <strong>Autorizacion a brindar datos: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].autorizacionDarDatos}</span>
                       </li>
                       <li>
                       <button onclick="handleClick()">
+                          <img src={editLogo} alt="Edit"/>
                       </button>
                         <strong>Cantidad de hijos: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].cantHijos}</span>
