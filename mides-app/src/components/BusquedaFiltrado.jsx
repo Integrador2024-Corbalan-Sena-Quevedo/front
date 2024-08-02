@@ -524,6 +524,9 @@ const BusquedaConFiltros = () => {
       
 
       if(selectedNombreLista == 'datosAdicionalesCandidato'){
+        
+
+
         return(
           <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Datos Adicionales'} nombreCandidato={SelectedCandidato.nombre}>
               {
