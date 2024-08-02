@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     margin: 2rem auto;
-    max-width: 500px; /* Adjust as needed for responsiveness */
+    max-width: 800px; /* Adjust as needed for responsiveness */
     height: 500px;
     padding: 1rem;
     border: 3px solid #000000;
@@ -48,14 +48,14 @@ form {
 
 
 .btn-attachment{
-    padding: 10px 15px;
+    padding: 10px 30px;
     border: none;
     border-radius: 5px;
     background-color: #034C8C;
     color: #fff;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .btn-attachment:hover {
@@ -69,7 +69,7 @@ form {
     font-size: 20px;
     font-weight:bold;
     font-family: Garamond;
-    color: #034C8C;
+    color: #000000;
 }
 
 .file-input-label {

@@ -5,9 +5,9 @@ const useFetchJobs = () => {
     const [candidates, setCandidates ] = useState([])
     const [loading, setLoading] = useState(true);
     const [messageFetchJobs, setMessageFetchJobs] =  useState('')
+    const token = localStorage.getItem('token');
     
     useEffect(() => {
-        const token = localStorage.getItem('token');
         const fetchJobs = async () => {
             try{
                 const response = await fetch('http://localhost:8080/empleos',{

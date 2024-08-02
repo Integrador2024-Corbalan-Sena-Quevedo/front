@@ -6,7 +6,7 @@ const Candidate = ({ candidato, onRemove  }) => {
         <div className="candidato">
             <strong>{candidato.nombre} {candidato.apellido}</strong>
             <p><span className="campo">Documento:</span> {candidato.documento}</p>
-            <p><span className="campo">Fecha de Nacimiento:</span> {candidato.fechaDeNacimiento}</p>
+            <p><span className="campo">Fecha de Nacimiento:</span> {candidato.fecha_de_nacimiento}</p>
             <p><span className="campo">Sexo:</span> {candidato.sexo}</p>
             <p><span className="campo">Dirección:</span> {candidato.dirreccion.calle}, {candidato.dirreccion.localidad}</p>
             <p><span className="campo">Educación:</span> {candidato.educacion.nivelEducativo}</p>

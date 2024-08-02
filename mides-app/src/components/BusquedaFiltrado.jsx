@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
+import '../styles/TableMatch.css'
 import '../styles/BusquedaConFiltros.css';
-
 import { Modal, Button } from 'react-bootstrap';
+import editLogo from "../img/edit.png"
 
 
 
@@ -538,63 +539,62 @@ const BusquedaConFiltros = () => {
                       </li>
                       <li>
                       <button onclick="handleClick()">
-                          <img src='src/img/edit.png' alt="Edit"/>
                       </button>
                         <strong>Cantidad de hijos: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].cantHijos}</span>
                       </li>
                       <li>
                       <button onclick="handleClick()">
-                          <img src="src/img/edit.png" alt="Edit"/>
+                          <img src={editLogo} alt="Edit"/>
                       </button>
                         <strong>Conduce: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].conduce}</span>
                       </li>
                       <li>
                       <button onclick="handleClick()">
-                          <img src="src/img/edit.png" alt="Edit"/>
+                          <img src={editLogo} alt="Edit"/>
                       </button>
                         <strong>Tipo de libreta de conducir: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].tipoLibreta}</span>
                       </li>
                       <li>
                       <button onclick="handleClick()">
-                          <img src="src/img/edit.png" alt="Edit"/>
+                          <img src={editLogo} alt="Edit"/>
                       </button>
                         <strong>Cuidados: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].cuidados}</span>
                       </li>
                       <li>
                       <button onclick="handleClick()">
-                          <img src="src/img/edit.png" alt="Edit"/>
+                          <img src={editLogo} alt="Edit"/>
                       </button>
                         <strong>Envia CV: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].enviaCV}</span>
                       </li>
                       <li>
                       <button onclick="handleClick()">
-                          <img src="src/img/edit.png" alt="Edit"/>
+                          <img src={editLogo} alt="Edit"/>
                       </button>
                         <strong>Grupo familiar: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].grupoFamiliar}</span>
                       </li>
                       <li>
                       <button onclick="handleClick()">
-                          <img src="src/img/edit.png" alt="Edit"/>
+                          <img src={editLogo} alt="Edit"/>
                       </button>
                         <strong>Hijos: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].hijos}</span>
                       </li>
                       <li>
                       <button onclick="handleClick()">
-                          <img src="src/img/edit.png" alt="Edit"/>
+                          <img src={editLogo} alt="Edit"/>
                       </button>
                         <strong>Informacion personal: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].infomacionPersonal}</span>
                       </li>
                       <li>
                       <button onclick="handleClick()">
-                          <img src="src/img/edit.png" alt="Edit"/>
+                          <img src={editLogo} alt="Edit"/>
                       </button>
                         <strong>Registro en CNHD: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].registoEnCNHD}</span>
@@ -969,74 +969,70 @@ const BusquedaConFiltros = () => {
         {/* ... */}
         <h4>Resultados</h4>
 
-        <div className='encabezado'>
-          <span>Nombre</span>
-          <span>|</span>
-          <span>Apellido</span>
-          <span>|</span>
-          <span>Documento</span>
-          <span>|</span>
-          <span>Documento tipo</span>
-          <span>|</span>
-          <span>Nacimiento</span>
-          <span>|</span>
-          <span>Sexo</span>
-          <span>|</span>
-          <span>Estado Civil</span>
-        </div>
-
-          <ul >
-            {candidatos.map((candidato) => (
-            <li className='unCandidato' key={candidato.id}>
-              <span>{candidato.nombre}</span>
-      
-              <span>{candidato.apellido}</span>
-      
-              <span>{candidato.documento}</span>
-      
-              <span>{candidato.tipoDocumento}</span>
-      
-              <span>{candidato.fecha_de_nacimiento}</span>
-    
-              <span>{candidato.sexo}</span>
-              
-              <span>{candidato.estadoCivil}</span>
-              
-              <span className='masDetalles' onClick={()=> handleSelectShow(candidato)}> Mas detalles... </span> 
-              
-              {showSelect && selectedCandidadoCombo == candidato.id && (
-            <select onChange={(e) => handleShowPopup(e, candidato)}>
-            <option value= "">Seleccionar...</option>
-              <option value= "|apoyos">Apoyos</option>
-              <option value= "|ayudaTecnicas">Ayudas Técnicas</option>
-              <option value= "experienciaLaboral|">Experiencia Laboral</option>
-              <option value= "|areas">Áreas</option>
-              <option value= "|prestaciones">Prestaciones</option>
-              <option value= "discapacidad|tipoDiscapacidades">Discapacidades</option>
-              <option value= "|datosAdicionalesCandidato">Datos Adicionales</option>
-              <option value= "candidatoIdiomas|idioma">Idiomas</option>
-              <option value= "|dirreccion">Dirección</option>
-              <option value= "disponibilidadHoraria|turnos">Disponibilidad Horaria</option>
-              <option value= "educacion|institucionesDeseo">Educación</option>
-              <option value= "|emails">Emails</option>
-              <option value= "|encuestaCandidato">Encuesta</option>
-              <option value= "|habilidad">Habilidades</option>
-              <option value= "|salud">Salud</option>
-              <option value= "|telefonos">Teléfonos</option>
-            </select>
-          )}
-            </li>
-            ))}
-          </ul>
+    <table>
+          <thead>
+              <tr>
+                  <th>Nombre</th>
+                  <th>Apellido</th>
+                  <th>Documento</th>
+                  <th>Documento tipo</th>
+                  <th>Nacimiento</th>
+                  <th>Sexo</th>
+                  <th>Estado Civil</th>
+                  <th>Acciones</th>
+              </tr>
+          </thead>
+          <tbody>
+              {candidatos.map((candidato) => (
+                  <tr key={candidato.id}>
+                      <td>{candidato.nombre}</td>
+                      <td>{candidato.apellido}</td>
+                      <td onClick={() => handleShowCvModal(candidato.cvLink)} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>
+                          {candidato.documento}
+                      </td>
+                      <td>{candidato.tipoDocumento}</td>
+                      <td>{candidato.fecha_de_nacimiento}</td>
+                      <td>{candidato.sexo}</td>
+                      <td>{candidato.estadoCivil}</td>
+                      <td>
+                          <span class="masDetalles" onClick={() => handleSelectShow(candidato)}>Mas detalles</span>
+                          {showSelect && selectedCandidadoCombo === candidato.id && (
+                            <div className="selectContainer">
+                              <select className="selectDropdown" onChange={(e) => handleShowPopup(e, candidato)}>
+                                  <option value="">Seleccionar...</option>
+                                  <option value="|apoyos">Apoyos</option>
+                                  <option value="|ayudaTecnicas">Ayudas Técnicas</option>
+                                  <option value="experienciaLaboral|">Experiencia Laboral</option>
+                                  <option value="|areas">Áreas</option>
+                                  <option value="|prestaciones">Prestaciones</option>
+                                  <option value="discapacidad|tipoDiscapacidades">Discapacidades</option>
+                                  <option value="|datosAdicionalesCandidato">Datos Adicionales</option>
+                                  <option value="candidatoIdiomas|idioma">Idiomas</option>
+                                  <option value="|dirreccion">Dirección</option>
+                                  <option value="disponibilidadHoraria|turnos">Disponibilidad Horaria</option>
+                                  <option value="educacion|institucionesDeseo">Educación</option>
+                                  <option value="|emails">Emails</option>
+                                  <option value="|encuestaCandidato">Encuesta</option>
+                                  <option value="|habilidad">Habilidades</option>
+                                  <option value="|salud">Salud</option>
+                                  <option value="|telefonos">Teléfonos</option>
+                              </select>
+                            </div>
+                          )}
+                      </td>
+                  </tr>
+              ))}
+          </tbody>
+    </table>
         <div>
           {showPopup && (
               mostrarEstructura()
             ) 
           }
       </div>
-      
+
     </div>
-      </div>
+    </div>
     </div>
   );
 
