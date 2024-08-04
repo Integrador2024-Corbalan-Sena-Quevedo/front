@@ -78,6 +78,7 @@ const FileUpload = () => {
         <label htmlFor="csv-file-input" className="file-input-label" onClick={handleLabelClick}>
                 <img src={uploadIcon} alt="Logo" className="upload-icon" />
             </label>
+            
             <input type="file" id="csv-file-input" accept=".csv" onChange={handleFileChange} style={{ display: 'none' }} />
             <select className="styled-select" value={selectedOptionTypeFile} onChange={handleTypeFileChange}>
               <option value="">Seleccione un tipo</option>

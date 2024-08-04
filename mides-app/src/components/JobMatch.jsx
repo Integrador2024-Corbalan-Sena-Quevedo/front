@@ -18,25 +18,31 @@ const JobMatch = () => {
     const [isIAModalOpen, setIsIAModalOpen] = useState(false);
     const [isTaskDetailsModalOpen, setIsTaskDetailsModalOpen] = useState(false);
     const [isSendingEmail, setIsSendingEmail] = useState(false);
+    const [isLoanding, setIsLoanding] = useState(false);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [taskDetailsEssential, setTaskDetailsEssential] = useState([]);
     const [taskDetailsNotEssential, setTaskDetailsNotEssential] = useState([]);
+    const [popupJobId, setPopupJobId] = useState(null);
 
     const handleFetchCandidates = async (jobId) => {
+        setIsLoanding(true)
         const candidatesList = await fetchCandidates(jobId);
         setCandidatesMap(previousCandidatesMap  => ({
             ...previousCandidatesMap ,
             [jobId]: candidatesList
         }));
+        setIsLoanding(false)
     };
 
     const handleFetchCandidatesIA = async (jobId) => {
+        setIsLoanding(true)
         const candidatesList = candidatesMap[jobId] || [];
         const response = await fetchCandidatesIA(jobId, candidatesList);
         setCommentsIAMap(previousCandidatesMap => ({
             ...previousCandidatesMap,
             [jobId]: response.split('\n')
         }));
+        setIsLoanding(false)
     };
 
     const handleFetchSendEmail = async (job) => {
@@ -47,11 +53,11 @@ const JobMatch = () => {
         const companyId = job.empresaId;
         const candidatesList = candidatesMap[job.id] || [];
         const response = await fetchSendEmailToCompany(companyId,emailEmpresa, candidatesList)
-        console.log(response)
         setIsSendingEmail(false)
         setIsPopupVisible(true);
+        setPopupJobId(job.id);
         setTimeout(() => {
-            setIsPopupVisible(false);
+            setPopupJobId(null)
         }, 3000);
     }
 
@@ -131,10 +137,10 @@ const JobMatch = () => {
                                 </button>
                             </td>
                             <td className="td">
-                                <button className="button" onClick={() => handleFetchCandidates(job.id)}>
+                                <button className="button" onClick={() => handleFetchCandidates(job.id)} disabled={isLoanding} >
                                     Sugerir candidatos
                                 </button>
-                                <button className="button" onClick={() => handleFetchCandidatesIA(job.id)}>
+                                <button className="button" onClick={() => handleFetchCandidatesIA(job.id)} disabled={isLoanding} >
                                     Sugerir con IA
                                 </button>
                             </td>
@@ -142,6 +148,11 @@ const JobMatch = () => {
                                 <button className="button" onClick={() => handleFetchSendEmail(job)} disabled={isSendingEmail} >
                                 Postular
                                 </button>
+                                {popupJobId === job.id && (
+                                    <div className="popup">
+                                        Correo enviado
+                                    </div>
+                                )}
                             </td>
                         </tr>
                     ))}
@@ -205,11 +216,6 @@ const JobMatch = () => {
                     </div>
                 </div>
             </Modal>
-            {isPopupVisible && (
-                <div className="popup">
-                    Correo enviado
-                </div>
-            )}
         </div>
     );
 }

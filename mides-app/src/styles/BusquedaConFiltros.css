@@ -296,9 +296,9 @@ input[type="text"] {
 
 
 .selectDropdown {
-  width: 130px;
+  width: 110px;
   border-radius: 5px;
-  margin-left: -65px;
+  margin-left: -55px;
   border: 1px solid #ccc;
   position: absolute;
   top: 40px; /* Ajusta esta distancia según sea necesario */
