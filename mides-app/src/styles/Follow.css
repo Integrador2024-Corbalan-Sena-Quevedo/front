@@ -1,0 +1,144 @@
+
+  
+.follow-table th {
+    background-color: #034C8C;
+    color: #ffffff;
+    font-size: 10px; /* Tamaño de fuente de encabezado más pequeño */
+  }
+
+  .follow-table td {
+    font-size: 12px;
+  }
+
+  input[type="text"], input[type="date"] {
+    width: 110%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 5px; /* Ajuste de padding */
+    height: 20px; /* Ajuste de altura */
+    margin: 0 auto; 
+    display: block;
+    margin-left: -3px;
+  }
+
+  .follow-button {
+    background-color: #034C8C;
+    color: white;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.4s;
+    font-size: 13px;
+    width: 60px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .follow-button-save{
+    background-color: #034C8C;
+    color: white;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.4s;
+    font-size: 13px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .follow-modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -30px;
+  }
+
+
+  
+  button:hover {
+    background-color: #F2CB05;
+  }
+  
+  button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  /* Modal styles */
+  .ReactModal__Overlay {
+    background-color: rgba(0, 0, 0, 0.75) !important;
+  }
+  
+  .ReactModal__Content {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e9e9e9;
+    padding-bottom: 10px;
+  }
+  
+  .modal-header h2 {
+    margin: 0;
+  }
+  
+  .modal-header button {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #aaa;
+  }
+  
+  .modal-header button:hover {
+    color: #333;
+  }
+  
+  .modal-content {
+    margin-top: 20px;
+  }
+  
+  textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    margin-bottom: 20px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  
+  ul li:hover {
+    background-color: #f1f1f1;
+  }
+
+  .bold-input {
+    font-weight: bold;
+  }

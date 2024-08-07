@@ -1040,7 +1040,6 @@ const BusquedaConFiltros = () => {
     </div>
   );
 
-
 };
 
 export default BusquedaConFiltros;

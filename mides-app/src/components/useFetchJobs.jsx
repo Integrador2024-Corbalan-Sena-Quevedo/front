@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 
 const useFetchJobs = () => {
     const [jobs, setJobs] = useState([])
+    const [jobsActives, setJobsActives] = useState([]);
     const [candidates, setCandidates ] = useState([])
     const [loading, setLoading] = useState(true);
     const [messageFetchJobs, setMessageFetchJobs] =  useState('')
     const token = localStorage.getItem('token');
+    const [filtros, setFiltros] = useState([]);
     
     useEffect(() => {
         const fetchJobs = async () => {
@@ -19,6 +21,8 @@ const useFetchJobs = () => {
                 if(response.status === 200){
                     const data = await response.json()
                     setJobs(data)
+                    const activeJobs = data.filter(job => job.activo === 0);                   
+                    setJobsActives(activeJobs);
                     setLoading(false);
                 }
                 else{
@@ -117,8 +121,24 @@ const useFetchJobs = () => {
             
         }
     }
+
+    const fetchAllCandidates = async () => {
+        const response = await fetch('http://localhost:8080/filtro/candidatos',{
+        method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({})
+        })
+        if(response.status === 200){
+            const data = await response.json()
+            return data
+        }
+     
+    }
          
-    return { jobs, loading, messageFetchJobs, fetchCandidates, fetchCandidatesIA, fetchSendEmailToCompany };
+    return { jobs, jobsActives,loading, messageFetchJobs, fetchCandidates, fetchCandidatesIA, fetchSendEmailToCompany, fetchAllCandidates };
 }
 
 export default useFetchJobs;
