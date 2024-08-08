@@ -7,6 +7,7 @@ Modal.setAppElement("#root");
 
 const Follow = () => {
   const token = localStorage.getItem('token');
+  const username = localStorage.getItem('user')
   const [olValues, setOlValues] = useState({});
   const { jobs, jobsActives,fetchAllCandidates } = useFetchJobs();
   const [candidates, setCandidates] = useState([]);
@@ -36,7 +37,7 @@ const Follow = () => {
       nombreEmpresa: jobsActives.find(job => job.id === id).empresaNombre,
       nombreEmpleo: jobsActives.find(job => job.id === id).nombrePuesto,
       empleoId: jobsActives.find(job => job.id === id).id,
-      operadorLaboral: olValues[`ol${id}`],
+      operadorLaboral: username,
       tramite: jobsActives.find(job => job.id === id).idEncuesta,
       documentoEmpleado: olValues[`documento${id}`],
       nombreEmpleado: olValues[`nombre${id}`],
@@ -46,8 +47,7 @@ const Follow = () => {
       fechaIngresoEmpleado: olValues[`fechaIngreso${id}`],
       localidad: jobsActives.find(job => job.id === id).localidad,
       detalles: followData[olValues[`candidateId${id}`]] || [],
-      telefonoEmpleado: "091732443",
-      operadorLaboral: olValues[`ol${id}`],
+      telefonoEmpleado: "091732443"
     };
     
     console.log(seguimientoDTO)
@@ -120,6 +120,7 @@ const Follow = () => {
 
   return (
     <>
+    <h2>Asignar candido a empleo</h2>
       <table className="follow-table">
         <thead>
           <tr>
@@ -144,15 +145,7 @@ const Follow = () => {
             <tr key={job.id}>
               <td className="td"><strong>{job.empresaNombre}</strong></td>
               <td className="td"><strong>{job.nombrePuesto}</strong></td>
-              <td className="td">
-                <input
-                  type="text"
-                  name="ol"
-                  value={olValues[`ol${job.id}`] || ''}
-                  onChange={(e) => handleInputChange(e, job.id)}
-                  style={{ width: "90px" }}
-                />
-              </td>
+              <td className="td"><strong>{username}</strong></td>
               <td className="td"><strong>{job.idEncuesta}</strong></td>
               <td className="td">
                 <button className="follow-button" onClick={() => handleFetchCandidates(job.id)}>buscar</button>

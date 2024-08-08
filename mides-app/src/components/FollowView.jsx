@@ -44,10 +44,8 @@ const FollowView = () => {
 
     const handleFollowSave = async() => {
         if (selectedFollow) {
-            const updatedFollow = {
-                ...selectedFollow,
-                detalles: [...selectedFollow.detalles, followText]
-            };
+            const updatedFollow = {...selectedFollow, detalles: [...selectedFollow.detalles, followText]};
+            
             console.log(updatedFollow)
             try {
                 const response = await fetch(`http://localhost:8080/updateSeguimiento`, {
@@ -63,7 +61,9 @@ const FollowView = () => {
                     throw new Error('Error al actualizar el seguimiento');
                 }
 
-                setFollows(follows.map(follow => follow.id === selectedFollow.id ? updatedFollow : follow));
+                setFollows(prevFollows => prevFollows.map(follow => 
+                    follow.seguimientoId === selectedFollow.seguimientoId ? updatedFollow : follow
+                ));
                 setSelectedFollow(updatedFollow);
             } catch (error) {
                 console.error('Error:', error);
@@ -100,8 +100,7 @@ const FollowView = () => {
                             <th className="th">Mail encargado</th>
                             <th className="th">Localidad</th>
                             <th className="th">Fecha Ingreso</th>
-                            <th className="th">Detalle</th>
-                            <th className="th"></th>
+                            <th className="th">Seguimiento</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -122,9 +121,6 @@ const FollowView = () => {
                                 <td className="td">
                                     <button className="follow-button" onClick={() => handleView(follow)}>Ver</button>
                                     <button className="follow-button" onClick={() => handleNew(follow)}>Nuevo</button>
-                                </td>
-                                <td className="td">
-                                    <button className="follow-button" onClick={() => handleSave(follow)}>Guardar</button>
                                 </td>
                             </tr>
                         ))}

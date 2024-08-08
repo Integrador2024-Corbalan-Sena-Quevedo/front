@@ -39,7 +39,11 @@
     color: #fff;
     border: none;
     padding: 10px 20px;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
+}
+.modal button:hover  {
+    background-color: #F2CB05;
+    transition: 0.4s;
 }
 

@@ -40,12 +40,13 @@
 .task-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .task-list {
-  width: 45%;
+  width: 60%;
   padding: 10px;
+  margin-right: 20px;
   border: 1px solid #00000044;
   border-radius: 10px;
   max-height: 400px; /* Limita la altura máxima de las listas */
@@ -61,6 +62,7 @@
 
 .task-list ul {
   padding-left: 20px;
+  list-style-type: disc;
 }
 
 .task-list li {
