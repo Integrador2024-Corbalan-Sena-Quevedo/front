@@ -1,5 +1,10 @@
 
 
+.custom-modal {
+  max-width: 50%; /* Ajusta el tamaño según tus necesidades */
+  width: 70%;
+}
+
 .contenedor {
   max-width: 600px;
   margin: 0 auto;
@@ -28,6 +33,7 @@ input[type="text"] {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 5px;
+  
 }
 
 .filtro label {
@@ -61,6 +67,7 @@ input[type="text"] {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  
 }
 
 .agregar-filtro select {
@@ -110,6 +117,7 @@ input[type="text"] {
   padding: 5px 10px;
   margin-right: 5px;
   margin-bottom: 5px;
+  
 }
 
 .resultados {
@@ -140,9 +148,10 @@ h2, h3 {
   color: #074180;
 }
 
-input[type="text"] {
+.inputText{
   width: 5%;
   padding: 10px;
+  margin-top: 9px;
   margin-bottom: 2px;
   border: 1px solid #074180;
   border-radius: 4px;
@@ -244,7 +253,7 @@ input[type="text"] {
 }
 
 .subFiltro {
-  color: #074180;
+  color: white;
 }
 
 .buttonEnviar {
@@ -356,6 +365,16 @@ input[type="text"] {
 .ulEditable button{
   padding: 8px;
   border-radius: 10px;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.ulEditable .eliminar{
+  background-color: #ff1a1a;
+  
+}
+.ulEditable .eliminar:hover{
+  background-color: #be1e1e;
   
 }
 
