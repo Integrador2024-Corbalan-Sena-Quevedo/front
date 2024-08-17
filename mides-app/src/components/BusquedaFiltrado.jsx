@@ -4,6 +4,7 @@ import '../styles/TableMatch.css'
 import '../styles/BusquedaConFiltros.css';
 import { Modal, Button } from 'react-bootstrap';
 import editLogo from "../img/edit.png"
+import PdfModal from './PdfModal';
 
 
 
@@ -27,7 +28,7 @@ const Filtro = ({ filtro, onRemoveFiltro, onRemoveSubFiltro }) => {
 };
 
 
-const BusquedaConFiltros = () => {
+const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
   const [filtros, setFiltros] = useState([]);
   const [nuevoFiltro, setNuevoFiltro] = useState('');
   const [subFiltro, setSubFiltro] = useState('');
@@ -38,6 +39,17 @@ const BusquedaConFiltros = () => {
   const [showSelect, setShowSelect] = useState(false);
   const [selectedCandidadoCombo, setSelectedCandidadoCombo] = useState(-1);
   const [selectedRama, setSelectedRama] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState(null);
+  const [pdfExist, setPdfExist] = useState(false);
+  const token = localStorage.getItem('token');
+  const [candidatoDTO, setCandidatoDTO] = useState(null);
+
+  const handleSelectCandidate = (candidato) => {
+    if (onAddCandidate) {
+      onAddCandidate(candidato); 
+  }
+};
 
   const handleSelectShow = (candidato) => {
     setShowSelect(true);
@@ -159,6 +171,48 @@ const BusquedaConFiltros = () => {
       console.error('Error:', error);
     });
   };
+
+  const handleCIClick = async (candidatoId, nombre, apellido, documento) => {
+
+    const candidatoDTO = {
+      candidatoId: candidatoId,
+      nombre: nombre,
+      apellido: apellido,
+      documento: documento
+    }
+
+    setCandidatoDTO(candidatoDTO);
+
+    try {
+        const response = await fetch('http://localhost:8080/getCv', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(candidatoDTO)
+        });
+
+        if (!response.ok) {
+          if (response.status === 404) {
+              setPdfExist(false);
+              setPdfUrl(null);
+          } else {
+              throw new Error('Error fetching PDF');
+          }
+      } else {
+          const binary = await response.blob();
+          const url = URL.createObjectURL(binary);
+          setPdfUrl(url);
+          setPdfExist(true);
+      }
+      setIsModalOpen(true);
+  } catch (error) {
+      console.error('Error fetching PDF:', error);
+      setPdfExist(false);
+      setPdfUrl(null);
+  }
+};
 
   const mostrarEstructura = () => {
 
@@ -976,6 +1030,7 @@ const BusquedaConFiltros = () => {
     <table>
           <thead>
               <tr>
+                {showAddButton && <th>Agregar</th>}
                   <th>Nombre</th>
                   <th>Apellido</th>
                   <th>Documento</th>
@@ -989,9 +1044,16 @@ const BusquedaConFiltros = () => {
           <tbody>
               {candidatos.map((candidato) => (
                   <tr key={candidato.id}>
+                        {showAddButton && (
+                          <td>
+                              <button onClick={() => handleSelectCandidate(candidato)}>
+                                  Agregar
+                              </button>
+                          </td>
+                      )}
                       <td>{candidato.nombre}</td>
                       <td>{candidato.apellido}</td>
-                      <td onClick={() => handleShowCvModal(candidato.cvLink)} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>
+                      <td onClick={() => handleCIClick(candidato.id, candidato.nombre, candidato.apellido, candidato.documento)} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>
                           {candidato.documento}
                       </td>
                       <td>{candidato.tipoDocumento}</td>
@@ -999,7 +1061,7 @@ const BusquedaConFiltros = () => {
                       <td>{candidato.sexo}</td>
                       <td>{candidato.estadoCivil}</td>
                       <td>
-                          <span class="masDetalles" onClick={() => handleSelectShow(candidato)}>Mas detalles</span>
+                          <span className="masDetalles" onClick={() => handleSelectShow(candidato)}>Mas detalles</span>
                           {showSelect && selectedCandidadoCombo === candidato.id && (
                             <div className="selectContainer">
                               <select className="selectDropdown" onChange={(e) => handleShowPopup(e, candidato)}>
@@ -1037,9 +1099,14 @@ const BusquedaConFiltros = () => {
 
     </div>
     </div>
+      <PdfModal
+          show={isModalOpen}
+          onHide={() => setIsModalOpen(false)}
+          pdfUrl={pdfUrl}
+          candidatoDTO={candidatoDTO}
+      />
     </div>
   );
-
 
 };
 
