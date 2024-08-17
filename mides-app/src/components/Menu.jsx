@@ -9,6 +9,10 @@ import { JobMatch } from './JobMatch';
 import BusquedaConFiltros from './BusquedaFiltrado';
 import logo from '../img/midelogo.png';
 import Estadisticas from './Estadisticas';
+import  Follow from './FollowNew';
+import FollowView from './FollowView';
+import BusquedaConFiltrosEmpleos from './BusquedaFiltradoEmpresa';
+
 
 const Menu = ({ onLogout }) => {
   const navigate = useNavigate();
@@ -22,12 +26,15 @@ const Menu = ({ onLogout }) => {
     'Lista de Operadores' : <ListaOperadores />,
     'Filtro de candidatos': <BusquedaConFiltros />,
     'Estadísticas y reportes' : <Estadisticas/>,
+    'Nuevo seguimiento': <Follow/>,
+    'Ver seguimientos': <FollowView/>,
+    'Filtro empresas': <BusquedaConFiltrosEmpleos/> ,
     'Logout': <Logout onLogout={onLogout} />
   };
 
   const menuItems = {
-    'ADMIN': ['Home', 'Subir archivo', 'Match', 'Lista de Operadores', 'Filtro de candidatos',, 'Estadísticas y reportes', 'Logout'],
-    'OPERADOR_LABORAL_SUPERIOR': ['Home', 'Subir archivo', 'Estadísticas y reportes','Logout'],
+    'ADMIN': ['Home', 'Subir archivo', 'Match', 'Lista de Operadores', 'Filtro de candidatos','Filtro empresas','Nuevo seguimiento', 'Ver seguimientos', 'Estadísticas y reportes', 'Logout'],
+    'OPERADOR_LABORAL_SUPERIOR': ['Home', 'Subir archivo','Filtro de candidatos', 'Filtro empresas', 'Nuevo seguimiento', 'Ver seguimientos', 'Estadísticas y reportes','Logout'],
     'OPERADOR_LABORAL_NOVATO': ['Home', 'Logout']
   };
 
