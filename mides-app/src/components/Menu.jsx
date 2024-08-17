@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ListaOperadores from './ListaOperadores'; 
 import { JobMatch } from './JobMatch';
 import BusquedaConFiltros from './BusquedaFiltrado';
+import BusquedaConFiltrosEmpleos from './BusquedaFiltradoEmpresa';
 import logo from '../img/midelogo.png'
 
 const Menu = ({ onLogout }) => {
@@ -20,6 +21,7 @@ const Menu = ({ onLogout }) => {
     'Match' : <JobMatch/>,
     'Lista de Operadores' : <ListaOperadores/>,
     'Filtro de candidatos': <BusquedaConFiltros/>,
+    'Filtro empresas': <BusquedaConFiltrosEmpleos/> ,
     'Logout': <Logout onLogout={onLogout} />
     
 
@@ -27,7 +29,7 @@ const Menu = ({ onLogout }) => {
   };
 
   const menuItems = {
-    'ADMIN': ['Home', 'Subir archivo', 'Match','Lista de Operadores', 'Filtro de candidatos', 'Logout'],
+    'ADMIN': ['Home', 'Subir archivo', 'Match','Lista de Operadores', 'Filtro de candidatos', 'Filtro empresas', 'Logout'],
     'OPERADOR_LABORAL_SUPERIOR': ['Home', 'Subir archivo', 'Logout'],
     'OPERADOR_LABORAL_NOVATO': ['Home', 'Logout']
   };

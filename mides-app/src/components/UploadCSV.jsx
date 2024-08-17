@@ -39,13 +39,14 @@ const FileUpload = () => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('type', selectedOptionTypeFile);
+    console.log('file: '+ file)
+    console.log('type: '+ selectedOptionTypeFile)
 
     try {
       const response = await fetch('http://localhost:8080/upload-csv', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          'Authorization': `Bearer ${token}`
         },
         body: formData
       })
