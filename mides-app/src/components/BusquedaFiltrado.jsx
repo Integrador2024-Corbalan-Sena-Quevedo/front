@@ -32,7 +32,6 @@ const Filtro = ({ filtro, onRemoveFiltro, onRemoveSubFiltro }) => {
 
 
 const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
-const BusquedaConFiltros = () => {
   const {messageFetchCandidato, enviarFiltros, actualizarCampo, eliminarDatoLista, agregarALista, actualizarCandidato}= useFetchFiltradoCandidato();
 
   const [filtros, setFiltros] = useState([]);
@@ -256,6 +255,48 @@ const BusquedaConFiltros = () => {
     console.log(campo);
     console.log(aEliminar);
   }
+
+  const handleCIClick = async (candidatoId, nombre, apellido, documento) => {
+
+    const candidatoDTO = {
+      candidatoId: candidatoId,
+      nombre: nombre,
+      apellido: apellido,
+      documento: documento
+    }
+
+    setCandidatoDTO(candidatoDTO);
+
+    try {
+        const response = await fetch('http://localhost:8080/getCv', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(candidatoDTO)
+        });
+
+        if (!response.ok) {
+          if (response.status === 404) {
+              setPdfExist(false);
+              setPdfUrl(null);
+          } else {
+              throw new Error('Error fetching PDF');
+          }
+      } else {
+          const binary = await response.blob();
+          const url = URL.createObjectURL(binary);
+          setPdfUrl(url);
+          setPdfExist(true);
+      }
+      setIsModalOpen(true);
+  } catch (error) {
+      console.error('Error fetching PDF:', error);
+      setPdfExist(false);
+      setPdfUrl(null);
+  }
+};
 
   
 
