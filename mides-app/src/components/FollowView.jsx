@@ -9,6 +9,7 @@ const FollowView = () => {
     const [selectedFollow, setSelectedFollow] = useState(null);
     const [followText, setFollowText] = useState("");
     const token = localStorage.getItem('token');
+    const username = localStorage.getItem('user')
 
     const fetchAllFollow = async () => {
         try {
@@ -38,15 +39,23 @@ const FollowView = () => {
 
     const handleView = (follow) => {
         setSelectedFollow(follow);
+        console.log(follow)
         setIsViewModalOpen(true);
     };
  
 
     const handleFollowSave = async() => {
         if (selectedFollow) {
-            const updatedFollow = {...selectedFollow, detalles: [...selectedFollow.detalles, followText]};
+            const fechaDetalle = new Date().toISOString().split('T')[0];
+
+            const newDetalle = {
+                detalle: followText,
+                operadorLaboral: username,
+                fechaDetalle: fechaDetalle,
+                seguimientoId: selectedFollow.seguimientoId
+            };
             
-            console.log(updatedFollow)
+            console.log(newDetalle)
             try {
                 const response = await fetch(`http://localhost:8080/updateSeguimiento`, {
                     method: 'PATCH',
@@ -54,23 +63,31 @@ const FollowView = () => {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     },
-                    body: JSON.stringify(updatedFollow)
+                    body: JSON.stringify(newDetalle)
                 });
+
 
                 if (!response.ok) {
                     throw new Error('Error al actualizar el seguimiento');
                 }
-
-                setFollows(prevFollows => prevFollows.map(follow => 
-                    follow.seguimientoId === selectedFollow.seguimientoId ? updatedFollow : follow
+    
+                // Actualizar el estado local sin reemplazar todos los detalles
+                setFollows(prevFollows => prevFollows.map(follow =>
+                    follow.seguimientoId === selectedFollow.seguimientoId
+                        ? { ...follow, detalles: [...follow.detalles, newDetalle] }
+                        : follow
                 ));
-                setSelectedFollow(updatedFollow);
+                setSelectedFollow(prevFollow => ({
+                    ...prevFollow,
+                    detalles: [...prevFollow.detalles, newDetalle]
+                }));
             } catch (error) {
                 console.error('Error:', error);
             }
         }
         setIsFollowModalOpen(false);
         setFollowText("");
+        fetchAllFollow()
     };
 
     const handleNew = (follow) => {
@@ -78,6 +95,14 @@ const FollowView = () => {
         setIsFollowModalOpen(true);
     };
 
+
+    const FollowDetailCard = ({ detalle}) => (
+        <div className="follow-detail-card">
+            <p><strong>Detalle:</strong> {detalle.detalle || "N/A"}</p>
+            <p><strong>Operador Laboral:</strong> {detalle.operadorLaboral || "N/A"}</p>
+            <p><strong>Fecha:</strong> {detalle.fechaDetalle? new Date(detalle.fechaDetalle).toLocaleDateString() : "N/A"}</p>
+        </div>
+    );
 
     return (
         <>
@@ -127,25 +152,37 @@ const FollowView = () => {
                     </tbody>
                 </table>
             )}
-             {selectedFollow && (
-                <Modal
-                    isOpen={isViewModalOpen}
-                    onRequestClose={() => setIsViewModalOpen(false)}
-                    contentLabel="Ver Seguimientos"
-                >
-                    <h2>Seguimientos</h2>
-                    <button className="follow-button" onClick={() => setIsViewModalOpen(false)}>Cerrar</button>
-                    <ul>
-                        {Array.isArray(selectedFollow.detalles) ? selectedFollow.detalles.map((detalle, index) => (
-                            <li key={index}>{detalle}</li>
-                        )) : <li>No hay seguimientos</li>}
-                    </ul>
-                </Modal>
+        {selectedFollow && (
+            <Modal
+                isOpen={isViewModalOpen}
+                onRequestClose={() => setIsViewModalOpen(false)}
+                contentLabel="Ver Seguimientos"
+                className="view-modal"
+                ariaHideApp={false}
+            >
+                <div className="modal-header">
+                <h2>Seguimientos</h2>
+                <button className="close-button" onClick={() => setIsViewModalOpen(false)}>✖</button>
+                </div>
+                <div className="modal-content">
+                {Array.isArray(selectedFollow.detalles) && selectedFollow.detalles.length > 0 ? (
+                    selectedFollow.detalles.map((detalle, index) => (
+                    <FollowDetailCard
+                        key={index}
+                        detalle={detalle}
+                    />
+                    ))
+                ) : (
+                    <p>No hay seguimientos</p>
+                )}
+                </div>
+            </Modal>
             )}
             <Modal
                 isOpen={isFollowModalOpen}
                 onRequestClose={() => setIsFollowModalOpen(false)}
                 contentLabel="Nuevo Seguimiento"
+                className="follow-modal"
             >
                 <h2>Nuevo Seguimiento</h2>
                 <textarea

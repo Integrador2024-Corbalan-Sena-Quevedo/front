@@ -41,11 +41,11 @@ const FileUpload = () => {
     formData.append('type', selectedOptionTypeFile);
 
     try {
+      console.log(token)
       const response = await fetch('http://localhost:8080/upload-csv', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
         },
         body: formData
       })
@@ -87,7 +87,7 @@ const FileUpload = () => {
             </select>
             <button type="sumbit" className="btn-attachment">Enviar</button>
         </form>
-        {uploadMessage && <p id="upload-message">{uploadMessage}</p>}
+        {uploadMessage && <p id="upload-message">{uploadMessage}</p>}    
     </div>
   );
 };

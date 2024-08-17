@@ -359,3 +359,8 @@ input[type="text"] {
   
 }
 
+.modal-header button:hover {
+  transition: 0.4s;
+}
+
+

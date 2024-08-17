@@ -28,7 +28,7 @@ const Filtro = ({ filtro, onRemoveFiltro, onRemoveSubFiltro }) => {
 };
 
 
-const BusquedaConFiltros = () => {
+const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
   const [filtros, setFiltros] = useState([]);
   const [nuevoFiltro, setNuevoFiltro] = useState('');
   const [subFiltro, setSubFiltro] = useState('');
@@ -44,6 +44,12 @@ const BusquedaConFiltros = () => {
   const [pdfExist, setPdfExist] = useState(false);
   const token = localStorage.getItem('token');
   const [candidatoDTO, setCandidatoDTO] = useState(null);
+
+  const handleSelectCandidate = (candidato) => {
+    if (onAddCandidate) {
+      onAddCandidate(candidato); 
+  }
+};
 
   const handleSelectShow = (candidato) => {
     setShowSelect(true);
@@ -1024,6 +1030,7 @@ const BusquedaConFiltros = () => {
     <table>
           <thead>
               <tr>
+                {showAddButton && <th>Agregar</th>}
                   <th>Nombre</th>
                   <th>Apellido</th>
                   <th>Documento</th>
@@ -1037,6 +1044,13 @@ const BusquedaConFiltros = () => {
           <tbody>
               {candidatos.map((candidato) => (
                   <tr key={candidato.id}>
+                        {showAddButton && (
+                          <td>
+                              <button onClick={() => handleSelectCandidate(candidato)}>
+                                  Agregar
+                              </button>
+                          </td>
+                      )}
                       <td>{candidato.nombre}</td>
                       <td>{candidato.apellido}</td>
                       <td onClick={() => handleCIClick(candidato.id, candidato.nombre, candidato.apellido, candidato.documento)} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>

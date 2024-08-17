@@ -5,6 +5,7 @@ import '../styles/TableMatch.css'
 import useFetchJobs from "./useFetchJobs";
 import Candidato from './Candidate';
 import Modal from 'react-modal';
+import BusquedaConFiltros from "./BusquedaFiltrado";
 
 Modal.setAppElement('#root');
 
@@ -23,6 +24,15 @@ const JobMatch = () => {
     const [taskDetailsEssential, setTaskDetailsEssential] = useState([]);
     const [taskDetailsNotEssential, setTaskDetailsNotEssential] = useState([]);
     const [popupJobId, setPopupJobId] = useState(null);
+    const [isAddingCandidate, setIsAddingCandidate] = useState(false);
+
+    const handleAddCandidate = (newCandidate) => {
+        setCandidatesMap(prevMap => ({
+            ...prevMap,
+            [currentJobId]: [...(prevMap[currentJobId] || []), newCandidate]
+        }));
+        setIsAddingCandidate(false);
+    };
 
     const handleFetchCandidates = async (jobId) => {
         setIsLoanding(true)
@@ -87,6 +97,7 @@ const JobMatch = () => {
 
     const closeModal = () => {
         setIsModalOpen(false);
+        setIsAddingCandidate(false);
     };
 
     const closeIAModal = () => {
@@ -103,6 +114,7 @@ const JobMatch = () => {
     if (messageFetchJobs) {
         return <div>Error: {messageFetchJobs}</div>;
     }
+
 
     return (
         <div>
@@ -166,12 +178,26 @@ const JobMatch = () => {
                 overlayClassName={stylesModal.overlay}
             >
                 <h2>Lista de Candidatos</h2>
-                <button onClick={closeModal}>Cerrar</button>
+                <button  className={stylesModal.matchButtonClose} onClick={closeModal}>Cerrar</button>
                 <div>
                     {candidatesMap[currentJobId]?.map(candidate => (
                         <Candidato key={candidate.id} candidato={candidate} onRemove={() => handleRemoveCandidate(candidate.id, currentJobId)} />
                     ))}
                 </div>
+                <button className={stylesModal.matchButtonAdd} onClick={() => setIsAddingCandidate(true)} >
+                    Agregar candidato manualmente
+                </button>
+                {isAddingCandidate && (
+                    <Modal
+                        isOpen={isAddingCandidate}
+                        onRequestClose={closeModal}
+                        contentLabel="Agregar Candidato"
+                        className={stylesModal.largeModal}
+                        overlayClassName={stylesModal.largeOverlay}
+                    >
+                        <BusquedaConFiltros onAddCandidate={handleAddCandidate} showAddButton={true} />
+                    </Modal>
+                )}
             </Modal>
             <Modal
                 isOpen={isIAModalOpen}

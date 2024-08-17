@@ -137,8 +137,12 @@ const useFetchJobs = () => {
         }
      
     }
+
+    const removeJobFromActives = (id) => {
+        setJobsActives(prevJobs => prevJobs.filter(job => job.id !== id));
+      };
          
-    return { jobs, jobsActives,loading, messageFetchJobs, fetchCandidates, fetchCandidatesIA, fetchSendEmailToCompany, fetchAllCandidates };
+    return { jobs, jobsActives,loading, messageFetchJobs, fetchCandidates, fetchCandidatesIA, fetchSendEmailToCompany, fetchAllCandidates, removeJobFromActives };
 }
 
 export default useFetchJobs;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import useFetchJobs from "./useFetchJobs";
-import "../styles/Follow.css"
+import  "../styles/Follow.css"
 
 Modal.setAppElement("#root");
 
@@ -9,7 +9,7 @@ const Follow = () => {
   const token = localStorage.getItem('token');
   const username = localStorage.getItem('user')
   const [olValues, setOlValues] = useState({});
-  const { jobs, jobsActives,fetchAllCandidates } = useFetchJobs();
+  const { jobs, jobsActives, fetchAllCandidates, removeJobFromActives} = useFetchJobs();
   const [candidates, setCandidates] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState(null);
@@ -18,6 +18,8 @@ const Follow = () => {
   const [followData, setFollowData] = useState({});
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [currentFollowCandidateId, setCurrentFollowCandidateId] = useState(null);
+  const [searchCandidate, setSearchCandidate] = useState('');
+
 
 
 
@@ -36,7 +38,6 @@ const Follow = () => {
       empleoId: jobsActives.find(job => job.id === id).id,
       nombreEmpresa: jobsActives.find(job => job.id === id).empresaNombre,
       nombreEmpleo: jobsActives.find(job => job.id === id).nombrePuesto,
-      empleoId: jobsActives.find(job => job.id === id).id,
       operadorLaboral: username,
       tramite: jobsActives.find(job => job.id === id).idEncuesta,
       documentoEmpleado: olValues[`documento${id}`],
@@ -63,10 +64,10 @@ const Follow = () => {
 
       if (!response.ok) {
         throw new Error('Error al guardar el seguimiento');
+      }else{
+        removeJobFromActives(id);
       }
 
-      const data = await response.json();
-      console.log('Seguimiento guardado:', data);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -114,6 +115,12 @@ const Follow = () => {
     setCurrentFollowCandidateId(olValues[`candidateId${jobId}`]);
     setIsViewModalOpen(true);
   };
+
+  const filteredCandidates = candidates.filter(candidate =>
+    candidate.documento.toLowerCase().includes(searchCandidate.toLowerCase())||
+    candidate.nombre.toLowerCase().includes(searchCandidate.toLowerCase()) ||
+    candidate.apellido.toLowerCase().includes(searchCandidate.toLowerCase())
+  );
 
   
 
@@ -199,13 +206,23 @@ const Follow = () => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Seleccionar Candidato"
+        className="candidate-modal"
       >
-        <h2>Seleccionar Candidato</h2>
-        <button onClick={() => setIsModalOpen(false)}>Cerrar</button>
-        <ul>
-          {candidates.map(candidate => (
+          <div className="modal-header">
+            <h2>Seleccionar Candidato</h2>
+            <button onClick={() => setIsModalOpen(false)}>Cerrar</button>
+         </div>
+         <input 
+            type="text" 
+            placeholder="Buscar por CI o Nombre/Apellido" 
+            value={searchCandidate} 
+            onChange={(e) => setSearchCandidate(e.target.value)} 
+            className="search-input"
+          />
+        <ul className="Follow-ul">
+          {filteredCandidates.map(candidate => (
             <li key={candidate.id} onClick={() => handleCandidateSelect(candidate)}>
-              {candidate.nombre} - {candidate.documento}
+              {candidate.nombre +" "+ candidate.apellido} | {candidate.documento}
             </li>
           ))}
         </ul>
@@ -215,6 +232,7 @@ const Follow = () => {
         isOpen={isFollowModalOpen}
         onRequestClose={() => setIsFollowModalOpen(false)}
         contentLabel="Nuevo Seguimiento"
+        className="follow-modal"
       >
         <h2>Nuevo Seguimiento</h2>
         <textarea
@@ -233,10 +251,11 @@ const Follow = () => {
         isOpen={isViewModalOpen}
         onRequestClose={() => setIsViewModalOpen(false)}
         contentLabel="Ver Seguimientos"
+        className="view-modal"
       >
         <h2>Seguimientos</h2>
         <button className="follow-button" onClick={() => setIsViewModalOpen(false)}>Cerrar</button>
-        <ul>
+        <ul className="Follow-ul">
           {Array.isArray(followData[currentFollowCandidateId]) ? followData[currentFollowCandidateId].map((follow, index) => (
             <li key={index}>{follow}</li>
           )) : <li>No hay seguimientos</li>}
