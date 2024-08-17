@@ -123,3 +123,16 @@ button:hover {
   background-color: #e7f0ff;
   color: #007bff;
 }
+
+#guardarButton {
+  background-color: #074180; 
+  color: white; 
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#guardarButton:hover {
+  background-color: #052a60; 
+}

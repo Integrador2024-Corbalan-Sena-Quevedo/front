@@ -214,6 +214,4 @@ const JobMatch = () => {
     );
 }
 
-export {
-    JobMatch
-}
+export { JobMatch}
