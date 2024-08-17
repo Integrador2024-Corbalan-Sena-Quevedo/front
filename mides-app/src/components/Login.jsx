@@ -69,7 +69,7 @@ const Login = () => {
         <h2>Iniciar Sesión</h2>
         <div className="form-group">
           <label>Usuario:</label>
-          <input
+          <input id = "usuarioInput"
             type="text"
            
             value={username}

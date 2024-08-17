@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import {  useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import '../styles/ListaOperadores.css';
 
 const ListaOperadores = () => {
   const [operadores, setOperadores] = useState([]);
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [editRol, setEditRol] = useState({}); 
   const operadoresPorPagina = 7;
-  let navigate = useNavigate();
+  
 
   const fetchOperadores = async () => {
     const token = localStorage.getItem('token');
@@ -21,10 +22,8 @@ const ListaOperadores = () => {
 
       if (response.ok) {
         const data = await response.json();
-    
         const listaOrdenada = data.sort((a, b) => a.name.localeCompare(b.name));
         setOperadores(listaOrdenada);
-        
       } else {
         console.error('Error al obtener la lista de operadores:', response.status);
         setError('No se pudo obtener la lista de operadores');
@@ -62,7 +61,16 @@ const ListaOperadores = () => {
     }
   };
 
-  const handleChangeRole = async (id, newRole) => {
+  const handleChangeRole = (id, newRole) => {
+    setEditRol(prevState => ({
+      ...prevState,
+      [id]: newRole
+    }));
+  };
+
+  const handleSaveRole = async (id) => {
+    const newRole = `"${editRol[id]}"`; 
+    console.log(newRole);
     const token = localStorage.getItem('token');
     try {
       const response = await fetch(`http://localhost:8080/operadores/${id}/rol`, {
@@ -71,12 +79,20 @@ const ListaOperadores = () => {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newRole)
+        body: JSON.stringify(newRole) 
       });
 
       if (response.ok) {
         const updatedUser = await response.json();
-        setOperadores(operadores.map(operator => operator.id === id ? updatedUser : operator));
+        setOperadores(prevOperadores =>
+          prevOperadores.map(operator =>
+            operator.id === id ? updatedUser : operator
+          )
+        );
+        setEditRol(prevState => ({
+          ...prevState,
+          [id]: undefined 
+        }));
       } else {
         console.error('Error al cambiar el rol del operador:', response.status);
         setError('No se pudo cambiar el rol del operador');
@@ -89,42 +105,43 @@ const ListaOperadores = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Obtener los operadores de la página actual
   const indexOfLastOperator = currentPage * operadoresPorPagina;
   const indexOfFirstOperator = indexOfLastOperator - operadoresPorPagina;
   const currentOperators = operadores.slice(indexOfFirstOperator, indexOfLastOperator);
 
-  // Calcular el número total de páginas
   const totalPages = Math.ceil(operadores.length / operadoresPorPagina);
 
   return (
-<div className="operator-list-container">
-    <h2>Lista de Operadores</h2>
-    {error && <p className="error">{error}</p>}
-    <table className="operator-table">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Usuario</th>
-          <th>Rol</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
+    <div className="operator-list-container">
+      <h2>Lista de Operadores</h2>
+      {error && <p className="error">{error}</p>}
+      <table className="operator-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Usuario</th>
+            <th>Rol</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
           {currentOperators.map((operator, index) => (
             <tr key={index}>
               <td>{operator.name}</td>
               <td>{operator.username}</td>
               <td>
-                <select 
-                  onChange={(e) => handleChangeRole(operator.id, e.target.value)} 
-                  value={operator.rol}
-                >
-                  <option value="OPERADOR_LABORAL_NOVATO">Operador Laboral Novato</option>
-                  <option value="OPERADOR_LABORAL_SUPERIOR">Operador Laboral Superior</option>
-                  <option value="ADMIN">Administrador</option>
-                </select>
-              </td>
+  <select 
+    onChange={(e) => handleChangeRole(operator.id, e.target.value)} 
+    value={editRol[operator.id] || operator.rol} 
+  >
+    <option value="OPERADOR_LABORAL_NOVATO">Operador Laboral Novato</option>
+    <option value="OPERADOR_LABORAL_SUPERIOR">Operador Laboral Superior</option>
+    <option value="ADMIN">Administrador</option>
+  </select>
+  {editRol[operator.id] && (
+    <button id = "guardarButton" onClick={() => handleSaveRole(operator.id)}>Guardar</button>
+  )}
+</td>
               <td>
                 <button onClick={() => handleDelete(operator.id)}>Eliminar</button>
               </td>
@@ -132,7 +149,7 @@ const ListaOperadores = () => {
           ))}
         </tbody>
       </table>
-    <div className="pagination">
+      <div className="pagination">
         {Array.from({ length: totalPages }, (_, i) => (
           <button
             key={i}
@@ -143,7 +160,6 @@ const ListaOperadores = () => {
           </button>
         ))}
       </div>
-      
     </div>
   );
 };
