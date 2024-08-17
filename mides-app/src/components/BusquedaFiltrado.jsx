@@ -6,6 +6,7 @@ import '../styles/BusquedaConFiltros.css';
 import { Modal, Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import editLogo from "../img/edit.png"
+import PdfModal from './PdfModal';
 import { VscDebugBreakpointLogUnverified } from 'react-icons/vsc';
 
 
@@ -30,6 +31,7 @@ const Filtro = ({ filtro, onRemoveFiltro, onRemoveSubFiltro }) => {
 };
 
 
+const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
 const BusquedaConFiltros = () => {
   const {messageFetchCandidato, enviarFiltros, actualizarCampo, eliminarDatoLista, agregarALista, actualizarCandidato}= useFetchFiltradoCandidato();
 
@@ -43,6 +45,17 @@ const BusquedaConFiltros = () => {
   const [showSelect, setShowSelect] = useState(false);
   const [selectedCandidadoCombo, setSelectedCandidadoCombo] = useState(-1);
   const [selectedRama, setSelectedRama] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState(null);
+  const [pdfExist, setPdfExist] = useState(false);
+  const token = localStorage.getItem('token');
+  const [candidatoDTO, setCandidatoDTO] = useState(null);
+
+  const handleSelectCandidate = (candidato) => {
+    if (onAddCandidate) {
+      onAddCandidate(candidato); 
+  }
+};
   const [editable, setEditable] = useState(false);
   const [candidatoEditable, setCandidatoEditable] = useState(null);
   const [campoEditable, setCampoEditable] = useState('');
@@ -2763,6 +2776,7 @@ const BusquedaConFiltros = () => {
     <table>
           <thead>
               <tr>
+                {showAddButton && <th>Agregar</th>}
                   <th>Nombre</th>
                   <th>Apellido</th>
                   <th>Documento</th>
@@ -2776,9 +2790,16 @@ const BusquedaConFiltros = () => {
           <tbody>
               {candidatos.map((candidato) => (
                   <tr key={candidato.id}>
+                        {showAddButton && (
+                          <td>
+                              <button onClick={() => handleSelectCandidate(candidato)}>
+                                  Agregar
+                              </button>
+                          </td>
+                      )}
                       <td>{candidato.nombre}</td>
                       <td>{candidato.apellido}</td>
-                      <td onClick={() => handleShowCvModal(candidato.cvLink)} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>
+                      <td onClick={() => handleCIClick(candidato.id, candidato.nombre, candidato.apellido, candidato.documento)} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>
                           {candidato.documento}
                       </td>
                       <td>{candidato.tipoDocumento}</td>
@@ -2786,7 +2807,7 @@ const BusquedaConFiltros = () => {
                       <td>{candidato.sexo}</td>
                       <td>{candidato.estadoCivil}</td>
                       <td>
-                          <span class="masDetalles" onClick={() => handleSelectShow(candidato)}>Mas detalles</span>
+                          <span className="masDetalles" onClick={() => handleSelectShow(candidato)}>Mas detalles</span>
                           {showSelect && selectedCandidadoCombo === candidato.id && (
                             <div className="selectContainer">
                               <select className="selectDropdown" onChange={(e) => handleShowPopup(e, candidato)}>
@@ -2824,9 +2845,14 @@ const BusquedaConFiltros = () => {
 
     </div>
     </div>
+      <PdfModal
+          show={isModalOpen}
+          onHide={() => setIsModalOpen(false)}
+          pdfUrl={pdfUrl}
+          candidatoDTO={candidatoDTO}
+      />
     </div>
   );
-
 
 };
 
