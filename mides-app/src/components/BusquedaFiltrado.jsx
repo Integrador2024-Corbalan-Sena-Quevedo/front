@@ -2833,7 +2833,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                   <tr key={candidato.id}>
                         {showAddButton && (
                           <td>
-                              <button onClick={() => handleSelectCandidate(candidato)}>
+                              <button className='button-add-candidate' onClick={() => handleSelectCandidate(candidato)}>
                                   Agregar
                               </button>
                           </td>

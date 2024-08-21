@@ -111,9 +111,7 @@ const JobMatch = () => {
     if (loading) {
         return <div>Cargando...</div>;
     }
-    if (messageFetchJobs) {
-        return <div>Error: {messageFetchJobs}</div>;
-    }
+
 
 
     return (
@@ -180,9 +178,17 @@ const JobMatch = () => {
                 <h2>Lista de Candidatos</h2>
                 <button  className={stylesModal.matchButtonClose} onClick={closeModal}>Cerrar</button>
                 <div>
-                    {candidatesMap[currentJobId]?.map(candidate => (
-                        <Candidato key={candidate.id} candidato={candidate} onRemove={() => handleRemoveCandidate(candidate.id, currentJobId)} />
-                    ))}
+                    {candidatesMap[currentJobId]?.length > 0 ? (
+                        candidatesMap[currentJobId].map(candidate => (
+                            <Candidato
+                                key={candidate.id}
+                                candidato={candidate}
+                                onRemove={() => handleRemoveCandidate(candidate.id, currentJobId)}
+                            />
+                        ))
+                    ) : (
+                        <p className="text-no-candidate-disponible">No hay candidatos disponibles.</p>
+                    )}
                 </div>
                 <button className={stylesModal.matchButtonAdd} onClick={() => setIsAddingCandidate(true)} >
                     Agregar candidato manualmente

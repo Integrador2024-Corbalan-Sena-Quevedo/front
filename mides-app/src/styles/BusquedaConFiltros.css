@@ -382,4 +382,12 @@ h2, h3 {
   transition: 0.4s;
 }
 
+.button-add-candidate{
+  padding: 8px;
+  border-radius: 10px;
+  margin-right: 5px;
+  margin-top: 5px;
+  background-color: #074180;
+}
+
 
