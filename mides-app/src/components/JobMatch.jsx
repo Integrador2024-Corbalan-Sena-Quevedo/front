@@ -10,7 +10,7 @@ import BusquedaConFiltros from "./BusquedaFiltrado";
 Modal.setAppElement('#root');
 
 const JobMatch = () => {
-    const { jobs, loading, messageFetchJobs, fetchCandidates, fetchCandidatesIA, fetchSendEmailToCompany } = useFetchJobs();
+    const { jobs, jobsActives,loading, messageFetchJobs, fetchCandidates, fetchCandidatesIA, fetchSendEmailToCompany } = useFetchJobs();
 
     const [candidatesMap, setCandidatesMap] = useState({});
     const [commentsIAMap, setCommentsIAMap] = useState({});
@@ -129,7 +129,7 @@ const JobMatch = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {jobs.map(job => (
+                    {jobsActives.map(job => (
                         <tr key={job.id}>
                             <td className="td"> <strong>{job.nombrePuesto}</strong></td>
                             <td className="td"> <strong>{job.empresaNombre}</strong></td>
