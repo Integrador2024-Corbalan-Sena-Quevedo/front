@@ -7,6 +7,7 @@ import { Modal, Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import editLogo from "../img/edit.png"
 import PdfModal from './PdfModal';
+
 import { VscDebugBreakpointLogUnverified } from 'react-icons/vsc';
 
 
@@ -32,7 +33,7 @@ const Filtro = ({ filtro, onRemoveFiltro, onRemoveSubFiltro }) => {
 
 
 const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
-  const {messageFetchCandidato, enviarFiltros, actualizarCampo, eliminarDatoLista, agregarALista, actualizarCandidato}= useFetchFiltradoCandidato();
+  const {enviarFiltros, actualizarCampo, eliminarDatoLista, agregarALista, actualizarCandidato, traerIdiomas}= useFetchFiltradoCandidato();
 
   const [filtros, setFiltros] = useState([]);
   const [nuevoFiltro, setNuevoFiltro] = useState('');
@@ -49,21 +50,26 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
   const [pdfExist, setPdfExist] = useState(false);
   const token = localStorage.getItem('token');
   const [candidatoDTO, setCandidatoDTO] = useState(null);
+  const [idiomas, setIdiomas] = useState([]);
 
   const handleSelectCandidate = (candidato) => {
     if (onAddCandidate) {
       onAddCandidate(candidato); 
-  }
-};
+    }
+  };
   const [editable, setEditable] = useState(false);
   const [candidatoEditable, setCandidatoEditable] = useState(null);
   const [campoEditable, setCampoEditable] = useState('');
   const [showSelectAgregarALista, setShowSelectAgregarALista] = useState(false);
   const [candidatoAgregarALista, setCandidadtoAgregarALista] = useState(null);
   const [selectAbrir, setSelectAbrir] = useState(null);
-
+  const [isPopupVisible, setPopupVisible] = useState(false);
   const inputRef = useRef(null);
   const selectRefAgregarALista = useRef(null); 
+
+  
+
+  
 
   const actualizarListaCandidatos = async (nuevoValor, lista, subLista) =>{
     debugger
@@ -71,14 +77,17 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
     
     if (lista != '' && subLista !='') {
 
-      if (subLista == "experienciaLaboral") {
-        
+
+      debugger
+      if (subLista == "experienciaLaboral" || subLista == "discapacidad" || subLista == "idioma" || subLista == "candidatoIdiomas") {
+        debugger
         const respuesta = await actualizarCandidato(SelectedCandidato.id);
             debugger
             
         candidatoActualizado = {
           ...respuesta
         } 
+        debugger
       }else{
         candidatoActualizado = {
           ...SelectedCandidato,
@@ -224,13 +233,22 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
       console.log('id candidadto: '+ candidatoAgregarALista.id);
 
       debugger
-    const response = await agregarALista(`${SelectedCandidato.id}`, lista, sublista, `${nuevoValor}`);
+    const response = await agregarALista(`${SelectedCandidato.id}`, lista, sublista, nuevoValor);
+    handleBlur();
+    handleBlurAgregarALista();
+    if (!response.ok) {
+      alert('Error al agregar');
+    }else{
+      alert('Agregado correctamente');
+      actualizarListaCandidatos(nuevoValor, sublista, lista);
+      setShowPopup(true);
+    }
+
+    
+
   
     
-    handleBlur();
-    actualizarListaCandidatos(nuevoValor, sublista, lista);
-    handleBlurAgregarALista();
-    setShowPopup(true);
+    
   }
 
  
@@ -310,27 +328,85 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
     console.log('Nuevo subLista: '+subLista);
     
     const response = await actualizarCampo(`${SelectedCandidato.id}`, campoEditable, nuevoValor, datoAnt, lista, subLista);
+    handleBlur();
+    if (!response.ok) {
+      alert('Error al actualizar');
+    }else{
+      alert('Actualizado correctamente');
+      
+      actualizarListaCandidatos(nuevoValor, lista, subLista);
+      setShowPopup(true);
+    }
     
 
-    handleBlur();
-    actualizarListaCandidatos(nuevoValor, lista, subLista);
-    setShowPopup(true);
+    
   }
-  
-  const eliminarDeLista = async (lista, sublista, idAEliminar) => {
+
+  const [idAEliminar, setIdAEliminar] = useState(null);
+  const [isConfirming, setIsConfirming] = useState(false); // Nuevo estado para mostrar el popup de confirmación
+  const [estadoSelect, setEstadoSelect]= useState(null);
+  const [nombreAEliminar, setNombreAEliminar]= useState(null);
+
+
+  const eliminarDeLista = async (lista, sublista, idAEliminar, nombreAEliminar) => {
+    debugger
+    setIdAEliminar(idAEliminar);
+    setNombreAEliminar(nombreAEliminar)
+    setSelectedRama(lista);
+    setSelectedNombreLista(sublista);
+    
+    setIsConfirming(true); // Mostrar el popup de confirmación
+    
+    debugger
+  };
+
+  const handleConfirm = async () => {
+    setIsConfirming(false); // Ocultar el popup de confirmación
+    const response = await eliminarDatoLista(`${SelectedCandidato.id}`, selectedRama, selectedNombreLista, `${idAEliminar}`);
+    handleBlur();
+    if (response.status != 200) {
+      alert('Error al eliminar');
+    } else {
+      alert('Eliminado correctamente');
+      actualizarListaCandidatos(idAEliminar, selectedNombreLista, selectedRama);
+      
+    }
+
+    handleShowPopup(estadoSelect, SelectedCandidato);
+  };
+
+  const handleCancel = () => {
+    setIsConfirming(false); // Ocultar el popup de confirmación
+    handleShowPopup(estadoSelect, SelectedCandidato);
+  };
+
+  const ConfirmPopUp = ({show, onHide, eliminar, nombreEliminar}) => {
+    debugger
+    return (
+      <Modal show = {show} onHide={onHide}>
+        <Modal.Header closeButton className='modalHeder'>
+        <Modal.Title className='titulosListas'>Eliminar a {nombreEliminar}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='modalBody'>
+        <div>
+          <h3>¿Estás seguro de que deseas eliminar?</h3>
+        </div>
+        </Modal.Body>
+        <Modal.Footer>
+        <Button variant="primary" onClick={eliminar}>
+          Aceptar
+        </Button>
+        <Button variant="primary" onClick={onHide}>
+          Cancelar
+        </Button>
         
-    console.log('Nombre lista: '+lista);
-    console.log('Nombre de subLista: '+sublista);
-    console.log('Nombre a eliminar: '+idAEliminar);
-    
-    const response = await eliminarDatoLista(`${SelectedCandidato.id}`, lista, sublista, `${idAEliminar}`);
-    
-    handleBlur();
-    actualizarListaCandidatos(idAEliminar, sublista, lista);
-    setShowPopup(true);
-  }
+        </Modal.Footer>
 
-  
+      </Modal>
+    );
+
+    
+  };
 
   const handleSelectShow = (candidato) => {
     setShowSelect(true);
@@ -345,6 +421,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
       setSelectedNombreLista(nombre);
       setSelectedCandidato(candidato);
       setSelectedRama(rama);
+      setEstadoSelect(e);
 
     };
   
@@ -416,16 +493,18 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
   const obtenerCandidados = async () => {
     debugger
     const response = await enviarFiltros(filtros);
+    console.log(filtros);
     const resultados = Object.values(response);
     console.log("Cantidad: " + resultados.length);
     setCandidatos(resultados);
+    const idiomasResp = await traerIdiomas();
+    const idiomas = Object.values(idiomasResp);
+    setIdiomas(idiomas);
     console.log(resultados);
+    console.log(idiomas);
   };
 
-  if (messageFetchCandidato) {
-    console.log("Resultado: "+ messageFetchCandidato);
-    // return <div>Error: {messageFetchCandidato}</div>;
-}
+  
   
 
   const mostrarEstructura = () => {
@@ -627,8 +706,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <ul>
                         {
                           SelectedCandidato[selectedRama][selectedNombreLista] && Object.values(SelectedCandidato[selectedRama][selectedNombreLista]).map((item, index) => (
-                          <li key={index}>
-                            <button className='eliminar' onClick={()=>eliminarDeLista(selectedRama, selectedNombreLista, item.id)}>
+                          <li key={index} className='fondoAnim'>
+                            <button className='eliminar' onClick={()=>eliminarDeLista(selectedRama, selectedNombreLista, item.id, item.tipo)}>
                                   X
                             </button>
                             <strong>{item.tipo}</strong>
@@ -643,12 +722,13 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                               <strong>Agregar nueva instituciones deseo:</strong>
                             </div>
                           <select class="form-select" ref={selectRefAgregarALista}>
-                              <option value="">Seleccionar...</option>
-                              <option value="102">EDUCATIVA</option>
-                              <option value="103">RECREATIVA</option>
-                              <option value="104">REHABILITACION</option>
-                              <option value="105">OTRA</option>
+                            <option value="">Seleccionar...</option>
+                            <option value="EDUCATIVA">EDUCATIVA</option>
+                            <option value="RECREATIVA">RECREATIVA</option>
+                            <option value="REHABILITACION">REHABILITACION</option>
+                            <option value="OTRA">OTRA</option>
                           </select>
+
                           
                           <button onClick={() => guardarAgregarALista(selectedRama, selectedNombreLista)}>OK</button>
                           <button onClick={handleBlurAgregarALista}>X</button>
@@ -747,8 +827,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <ul>
                         {
                           SelectedCandidato[selectedRama][selectedNombreLista] && Object.values(SelectedCandidato[selectedRama][selectedNombreLista]).map((item, index) => (
-                          <li key={index}>
-                            <button className='eliminar' onClick={()=>eliminarDeLista(selectedRama, selectedNombreLista, item.id)}>
+                          <li key={index} className='fondoAnim'>
+                            <button className='eliminar' onClick={()=>eliminarDeLista(selectedRama, selectedNombreLista, item.id, item.turno)}>
                                   X
                             </button>
                             <strong>{item.turno}</strong>
@@ -764,14 +844,14 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                           
                           <select class="form-select" ref={selectRefAgregarALista}>
 
-                              <option value="">Seleccionar...</option>
-                              <option value="102">TARDE</option>
-                              <option value="103">MANIANA</option>
-                              <option value="104">NOCHE</option>
-                              <option value="105">INDIFERENTE</option>
-                              <option value="106">ROTATIVO</option>
-
+                            <option value="">Seleccionar...</option>
+                            <option value="TARDE">TARDE</option>
+                            <option value="MANIANA">MANIANA</option>
+                            <option value="NOCHE">NOCHE</option>
+                            <option value="INDIFERENTE">INDIFERENTE</option>
+                            <option value="ROTATIVO">ROTATIVO</option>
                           </select>
+
                           
                           <button onClick={() => guardarAgregarALista(selectedRama, selectedNombreLista)}>OK</button>
                           <button onClick={handleBlurAgregarALista}>Cancelar</button>
@@ -1603,11 +1683,11 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                 <ul className='ulEditable'>
                   {
                     Object.values(SelectedCandidato[selectedNombreLista]).map((item, index) => (
-                      <li key={index}>
+                      <li key={index} className='fondoAnim'>
                         <button onClick={()=>handleEditable(SelectedCandidato, item.id)}>
                           <img src={editLogo} alt="Edit"/>
                         </button>
-                        <button className="eliminar" onClick={()=>eliminarDeLista(selectedNombreLista, "", item.id)}>X</button>
+                        <button className="eliminar" onClick={()=>eliminarDeLista(selectedNombreLista, "", item.id, item.email)}>X</button>
                         <strong>{item.email}</strong>
                         { editable && candidatoEditable === SelectedCandidato && campoEditable === item.id && (
 
@@ -1880,8 +1960,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                     <ul className='ulEditable'>
                       {
                         Object.values(SelectedCandidato[selectedNombreLista]).map((item, index) => (
-                          <li key={index}>
-                          <button className='eliminar' onClick={()=>eliminarDeLista(selectedNombreLista, "", item.id)}>
+                          <li key={index} className='fondoAnim'>
+                          <button className='eliminar' onClick={()=>eliminarDeLista(selectedNombreLista, "", item.id, item.nombre)}>
                                 X
                           </button>
                           <strong>{item.nombre}</strong>
@@ -1896,28 +1976,27 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                           </div>
                         
                         <select class="form-select" ref={selectRefAgregarALista}>
-
                           <option value="">Seleccionar...</option>
-                          <option value="52">Ninguna de las anteriores</option>
-                          <option value="53">Visión</option>
-                          <option value="54">Audición</option>
-                          <option value="55">Escribir</option>
-                          <option value="56">Postura sentado</option>
-                          <option value="57">Conocimiento numérico</option>
-                          <option value="58">Desplazamientos</option>
-                          <option value="59">Movilidad y destreza de miembros superiores</option>
-                          <option value="60">Movilidad en el cuello y tronco</option>
-                          <option value="61">Leer</option>
-                          <option value="62">Comprensión verbal</option>
-                          <option value="63">Aprendizaje / razonamiento</option>
-                          <option value="64">Fuerza y esfuerzo físico</option>
-                          <option value="65">Otras posturas</option>
-                          <option value="66">Otros</option>
-                          <option value="67">Hablar / Expresión</option>
-                          <option value="68">Movilidad de los miembros inferiores</option>
-                          <option value="69">Postura de pie</option>
-
+                          <option value="Ninguna de las anteriores">Ninguna de las anteriores</option>
+                          <option value="Visión">Visión</option>
+                          <option value="Audición">Audición</option>
+                          <option value="Escribir">Escribir</option>
+                          <option value="Postura sentado">Postura sentado</option>
+                          <option value="Conocimiento numérico">Conocimiento numérico</option>
+                          <option value="Desplazamientos">Desplazamientos</option>
+                          <option value="Movilidad y destreza de miembros superiores">Movilidad y destreza de miembros superiores</option>
+                          <option value="Movilidad en el cuello y tronco">Movilidad en el cuello y tronco</option>
+                          <option value="Leer">Leer</option>
+                          <option value="Comprensión verbal">Comprensión verbal</option>
+                          <option value="Aprendizaje / razonamiento">Aprendizaje / razonamiento</option>
+                          <option value="Fuerza y esfuerzo físico">Fuerza y esfuerzo físico</option>
+                          <option value="Otras posturas">Otras posturas</option>
+                          <option value="Otros">Otros</option>
+                          <option value="Hablar / Expresión">Hablar / Expresión</option>
+                          <option value="Movilidad de los miembros inferiores">Movilidad de los miembros inferiores</option>
+                          <option value="Postura de pie">Postura de pie</option>
                         </select>
+
                         
                         <button onClick={() => guardarAgregarALista(selectedNombreLista, '')}>OK</button>
                         <button onClick={handleBlurAgregarALista}>Cancelar</button>
@@ -1927,11 +2006,12 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       )}
                       {!showSelectAgregarALista && (
                       <button onClick={() => showSelectAgregar(SelectedCandidato, selectedNombreLista)}>Agregar</button>
-
-
                       )
 
-                      } 
+                      }
+                      
+                      
+                      
                     </ul>
                   
                    } 
@@ -1946,8 +2026,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                     <ul className='ulEditable'>
                       {
                         Object.values(SelectedCandidato[selectedNombreLista]).map((item, index) => (
-                          <li key={index}>
-                          <button className='eliminar' onClick={()=>eliminarDeLista(selectedNombreLista, "", item.id)}>
+                          <li key={index} className='fondoAnim'>
+                          <button className='eliminar' onClick={()=>eliminarDeLista(selectedNombreLista, "", item.id, item.nombre)}>
                                 X
                           </button>
                           <strong>{item.nombre}</strong>
@@ -1963,35 +2043,37 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                         
                         <select class="form-select" ref={selectRefAgregarALista}>
 
-                          <option value="">Seleccionar...</option>
-                          <option value="102">Diseño Gráfico</option>
-                          <option value="103">Ventas</option>
-                          <option value="104">Servicio doméstico</option>
-                          <option value="105">Electrotecnia y electrónica</option>
-                          <option value="106">Salud y cuidado a personas</option>
-                          <option value="107">Telefonista</option>
-                          <option value="108">Limpieza</option>
-                          <option value="109">Reponedor</option>
-                          <option value="110">Sanitaria</option>
-                          <option value="111">Seguridad</option>
-                          <option value="112">Cadetería</option>
-                          <option value="113">Recepcionista</option>
-                          <option value="114">Comunicaciones</option>
-                          <option value="115">Marítima y pesca</option>
-                          <option value="116">Metal - mecánica</option>
-                          <option value="117">Atención al público</option>
-                          <option value="118">Tapizado</option>
-                          <option value="119">Hotelería y turismo</option>
-                          <option value="120">Construcción</option>
-                          <option value="121">Artes y artesanía</option>
-                          <option value="122">Informática</option>
-                          <option value="123">Administración</option>
-                          <option value="124">Gastronomía</option>
-                          <option value="125">Madera y muebles</option>
-                          <option value="126">Agraria (Jardinería)</option>
-                          <option value="127">Auxiliar docente</option>
+                            <option value="">Seleccionar...</option>
+                            <option value="Diseño Gráfico">Diseño Gráfico</option>
+                            <option value="Ventas">Ventas</option>
+                            <option value="Servicio doméstico">Servicio doméstico</option>
+                            <option value="Electrotecnia y electrónica">Electrotecnia y electrónica</option>
+                            <option value="Salud y cuidado a personas">Salud y cuidado a personas</option>
+                            <option value="Telefonista">Telefonista</option>
+                            <option value="Limpieza">Limpieza</option>
+                            <option value="Reponedor">Reponedor</option>
+                            <option value="Sanitaria">Sanitaria</option>
+                            <option value="Seguridad">Seguridad</option>
+                            <option value="Cadetería">Cadetería</option>
+                            <option value="Recepcionista">Recepcionista</option>
+                            <option value="Comunicaciones">Comunicaciones</option>
+                            <option value="Marítima y pesca">Marítima y pesca</option>
+                            <option value="Metal - mecánica">Metal - mecánica</option>
+                            <option value="Atención al público">Atención al público</option>
+                            <option value="Tapizado">Tapizado</option>
+                            <option value="Hotelería y turismo">Hotelería y turismo</option>
+                            <option value="Construcción">Construcción</option>
+                            <option value="Otras">Otras</option>
+                            <option value="Artes y artesanía">Artes y artesanía</option>
+                            <option value="Informática">Informática</option>
+                            <option value="Administración">Administración</option>
+                            <option value="Gastronomía">Gastronomía</option>
+                            <option value="Otros">Otros</option>
+                            <option value="Agraria (Jardinería, Paisajismo, Áreas Verdes, etc.)">Agraria (Jardinería, Paisajismo, Áreas Verdes, etc.)</option>
+                            <option value="Madera y muebles">Madera y muebles</option>
+                            <option value="Auxiliar docente">Auxiliar docente</option>
+                          </select>
 
-                        </select>
                         
                         <button onClick={() => guardarAgregarALista(selectedNombreLista, '')}>OK</button>
                         <button onClick={handleBlurAgregarALista}>Cancelar</button>
@@ -2020,8 +2102,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                     <ul className='ulEditable'>
                       {
                         Object.values(SelectedCandidato[selectedNombreLista]).map((item, index) => (
-                          <li key={index}>
-                          <button className='eliminar' onClick={()=>eliminarDeLista(selectedNombreLista, "", item.id)}>
+                          <li key={index} className='fondoAnim'>
+                          <button className='eliminar' onClick={()=>eliminarDeLista(selectedNombreLista, "", item.id, item.nombre)}>
                                 X
                           </button>
                           <strong>{item.nombre}</strong>
@@ -2037,39 +2119,39 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                         
                         <select class="form-select" ref={selectRefAgregarALista}>
 
-                          <option value="">Seleccionar...</option>
-                          <option value="52">Bastón Blanco</option>
-                          <option value="53">Bastón Verde</option>
-                          <option value="54">Bastones canadienses</option>
-                          <option value="55">Almohadón antiéscaras</option>
-                          <option value="56">Calzado ortopédico</option>
-                          <option value="57">Lupa</option>
-                          <option value="58">Coche postural infantil</option>
-                          <option value="59">Violín</option>
-                          <option value="60">Audífonos</option>
-                          <option value="61">Colchón anti escaras</option>
-                          <option value="62">Bastón de 3 ó 4 puntos</option>
-                          <option value="63">Bulto pañal infantil grande</option>
-                          <option value="64">Bulto pañal infantil chico</option>
-                          <option value="65">Silla de ruedas</option>
-                          <option value="66">Andador infantil con ruedas</option>
-                          <option value="67">Filtros Solares</option>
-                          <option value="68">Bulto pañal adulto chico</option>
-                          <option value="69">Andador adulto sin ruedas</option>
-                          <option value="70">Coche postural adulto</option>
-                          <option value="71">Guinche</option>
-                          <option value="72">Bastón de 1 punto</option>
-                          <option value="73">Bulto pañal adulto mediano</option>
-                          <option value="74">Otros</option>
-                          <option value="75">Prótesis</option>
-                          <option value="76">Bulto pañal infantil mediano</option>
-                          <option value="77">Bulto pañal adulto grande</option>
-                          <option value="78">Andador infantil sin ruedas</option>
-                          <option value="79">Andador adulto con ruedas</option>
-                          <option value="80">Bastón de rastreo</option>
-                          <option value="81">Silla para bañarse y evacuar</option>
+                            <option value="">Seleccionar...</option>
+                            <option value="Bastón Blanco">Bastón Blanco</option>
+                            <option value="Bastón Verde">Bastón Verde</option>
+                            <option value="Bastones canadienses">Bastones canadienses</option>
+                            <option value="Almohadón antiéscaras">Almohadón antiéscaras</option>
+                            <option value="Calzado ortopédico">Calzado ortopédico</option>
+                            <option value="Lupa">Lupa</option>
+                            <option value="Coche postural infantil">Coche postural infantil</option>
+                            <option value="Violín">Violín</option>
+                            <option value="Audífonos">Audífonos</option>
+                            <option value="Colchón anti escaras">Colchón anti escaras</option>
+                            <option value="Bastón de 3 ó 4 puntos">Bastón de 3 ó 4 puntos</option>
+                            <option value="Bulto pañal infantil grande">Bulto pañal infantil grande</option>
+                            <option value="Bulto pañal infantil chico">Bulto pañal infantil chico</option>
+                            <option value="Silla de ruedas">Silla de ruedas</option>
+                            <option value="Andador infantil con ruedas">Andador infantil con ruedas</option>
+                            <option value="Filtros Solares">Filtros Solares</option>
+                            <option value="Bulto pañal adulto chico">Bulto pañal adulto chico</option>
+                            <option value="Andador adulto sin ruedas">Andador adulto sin ruedas</option>
+                            <option value="Coche postural adulto">Coche postural adulto</option>
+                            <option value="Guinche">Guinche</option>
+                            <option value="Bastón de 1 punto">Bastón de 1 punto</option>
+                            <option value="Bulto pañal adulto mediano">Bulto pañal adulto mediano</option>
+                            <option value="Otros">Otros</option>
+                            <option value="Prótesis">Prótesis</option>
+                            <option value="Bulto pañal infantil mediano">Bulto pañal infantil mediano</option>
+                            <option value="Bulto pañal adulto grande">Bulto pañal adulto grande</option>
+                            <option value="Andador infantil sin ruedas">Andador infantil sin ruedas</option>
+                            <option value="Andador adulto con ruedas">Andador adulto con ruedas</option>
+                            <option value="Bastón de rastreo">Bastón de rastreo</option>
+                            <option value="Silla para bañarse y evacuar">Silla para bañarse y evacuar</option>
+                          </select>
 
-                        </select>
                         
                         <button onClick={() => guardarAgregarALista(selectedNombreLista, '')}>OK</button>
                         <button onClick={handleBlurAgregarALista}>Cancelar</button>
@@ -2098,8 +2180,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                     <ul className='ulEditable'>
                       {
                         Object.values(SelectedCandidato[selectedNombreLista]).map((item, index) => (
-                          <li key={index}>
-                          <button className='eliminar' onClick={()=>eliminarDeLista(selectedNombreLista, "", item.id)}>
+                          <li key={index} className='fondoAnim'>
+                          <button className='eliminar' onClick={()=>eliminarDeLista(selectedNombreLista, "", item.id, item.nombre)}>
                                 X
                           </button>
                           <strong>{item.nombre}</strong>
@@ -2114,25 +2196,19 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                           </div>
                         
                         <select class="form-select" ref={selectRefAgregarALista}>
-
                           <option value="">Seleccionar...</option>
-                          <option value="52">Pensión a la vejez - BPS</option>
-                          <option value="53">Asistencia a la vejez</option>
-                          <option value="54">Tarjeta Uruguay Social (TUS)</option>
-                          <option value="55">Pensión de BPS por discapacidad</option>
-                          <option value="56">Jubilación BPS</option>
-                          <option value="57">Asignaciones Familiares - Plan de Equidad (AFAM-PE)</option>
-                          <option value="58">Pensión de BPS por invalidez</option>
-                          <option value="59">Jubilación de otras cajas</option>
-
-
+                          <option value="Pensión a la vejez - BPS">Pensión a la vejez - BPS</option>
+                          <option value="Asistencia a la vejez">Asistencia a la vejez</option>
+                          <option value="Tarjeta Uruguay Social (TUS)">Tarjeta Uruguay Social (TUS)</option>
+                          <option value="Pensión de BPS por discapacidad">Pensión de BPS por discapacidad</option>
+                          <option value="Jubilación BPS">Jubilación BPS</option>
+                          <option value="Asignaciones Familiares - Plan de Equidad (AFAM-PE)">Asignaciones Familiares - Plan de Equidad (AFAM-PE)</option>
+                          <option value="Pensión de BPS por invalidez">Pensión de BPS por invalidez</option>
+                          <option value="Jubilación de otras cajas">Jubilación de otras cajas</option>
                         </select>
-                        
                         <button onClick={() => guardarAgregarALista(selectedNombreLista, '')}>OK</button>
-                        <button onClick={handleBlurAgregarALista}>Cancelar</button>
-
-                        
-                      </div>                       
+                        <button onClick={handleBlurAgregarALista}>Cancelar</button> 
+                      </div>                 
                       )}
                       {!showSelectAgregarALista && (
                       <button onClick={() => showSelectAgregar(SelectedCandidato, selectedNombreLista)}>Agregar</button>
@@ -2158,7 +2234,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                 <ul className='ulEditable'>
                   {
                     Object.values(SelectedCandidato[selectedNombreLista]).map((item, index) => (
-                      <li key={index}>{item.nombre}</li>
+                      <li key={index} >{item.nombre}</li>
                     ))
                   }
                 </ul>
@@ -2387,8 +2463,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <ul>
                         { 
                           SelectedCandidato[selectedRama]['motivosDesempleo'] && Object.values(SelectedCandidato[selectedRama]['motivosDesempleo']).map((item, index) => (
-                            <li key={index}>
-                            <button className='eliminar' onClick={()=>eliminarDeLista(selectedRama, 'motivosDesempleo', item.id)}>
+                            <li key={index} className='fondoAnim'>
+                            <button className='eliminar' onClick={()=>eliminarDeLista(selectedRama, 'motivosDesempleo', item.id, item.motivo)}>
                                   X
                             </button>
                             <strong>{item.motivo}</strong>
@@ -2405,16 +2481,15 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                           <select class="form-select" ref={selectRefAgregarALista}>
 
                               <option value="">Seleccionar...</option>
-                              <option value="102">LLEGABA TARDE</option>
-                              <option value="103">PROBLEMAS CON COMPAÑERO</option>
-                              <option value="104">HACERES HOGAR/CUIDADOS PERSONAS</option>
-                              <option value="105">REMUNERACIÓN BAJA</option>
-                              <option value="106">SALUD</option>
-                              <option value="107">ACCESIBILIDAD</option>
-                              <option value="108">DISCRIMINACIÓN</option>
-                              <option value="109">FALTA DE INTERÉS</option>
-                              <option value="110">DESPIDO/NO RENOVACIÓN</option>
-
+                              <option value="PROBLEMAS_CON_COMPANIERO">PROBLEMAS_CON_COMPANIERO</option>
+                              <option value="HACERES_HOGAR_CUIDADOS_PERSONAS">HACERES_HOGAR_CUIDADOS_PERSONAS</option>
+                              <option value="REMUNERACION_BAJA">REMUNERACION_BAJA</option>
+                              <option value="SALUD">SALUD</option>
+                              <option value="ACCESIBILIDAD">ACCESIBILIDAD</option>
+                              <option value="DISCRIMINACION">DISCRIMINACION</option>
+                              <option value="FALTA_INTERES">FALTA_INTERES</option>
+                              <option value="DESPIDO_NO_RENOVACION">DESPIDO_NO_RENOVACION</option>
+                            
                           </select>
                           
                           <button onClick={() => guardarAgregarALista(selectedRama, 'motivosDesempleo')}>OK</button>
@@ -2437,8 +2512,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <ul>
                         { 
                           SelectedCandidato[selectedRama]['actitudes'] && Object.values(SelectedCandidato[selectedRama]['actitudes']).map((item, index) => (
-                            <li key={index}>
-                            <button className='eliminar' onClick={()=>eliminarDeLista(selectedRama, 'actitudes', item.id)}>
+                            <li key={index} className='fondoAnim'>
+                            <button className='eliminar' onClick={()=>eliminarDeLista(selectedRama, 'actitudes', item.id, item.nombre)}>
                                   X
                             </button>
                             <strong>{item.nombre}</strong>
@@ -2454,15 +2529,15 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                           
                           <select class="form-select" ref={selectRefAgregarALista}>
 
-                              <option value="">Seleccionar...</option>
-                              <option value="104">Variedad de situaciones / Adaptabilidad</option>
-                              <option value="105">Relaciones interpersonales</option>
-                              <option value="102">Responsabilidad</option>
-                              <option value="103">Atención / Concentración</option>
-                              <option value="106">Autonomía / Iniciativa</option>
-                              <option value="107">Ninguna de las anteriores</option>
-
+                            <option value="">Seleccionar...</option>
+                            <option value="Variedad de situaciones / Adaptabilidad">Variedad de situaciones / Adaptabilidad</option>
+                            <option value="Responsabilidad">Responsabilidad</option>
+                            <option value="Atención / Concentración">Atención / Concentración</option>
+                            <option value="Relaciones interpersonales">Relaciones interpersonales</option>
+                            <option value="Autonomía / Iniciativa">Autonomía / Iniciativa</option>
+                            <option value="Ninguna de las anteriores">Ninguna de las anteriores</option>
                           </select>
+
                           
                           <button onClick={() => guardarAgregarALista(selectedRama, 'actitudes')}>OK</button>
                           <button onClick={handleBlurAgregarALista}>Cancelar</button>
@@ -2484,8 +2559,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <ul>
                         { 
                           SelectedCandidato[selectedRama]['gustosLaborales'] && Object.values(SelectedCandidato[selectedRama]['gustosLaborales']).map((item, index) => (
-                            <li key={index}>
-                            <button className='eliminar' onClick={()=>eliminarDeLista(selectedRama, 'gustosLaborales', item.id)}>
+                            <li key={index} className='fondoAnim'>
+                            <button className='eliminar' onClick={()=>eliminarDeLista(selectedRama, 'gustosLaborales', item.id, item.gusto)}>
                                   X
                             </button>
                             <strong>{item.gusto}</strong>
@@ -2501,15 +2576,15 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                           
                           <select class="form-select" ref={selectRefAgregarALista}>
 
-                              <option value="">Seleccionar...</option>
-                              <option value="102">REMUNERACIÓN</option>
-                              <option value="103">CARGA HORARIA</option>
-                              <option value="104">ACCESIBILIDAD</option>
-                              <option value="105">TAREAS QUE DESEMPEÑABA</option>
-                              <option value="106">HABÍA CAFÉ</option>
-                              <option value="107">RELACIONAMIENTO LABORAL</option>
-
+                            <option value="">Seleccionar...</option>
+                            <option value="REMUNERACION">REMUNERACION</option>
+                            <option value="CARGA_HORARIA">CARGA_HORARIA</option>
+                            <option value="ACCESIBILIDAD">ACCESIBILIDAD</option>
+                            <option value="TAREAS_QUE_DESEMPENIABA">TAREAS_QUE_DESEMPENIABA</option>
+                            <option value="HABIA_CAFE">HABIA_CAFE</option>
+                            <option value="RELACIONAMIENTO_LABORAL">RELACIONAMIENTO_LABORAL</option>
                           </select>
+
                           
                           <button onClick={() => guardarAgregarALista(selectedRama, 'gustosLaborales')}>OK</button>
                           <button onClick={handleBlurAgregarALista}>Cancelar</button>
@@ -2538,12 +2613,76 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
         return(
           <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Idiomas'} nombreCandidato={SelectedCandidato.nombre}>
             {
-              SelectedCandidato[selectedRama] && Object.values(SelectedCandidato[selectedRama]).map((item, index) => (
-                <ul key={index}>
-                  <strong>{item[selectedNombreLista].nombre}</strong>
-                  <li>{item.nivel}</li>
-                </ul>
-              ))
+              <ul className='ulEditable'>
+                {
+                  SelectedCandidato[selectedRama] && Object.values(SelectedCandidato[selectedRama]).map((item, index) => (
+                    
+                      
+                      <li className='fondoAnim' >
+                        <section>
+                          <button className="eliminar" onClick={()=>eliminarDeLista(selectedRama, selectedNombreLista, item.id, item[selectedNombreLista].nombre)}>X</button>
+                          <strong>{item[selectedNombreLista].nombre}</strong>
+                        </section>
+                        <section>
+                        <button onClick={()=>handleEditable(SelectedCandidato, item.id)}>
+                          <img src={editLogo} alt="Edit"/>
+                        </button>
+                        <span>Nivel: {item.nivel}</span>
+                        </section>
+                        
+                        { editable && candidatoEditable === SelectedCandidato && campoEditable === item.id && (
+                          <div>
+                            <Form.Control
+                              type="text"
+                              placeholder="Ingrese texto aquí"
+                              autoFocus
+                              ref={inputRef}
+                              />
+                            <button onClick={() => guardarCampo(selectedNombreLista,selectedRama, item.id)}>OK</button>
+                            <button onClick={handleBlur}>Cancelar</button>
+                         </div>
+                    )}
+                        
+                      </li>
+                  ))
+                }
+                {showSelectAgregarALista &&  candidatoAgregarALista == SelectedCandidato && selectAbrir === 'idioma' &&(
+                          
+                          <div >
+                            <div>
+                              <strong>Agregar nuevo idioma</strong>
+                            </div>
+                            
+                          
+                          <select class="form-select" ref={selectRefAgregarALista}>
+
+                            <option value="">Seleccionar...</option>
+                            
+                              {idiomas.map((item, index) =>
+                                <option value={item.nombre}>{item.nombre}</option>
+                              )
+                            }
+                            
+                            
+                          </select>
+
+                          
+                          <button onClick={() => guardarAgregarALista(selectedRama, 'idioma')}>OK</button>
+                          <button onClick={handleBlurAgregarALista}>Cancelar</button>
+
+                          
+                        </div>                       
+                        )}
+                        {!showSelectAgregarALista && (
+                        <button onClick={() => showSelectAgregar(SelectedCandidato, 'idioma')}>Agregar</button>
+
+
+                        )
+
+                        }
+
+              </ul>
+              
             }
 
           </ListaPopup>
@@ -2582,13 +2721,52 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                   </ul>
                   <h5>Tipo de discapacidades: </h5>
                   {
-                    <ul>
-                      
+                    <ul className='ulEditable'>
                       {
                         SelectedCandidato[selectedRama][selectedNombreLista] && Object.values(SelectedCandidato[selectedRama][selectedNombreLista]).map((item, index) => (   
-                          <li className='unCandidato' key={index}>{item.nombre}: {item.descripcion}</li>
+                          <li className='fondoAnim' key={index}>
+                            <button onClick={()=>handleEditable(SelectedCandidato, item.id)}>
+                              <img src={editLogo} alt="Edit"/>
+                            </button>
+                            <button className="eliminar" onClick={()=>eliminarDeLista(selectedRama, selectedNombreLista, item.id, item.nombre)}>X</button>
+                            <strong>{item.nombre}:</strong>
+                            <span>{item.descripcion}</span>
+                          </li>
                             ))
                       }
+                      {showSelectAgregarALista &&  candidatoAgregarALista == SelectedCandidato && selectAbrir === selectedNombreLista &&(
+                          
+                          <div >
+                            <div>
+                              <strong>Agregar nuevo tipo de discapacidad: </strong>
+                            </div>
+                          
+                          <select class="form-select" ref={selectRefAgregarALista}>
+
+                            <option value="">Seleccionar...</option>
+                            <option value="PSIQUICA">PSIQUICA</option>
+                            <option value="VER">VER</option>
+                            <option value="VISCERAL">VISCERAL</option>
+                            <option value="OIR">OIR</option>
+                            <option value="FISICO-MOTORAS">FISICO-MOTORAS</option>
+                            <option value="INTELECTUAL">INTELECTUAL</option>
+                          </select>
+
+
+                          
+                          <button onClick={() => guardarAgregarALista(selectedRama, selectedNombreLista)}>OK</button>
+                          <button onClick={handleBlurAgregarALista}>Cancelar</button>
+
+                          
+                        </div>                       
+                        )}
+                        {!showSelectAgregarALista && (
+                        <button onClick={() => showSelectAgregar(SelectedCandidato, selectedNombreLista)}>Agregar</button>
+
+
+                        )
+
+                        } 
                       
                     </ul>
                   }
@@ -2606,9 +2784,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
   }
 
   const ListaPopup = ({ show, onHide, nombreLista, nombreCandidato, children}) => {
-
-   
     // const datos = lista[sub];
+    debugger
     
     return (
       <Modal show = {show} onHide={onHide} dialogClassName="custom-modal">
@@ -2647,14 +2824,18 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
       <div className="agregar-filtro">
         <select value={nuevoFiltro} onChange={manejarCambioNuevoFiltro}>
           <option value="">Seleccionar filtro...</option>
-          <option value="documento">Documento</option>
           <option value="mayores a">Mayores a...(edad)</option>
           <option value="menores a">Menores a...(edad)</option>
+          <option value="departamento">Departamento</option>
+          <option value="libreta_Conducir">Libreta de conducir</option>
+          <option value="idioma">Idioma</option>
+          <option value="tipo_discapicidad">Tipo de discapacidad</option>
+          <option value="documento">Documento</option>
+          <option value="Registro Nacional de Persona con Discapacidad">Registro Nacional de Persona con Discapacidad</option>
           <option value="Area">Área</option>
           <option value="Apoyo">Apoyo</option>
           <option value="Habilidad">Habilidad</option>
           <option value="Turno">Turno</option>
-          <option value="tipo_discapicidad">Tipo de discapacidad</option>
           <option value="motivo_desempleo">Motivo de desempleo</option>
           <option value="ayuda_tecnica">Ayuda Técnica</option>
         </select>
@@ -2666,6 +2847,39 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
         )}
         {nuevoFiltro === 'documento' && (
           <input className = "inputText" type='text' value={subFiltro} onChange={manejarCambioSubFiltro}/>
+        )}
+        {nuevoFiltro === 'idioma' && (
+          <select value={subFiltro} onChange={manejarCambioSubFiltro}>
+            <option value="">Seleccionar Departamento...</option>
+            {idiomas.map((item, index) =>
+                <option value={item.nombre}>{item.nombre}</option>
+              )
+            }
+          </select>
+        )}
+        {nuevoFiltro === 'departamento' && (
+          <select value={subFiltro} onChange={manejarCambioSubFiltro}>
+            <option value="">Seleccionar Departamento...</option>
+            <option value="Artigas">Artigas</option>
+            <option value="Canelones">Canelones</option>
+            <option value="Cerro Largo">Cerro Largo</option>
+            <option value="Colonia">Colonia</option>
+            <option value="Durazno">Durazno</option>
+            <option value="Flores">Flores</option>
+            <option value="Florida">Florida</option>
+            <option value="Lavalleja">Lavalleja</option>
+            <option value="Maldonado">Maldonado</option>
+            <option value="Montevideo">Montevideo</option>
+            <option value="Paysandu">Paysandú</option>
+            <option value="Río Negro">Río Negro</option>
+            <option value="Rivera">Rivera</option>
+            <option value="Rocha">Rocha</option>
+            <option value="Salto">Salto</option>
+            <option value="San José">San José</option>
+            <option value="Soriano">Soriano</option>
+            <option value="Tacuarembo">Tacuarembó</option>
+            <option value="Treinta y Tres">Treinta y Tres</option>
+          </select>
         )}
         {nuevoFiltro === 'Area' && (
           <select value={subFiltro} onChange={manejarCambioSubFiltro}>
@@ -2882,6 +3096,18 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
               mostrarEstructura()
             ) 
           }
+      </div>
+      <div>
+      {isConfirming &&(
+        <ConfirmPopUp 
+            show={isConfirming} 
+            onHide={handleCancel}
+            eliminar={handleConfirm}
+            nombreEliminar={nombreAEliminar}>
+          
+        </ConfirmPopUp>
+        )                   
+      } 
       </div>
 
     </div>
