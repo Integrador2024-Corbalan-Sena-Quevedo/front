@@ -46,8 +46,106 @@ const BusquedaConFiltrosEmpleos = () => {
   const [selectedEmpresa, setSelectedEmpresa] = useState(null);
   const [selectedLista, setSelectedLista] = useState('');
   const [empresaEditable, setEmpresaEditable] = useState(null);
+  const [showAgregarALista, setShowAgregarALista] = useState(false);
+  const [empresaAgregarALista, setEmpresaAgregarALista] = useState(null);
+  const [abrirAgregarALista, setAbrirAgregarALista] = useState('');
+
+  const [messageFetchCandidato, setMessageFetchCandidato] =  useState('');
+  const token = localStorage.getItem('token');
+  const usuario = localStorage.getItem('user');
 
   const inputRef = useRef(null);
+
+  const [idAEliminar, setIdAEliminar] = useState(null);
+  const [isConfirming, setIsConfirming] = useState(false); // Nuevo estado para mostrar el popup de confirmación
+  const [estadoSelect, setEstadoSelect]= useState(null);
+  const [nombreAEliminar, setNombreAEliminar]= useState(null);
+  const [selectedListaElim, setSelectedListaElim] = useState('');
+  const [selectedSubListaElim, setSelectedSubListaElim] = useState('');
+  const [posAElim, setPosAElim] = useState(null);
+
+
+
+  const eliminarDeLista = async (lista, sublista, idAEliminar, nombreAEliminar, pos) => {
+    debugger
+    setIdAEliminar(idAEliminar);
+    setNombreAEliminar(nombreAEliminar);
+    setSelectedListaElim(lista);
+    setSelectedSubListaElim(sublista);
+    setPosAElim(pos);
+    console.log("Id a eliminar :"+ idAEliminar);
+    console.log("Dato a borrar "+ nombreAEliminar);
+    console.log("lista: "+ lista);
+    console.log("Sub Lista: "+ sublista);
+    
+    setIsConfirming(true); // Mostrar el popup de confirmación
+    
+    debugger
+  };
+
+  const handleConfirm = async () => {
+    setIsConfirming(false); // Ocultar el popup de confirmación
+    const response = await eliminarDatoLista(`${selectedEmpresa.id}`,`${selectedEmpleo.id}`,  selectedListaElim, selectedSubListaElim, `${idAEliminar}`, nombreAEliminar, `${posAElim}`);
+    handleBlur();
+    if (response.status != 200) {
+      alert('Error al eliminar');
+    } else {
+      alert('Eliminado correctamente');
+      //actualizarLista(idAEliminar, selectedListaElim, selectedSubListaElim);
+      
+    }
+
+    // handleShowPopup(estadoSelect, selectedEmpleo);
+  };
+
+  const handleCancel = () => {
+    setIsConfirming(false); // Ocultar el popup de confirmación
+    // handleShowPopup(estadoSelect, selectedEmpleo);
+  };
+
+  const ConfirmPopUp = ({show, onHide, eliminar, selectedSubLista}) => {
+    debugger
+    return (
+      <Modal show = {show} onHide={onHide}>
+        <Modal.Header closeButton className='modalHeder'>
+        <Modal.Title className='titulosListas'>Eliminar un {selectedSubLista}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='modalBody'>
+        <div>
+          <h3>¿Estás seguro de que deseas eliminar?</h3>
+        </div>
+        </Modal.Body>
+        <Modal.Footer>
+        <Button variant="primary" onClick={eliminar}>
+          Aceptar
+        </Button>
+        <Button variant="primary" onClick={onHide}>
+          Cancelar
+        </Button>
+        
+        </Modal.Footer>
+
+      </Modal>
+    );
+
+    
+  };
+
+  const showSelectAgregar = (candidato, selectAbrir)=>{
+    setShowAgregarALista(true);
+    setEmpresaAgregarALista(candidato);
+    setAbrirAgregarALista(selectAbrir);
+  }
+
+  const handleBlurAgregarALista = () => {
+    setShowAgregarALista(false);
+    setEmpresaAgregarALista(null);
+    setAbrirAgregarALista('');
+
+  }
+
+
+
 
   const handleEditable = (empresa, campo) => {
     console.log('Llegue')
@@ -55,6 +153,57 @@ const BusquedaConFiltrosEmpleos = () => {
     setEmpresaEditable(empresa);
     setCampoEditable(campo);
   }
+
+  const eliminarDatoLista = async (empresaId, empleoId, lista, subLista, idAEliminar, nombreAEliminar, posAElim) => {
+
+    console.log(token);
+    try {
+      const response = await fetch(`http://localhost:8080/actualizar/eliminarSubListaEmpresa`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({empresaId:empresaId,empleoId:empleoId, userName:usuario, lista:lista, subLista:subLista, id:idAEliminar, nombreAEliminar:nombreAEliminar, posAElim:posAElim})
+      });
+
+      return response;
+  
+    } catch (error) {
+      console.error('Error:', error);
+      return error;
+    }
+  };
+
+  
+
+  const actualizarCampo = async (empresaId, empleoId, campo, datoAct, datoAnt, lista, subLista) => {
+    try {
+
+      console.log(JSON.stringify(empresaId,empleoId, usuario,  campo, datoAct, datoAnt, lista, subLista))
+
+      console.log(token);
+      const response = await fetch(`http://localhost:8080/actualizar/empresa`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({empresaId:empresaId, empleoId:empleoId, userName:usuario, campo:campo, datoAct:datoAct, datoAnt:datoAnt, lista:lista, subLista:subLista})
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al actualizar');
+      }
+      setMessageFetchCandidato('Actulizacion existosa');
+
+      return response;
+    } catch (error) {
+      console.error('Error:', error);
+      setMessageFetchCandidato('Error al actualizar');
+      return response;
+    }
+  };
 
   const guardarCampo = async (lista, subLista, datoAnt) =>{
     debugger
@@ -66,13 +215,228 @@ const BusquedaConFiltrosEmpleos = () => {
     console.log('Nuevo subLista: '+subLista);
     console.log('Dato anteriror: '+datoAnt);
     
-    //const response = await actualizarCampo(`${SelectedCandidato.id}`, campoEditable, nuevoValor, datoAnt, lista, subLista);
-    
-
+    const response = await actualizarCampo(`${selectedEmpresa.id}`, `${selectedEmpleo.id}`, campoEditable, nuevoValor, datoAnt, lista, subLista);
+    alert(messageFetchCandidato);
+    debugger
     handleBlur();
-    //actualizarListaCandidatos(nuevoValor, lista, subLista);
-    //setShowPopup(true);
+    debugger
+    actualizarLista(nuevoValor, lista, subLista);
+    setShowPopup(true);
+    debugger
   }
+
+  const agregarALista = async (empresaId, empleoId, lista, subLista, id) => {
+    try {
+      const response = await fetch(`http://localhost:8080/actualizar/agregarASubListaEmpresa`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({empresaId:empresaId, empleoId:empleoId, userName:usuario, lista:lista, subLista:subLista, id:id}), 
+      });
+
+      return response;
+
+    } catch (error) {
+      console.error('Error al agregar', error);
+      return error
+    }
+  };
+
+  const guardarAgregarALista = async (lista, subLista) => {
+    const nuevoValor = inputRef.current.value;
+
+      console.log('Nombre lista: '+lista);
+      console.log('Nombre Sublista: '+subLista);
+      console.log('Nombre a agregar: '+ nuevoValor);
+      console.log('id candidadto: '+ empresaAgregarALista.id);
+
+      debugger
+    const response = await agregarALista(`${empresaAgregarALista.id}`,`${selectedEmpleo.id}`, lista, subLista, nuevoValor);
+    handleBlur();
+    handleBlurAgregarALista();
+    if (!response.ok) {
+      alert('Error al agregar');
+    }else{
+      alert('Agregado correctamente');
+      //actualizarLista(nuevoValor, lista, subLista);
+      //setShowPopup(true);
+    }
+  }
+
+  const actualizarLista = async (nuevoValor, lista, subLista) =>{
+    let empresaActualizado = null;
+    let empleoActualizado = null;
+
+    debugger
+
+    if (lista == "" && subLista == "") {
+      debugger
+      empresaActualizado = {
+        ...selectedEmpresa, 
+        [campoEditable] : nuevoValor,
+      };
+    }else{
+      debugger
+      if (lista != "" && subLista == "") {
+        if (lista == "empleo") {
+          debugger
+          empresaActualizado = {
+            ...selectedEmpresa, 
+            [lista]: selectedEmpresa[lista].map((item, index)=>
+              item.id === selectedEmpleo.id ? {...item, 
+                [campoEditable] : nuevoValor
+              } : item
+            )
+          };
+          empleoActualizado = empresaActualizado[lista].find((item) => item.id === selectedEmpleo.id);
+          debugger
+        }else{
+          debugger
+          if(lista == 'telefonos'){
+            empresaActualizado = {
+              ...selectedEmpresa,
+              [lista]: 
+                selectedEmpresa[lista].map((item, index) => 
+                  index === 0 ? { ...item, [campoEditable]: nuevoValor } : item
+                )
+              }
+          }else{
+            empresaActualizado = {
+              ...selectedEmpresa,
+              [lista]: {
+                ...selectedEmpresa[lista],
+                [campoEditable]: nuevoValor,
+              }
+            };
+          }
+        }
+      }else{
+        debugger
+        if(subLista == "conocimientosEspecificosEmpleo"){
+          empresaActualizado = {
+            ...selectedEmpresa, 
+            [lista]: 
+            selectedEmpresa[lista].map((item, index)=>
+              item.id === selectedEmpleo.id ? {...item,
+                [subLista]: {
+                  ...item[subLista],
+                  [campoEditable] :nuevoValor,
+                }
+              } : item
+            )
+          };
+          empleoActualizado = empresaActualizado[lista].find((item) => item.id === selectedEmpleo.id);
+        }else{
+          debugger
+            const partes = campoEditable.split("-");
+            const largo = partes.length;
+          if (subLista == "tareas") {
+            debugger
+            
+
+            debugger
+
+            if (lista == "empleo" && subLista == "tareas") {
+              debugger
+              //lista:empleo
+              //subLista:tareas
+              const indexpos = partes[0];
+              const nombreCampo = partes[1];
+
+              const indexPos = Number(indexpos);
+            
+
+              debugger
+              empresaActualizado = {
+                ...selectedEmpresa, 
+                [lista]: 
+                  selectedEmpresa[lista].map((item, index) =>
+                    item.id === selectedEmpleo.id ? {
+                      ...item,
+                      [subLista]: item[subLista].map((item2, index2) =>
+                        indexPos === index2 ? {
+                          ...item2,
+                          [nombreCampo]: nuevoValor
+                        } : item2
+                      )
+                    } : item
+                  )
+              };
+              empleoActualizado = empresaActualizado[lista].find((item) => item.id === selectedEmpleo.id);
+              debugger
+            }
+            
+          }else{
+            debugger
+              if (lista == "tareas" && subLista == "detalleTarea") {
+                //lista: tareas 
+                //subLista: detalleTarea 
+                debugger
+
+                const posTarea = partes[0];
+                const posdetalle = partes[1];
+                const idDetalle = partes[2];
+
+                const postarea = Number(posTarea);
+                const posDetalle = Number(posdetalle);
+
+
+                debugger
+
+                empresaActualizado = {
+                  ...selectedEmpresa, 
+                  ["empleo"]: 
+                    selectedEmpresa["empleo"].map((item, index) =>
+                      item.id === selectedEmpleo.id ? {
+                        ...item,
+                        [lista]: item[lista].map((item2, index2) =>
+                          postarea === index2 ? {
+                            ...item2,
+                            [subLista] : item2[subLista].map((item3, index3)=>
+                              posDetalle === index3 ? {
+                                ...item3,
+                                ["detalle"] : nuevoValor
+                              } : item3
+                            )
+                          } : item2
+                        )
+                      } : item
+                    )
+                };
+                empleoActualizado = empresaActualizado["empleo"].find((item) => item.id === selectedEmpleo.id);
+                debugger
+              }
+          }
+        }
+          
+      }
+    }
+
+
+
+
+    // Actualizar la lista de candidatos
+    debugger
+    const listaActualizada = empresas.map(empresa =>
+      empresa === selectedEmpresa ? empresaActualizado : empresa
+    );
+
+    debugger
+    
+    setSelectedEmpresa(empresaActualizado);
+    setEmpresas(listaActualizada); // Actualiza la lista de candidatos
+    if (empleoActualizado != null) {
+      setSelectedEmpleo(empleoActualizado);
+    }
+    debugger
+    
+    debugger
+  }
+
+  
+
 
   const handleBlur = () => {
     console.log('Estoy');
@@ -105,6 +469,7 @@ const BusquedaConFiltrosEmpleos = () => {
       setSelectedLista(lista);
       setselectedSubLista(subLista);
       setSelectedEmpleo(empleo);
+      setEstadoSelect(e);
     };
   
       const handleClosePopup = () => {
@@ -440,12 +805,12 @@ const BusquedaConFiltrosEmpleos = () => {
                             <img src={editLogo} alt="Edit"/>
                           </button>
                             <strong>Fecha respuesta: </strong> 
-                            <span>{selectedEmpresa[selectedLista].fechaRespuesta[2]}/{selectedEmpresa[selectedLista].fechaRespuesta[1]}/{selectedEmpresa[selectedLista].fechaRespuesta[0]} </span>
+                            <span>{selectedEmpresa[selectedLista].fechaRespuesta != null ? `${selectedEmpresa[selectedLista].fechaRespuesta[2]}/${selectedEmpresa[selectedLista].fechaRespuesta[1]}/${selectedEmpresa[selectedLista].fechaRespuesta[0]}` : ""} </span>
                             { editable && empresaEditable === selectedEmpresa && campoEditable === 'fechaRespuesta' && (
 
                               <div>
                                 <Form.Control
-                                 type="text"
+                                 type="date"
                                   placeholder="Ingrese un nuevo valor"
                                   autoFocus
                                   ref={inputRef}
@@ -708,13 +1073,31 @@ const BusquedaConFiltrosEmpleos = () => {
                     <div>
                       {
                         <ul className='ulEditable'>
+                            
                             {
-                              selectedEmpresa[selectedLista] && Object.values(selectedEmpresa[selectedLista]).map((item, index) => (
-                                <li key={index}>
+                               selectedEmpresa[selectedLista] && Object.values(selectedEmpresa[selectedLista]).map((item, index) => (
+                                <li key={index} className='fondoAnim'>
+                                  <button onClick={()=>handleEditable(selectedEmpresa, item.id)}>
+                                    <img src={editLogo} alt="Edit"/>
+                                  </button>
+                                  <button className="eliminar" onClick={()=>eliminarDeLista(selectedLista, selectedSubLista, item.id)}>X</button>
                                   <strong>{item.email}</strong>
+                                  { editable && empresaEditable === selectedEmpresa && campoEditable === item.id && (
+
+                                    <div>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="Ingrese el nuevo valor"
+                                        autoFocus
+                                        ref={inputRef}
+                                        />
+                                      <button onClick={() => guardarCampo(selectedLista, selectedSubLista, item.email)}>OK</button>
+                                      <button onClick={handleBlur}>Cancelar</button>
+                                  </div>
+                                  )} 
                                 </li>
                               ))
-                            }  
+                            }
                         </ul>
                       }
                     </div>
@@ -1576,7 +1959,7 @@ const BusquedaConFiltrosEmpleos = () => {
 
             case "conocimientosEspecificosEmpleo":
               return(
-                <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Conocimientos para el empleo'} nombreEmpleo={selectedEmpleo.nombrePuesto}>
+                <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Conocimientos para el empleo'} nombreEmpleo={selectedEmpleo.nombrePuesto} selectedEmpresa={selectedEmpresa}>
                       {
                         <div>
                           {
@@ -1858,21 +2241,22 @@ const BusquedaConFiltrosEmpleos = () => {
             
               case "tareas":
                 return(
-                  <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Tareas para el empleo'} nombreEmpleo={selectedEmpleo.nombrePuesto}>
+                  <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Tareas para el empleo'} nombreEmpleo={selectedEmpleo.nombrePuesto} selectedEmpresa={selectedEmpresa}>
                     {
                       <div>
                         {
-                          <div>
+                          <div className='ulEditable'> 
                             {
                                 selectedEmpleo[selectedSubLista] && Object.values(selectedEmpleo[selectedSubLista]).map((item, index) => (
-                                  <ul className='ulEditable'>
+                                  <ul >
+                                    <section className='fondoAnim'>
                                     <section>
-                                    <button onClick={()=>handleEditable(selectedEmpresa, `${index}|nombre`)}>
+                                    <button onClick={()=>handleEditable(selectedEmpresa, `${index}-nombre`)}>
                                       <img src={editLogo} alt="Edit"/>
                                     </button>
                                       <strong>Nombre: </strong>
                                       <span>{item.nombre}</span>
-                                      { editable && empresaEditable === selectedEmpresa && campoEditable === `${index}|nombre` && (
+                                      { editable && empresaEditable === selectedEmpresa && campoEditable === `${index}-nombre` && (
 
                                           <div>
                                             <Form.Control
@@ -1887,12 +2271,12 @@ const BusquedaConFiltrosEmpleos = () => {
                                         )} 
                                     </section>
                                     <section>
-                                    <button onClick={()=>handleEditable(selectedEmpresa, `${index}|otras`)}>
+                                    <button onClick={()=>handleEditable(selectedEmpresa, `${index}-otras`)}>
                                       <img src={editLogo} alt="Edit"/>
                                     </button>
                                       <strong>Otras: </strong>
                                       <span>{item.otras}</span>
-                                      { editable && empresaEditable === selectedEmpresa && campoEditable === `${index}|otras` && (
+                                      { editable && empresaEditable === selectedEmpresa && campoEditable === `${index}-otras` && (
 
                                           <div>
                                             <Form.Control
@@ -1912,11 +2296,13 @@ const BusquedaConFiltrosEmpleos = () => {
                                           item["detalleTarea"] && Object.values(item["detalleTarea"]).map((unDetalle, pos) => (
                                             <ul key={pos}>
                                               <li>
-                                                <button onClick={()=>handleEditable(selectedEmpresa, `${index}|${pos}|${unDetalle.id}`)}>
+                                                <button onClick={()=>handleEditable(selectedEmpresa, `${index}-${pos}-${unDetalle.id}`)}>
                                                   <img src={editLogo} alt="Edit"/>
                                                 </button>
+                                                <button className="eliminar" onClick={()=>eliminarDeLista(selectedSubLista, "detalleTarea", unDetalle.id, unDetalle.detalle, index)}>X</button>
+
                                                 <span>{unDetalle.detalle}</span>
-                                                { editable && empresaEditable === selectedEmpresa && campoEditable === `${index}|${pos}|${unDetalle.id}` && (
+                                                { editable && empresaEditable === selectedEmpresa && campoEditable === `${index}-${pos}-${unDetalle.id}` && (
 
                                                   <div>
                                                     <Form.Control
@@ -1928,18 +2314,80 @@ const BusquedaConFiltrosEmpleos = () => {
                                                     <button onClick={() => guardarCampo(selectedSubLista, "detalleTarea" , unDetalle.detalle)}>OK</button>
                                                     <button onClick={handleBlur}>Cancelar</button>
                                                   </div>
-                                                )} 
+                                                )}
                                               </li>
                                             </ul>
-                                  
                                           ))
                                         }  
+                                        {showAgregarALista &&  empresaAgregarALista == selectedEmpresa && abrirAgregarALista === index &&(
+                          
+                                                  <div>
+                                                    <div>
+                                                      <strong>Agregar nuevo Detalle:</strong>
+                                                        </div>
+                                                            <Form.Control
+                                                              type="text"
+                                                              placeholder="Ingrese un nuevo valor"
+                                                              autoFocus
+                                                              ref={inputRef}
+                                                                />
+
+                                                    <button onClick={() => guardarAgregarALista(index, "detalleTarea")}>OK</button>
+                                                    <button onClick={handleBlurAgregarALista}>Cancelar</button>
+                                                  </div>                       
+                                                )}
+                                                {!showAgregarALista && (
+                                                <button className='agregar' onClick={() => showSelectAgregar(selectedEmpresa, index)}>Agregar Detalle</button>
+                                                )} 
                                     </section>
+                                     
+                                    </section>
+                                    
                                   </ul>
                                 ))
-                              
                             }
-                          </div>    
+                            {showAgregarALista &&  empresaAgregarALista == selectedEmpresa && abrirAgregarALista === `${selectedSubLista}-Esencial` &&(
+                          
+                          <div>
+                            <div>
+                              <strong>Agregar nueva tarea esencial:</strong>
+                            </div>
+                                <Form.Control
+                                  type="text"
+                                  placeholder="Ingrese un nuevo valor"
+                                  autoFocus
+                                  ref={inputRef}
+                                  />
+
+                            <button onClick={() => guardarAgregarALista(selectedLista, `${selectedSubLista}-Esencial`)}>OK</button>
+                            <button onClick={handleBlurAgregarALista}>Cancelar</button>
+                          </div>                       
+                        )}
+                        {!showAgregarALista && (
+                        <button className='agregar' onClick={() => showSelectAgregar(selectedEmpresa, `${selectedSubLista}-Esencial`)}>Tarea Esencial</button>
+                        )} 
+                        {showAgregarALista &&  empresaAgregarALista == selectedEmpresa && abrirAgregarALista === `${selectedSubLista}-NoEsencial` &&(
+                          
+                          <div>
+                            <div>
+                              <strong>Agregar nueva tarea no esencial:</strong>
+                            </div>
+                                <Form.Control
+                                  type="text"
+                                  placeholder="Ingrese un nuevo valor"
+                                  autoFocus
+                                  ref={inputRef}
+                                  />
+
+                            <button onClick={() => guardarAgregarALista(selectedLista, `${selectedSubLista}-NoEsencial`)}>OK</button>
+                            <button onClick={handleBlurAgregarALista}>Cancelar</button>
+                          </div>                       
+                        )}
+                        {!showAgregarALista && (
+                        <button className='agregar' onClick={() => showSelectAgregar(selectedEmpresa, `${selectedSubLista}-NoEsencial`)}>Tarea No Esencial</button>
+                        )}
+                          </div>
+                              
                         }
                       </div>
                     }
@@ -1963,7 +2411,7 @@ const BusquedaConFiltrosEmpleos = () => {
       
   }
 
-  const ListaPopup = ({ show, onHide, nombreLista, nombreEmpleo, children}) => {
+  const ListaPopup = ({ show, onHide, nombreLista, nombreEmpleo, children, selectedEmpresa}) => {
     // const datos = lista[sub];
     
     return (
@@ -2010,7 +2458,6 @@ const BusquedaConFiltrosEmpleos = () => {
           <option value="rut">Rut</option>
           <option value="" disabled>Empleos</option>
           <option value="departamento">Departamento</option>
-          <option value="edad_preferente">Preferencia de edad</option>
           <option value="nombre_puesto">Nombre del puesto</option>
 
 
@@ -2019,17 +2466,43 @@ const BusquedaConFiltrosEmpleos = () => {
         {nuevoFiltro === 'rut' && (
           <input type='number' value={subFiltro} onChange={manejarCambioSubFiltro}/>
         )}
-        {nuevoFiltro === 'edad_preferente' && (
-          <input type='number' value={subFiltro} onChange={manejarCambioSubFiltro}/>
-        )}
+        
         {nuevoFiltro === 'nombreEmpresa' && (
           <input type='text' value={subFiltro} onChange={manejarCambioSubFiltro}/>
         )}
-        {nuevoFiltro === 'departamento' && (
+        {nuevoFiltro === 'actividad_economica' && (
           <input type='text' value={subFiltro} onChange={manejarCambioSubFiltro}/>
         )}
+        {nuevoFiltro === 'rama_economica' && (
+          <input type='text' value={subFiltro} onChange={manejarCambioSubFiltro}/>
+        )}
+        
         {nuevoFiltro === 'nombre_puesto' && (
           <input type='text' value={subFiltro} onChange={manejarCambioSubFiltro}/>
+        )}
+        {nuevoFiltro === 'departamento' && (
+          <select value={subFiltro} onChange={manejarCambioSubFiltro}>
+            <option value="">Seleccionar Departamento...</option>
+            <option value="Artigas">Artigas</option>
+            <option value="Canelones">Canelones</option>
+            <option value="Cerro Largo">Cerro Largo</option>
+            <option value="Colonia">Colonia</option>
+            <option value="Durazno">Durazno</option>
+            <option value="Flores">Flores</option>
+            <option value="Florida">Florida</option>
+            <option value="Lavalleja">Lavalleja</option>
+            <option value="Maldonado">Maldonado</option>
+            <option value="Montevideo">Montevideo</option>
+            <option value="Paysandu">Paysandú</option>
+            <option value="Río Negro">Río Negro</option>
+            <option value="Rivera">Rivera</option>
+            <option value="Rocha">Rocha</option>
+            <option value="Salto">Salto</option>
+            <option value="San José">San José</option>
+            <option value="Soriano">Soriano</option>
+            <option value="Tacuarembo">Tacuarembó</option>
+            <option value="Treinta y Tres">Treinta y Tres</option>
+          </select>
         )}
         <button onClick={manejarAgregarFiltro}>Agregar Filtro</button>
           </div>
@@ -2088,6 +2561,18 @@ const BusquedaConFiltrosEmpleos = () => {
               mostrarEstructura()
             ) 
           }
+      </div>
+      <div>
+      {isConfirming &&(
+        <ConfirmPopUp 
+            show={isConfirming} 
+            onHide={handleCancel}
+            eliminar={handleConfirm}
+            selectedSubLista={selectedSubListaElim}>
+          
+        </ConfirmPopUp>
+        )                   
+      } 
       </div>
 
     </div>
