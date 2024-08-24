@@ -164,7 +164,7 @@ const FollowView = () => {
                 <h2>Seguimientos</h2>
                 <button className="close-button" onClick={() => setIsViewModalOpen(false)}>✖</button>
                 </div>
-                <div className="modal-content">
+                <div className="modal-content-follow-view">
                 {Array.isArray(selectedFollow.detalles) && selectedFollow.detalles.length > 0 ? (
                     selectedFollow.detalles.map((detalle, index) => (
                     <FollowDetailCard

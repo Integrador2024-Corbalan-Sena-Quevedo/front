@@ -10,7 +10,7 @@ import BusquedaConFiltros from "./BusquedaFiltrado";
 Modal.setAppElement('#root');
 
 const JobMatch = () => {
-    const { jobs, loading, messageFetchJobs, fetchCandidates, fetchCandidatesIA, fetchSendEmailToCompany } = useFetchJobs();
+    const { jobs, jobsActives,loading, messageFetchJobs, fetchCandidates, fetchCandidatesIA, fetchSendEmailToCompany } = useFetchJobs();
 
     const [candidatesMap, setCandidatesMap] = useState({});
     const [commentsIAMap, setCommentsIAMap] = useState({});
@@ -111,9 +111,7 @@ const JobMatch = () => {
     if (loading) {
         return <div>Cargando...</div>;
     }
-    if (messageFetchJobs) {
-        return <div>Error: {messageFetchJobs}</div>;
-    }
+
 
 
     return (
@@ -131,7 +129,7 @@ const JobMatch = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {jobs.map(job => (
+                    {jobsActives.map(job => (
                         <tr key={job.id}>
                             <td className="td"> <strong>{job.nombrePuesto}</strong></td>
                             <td className="td"> <strong>{job.empresaNombre}</strong></td>
@@ -180,9 +178,17 @@ const JobMatch = () => {
                 <h2>Lista de Candidatos</h2>
                 <button  className={stylesModal.matchButtonClose} onClick={closeModal}>Cerrar</button>
                 <div>
-                    {candidatesMap[currentJobId]?.map(candidate => (
-                        <Candidato key={candidate.id} candidato={candidate} onRemove={() => handleRemoveCandidate(candidate.id, currentJobId)} />
-                    ))}
+                    {candidatesMap[currentJobId]?.length > 0 ? (
+                        candidatesMap[currentJobId].map(candidate => (
+                            <Candidato
+                                key={candidate.id}
+                                candidato={candidate}
+                                onRemove={() => handleRemoveCandidate(candidate.id, currentJobId)}
+                            />
+                        ))
+                    ) : (
+                        <p className="text-no-candidate-disponible">No hay candidatos disponibles.</p>
+                    )}
                 </div>
                 <button className={stylesModal.matchButtonAdd} onClick={() => setIsAddingCandidate(true)} >
                     Agregar candidato manualmente

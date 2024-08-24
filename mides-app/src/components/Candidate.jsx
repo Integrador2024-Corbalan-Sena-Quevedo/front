@@ -11,7 +11,6 @@ const Candidate = ({ candidato, onRemove  }) => {
             <p><span className="campo">Dirección:</span> {candidato.dirreccion.calle}, {candidato.dirreccion.localidad}</p>
             <p><span className="campo">Educación:</span> {candidato.educacion.nivelEducativo}</p>
             <p><span className="campo">Situación Laboral:</span> {candidato.experienciaLaboral.descripcionSituacionLaboral}</p>
-            {/* Agrega más campos según necesites */}
             <button onClick={() => onRemove(candidato.id)}>X</button>
         </div>
     );

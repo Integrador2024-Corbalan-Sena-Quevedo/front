@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import '../styles/FileUpload.css'
 
-import { Button } from 'bootstrap';
 
 import uploadIcon from "../img/upload.png"
 
@@ -10,6 +9,7 @@ const FileUpload = () => {
   const [file, setFile] = useState(null);
   const [uploadMessage, setUploadMessage] = useState('');
   const [selectedOptionTypeFile, setSelectedOptionTypeFile] = useState('');
+  const [isSubmit, setIsSubmit] = useState(false);
 
 
 
@@ -35,6 +35,8 @@ const FileUpload = () => {
       setUploadMessage("Seleccione un tipo");
       return;
     }
+
+    setIsSubmit(true);
 
     const formData = new FormData();
     formData.append('file', file);
@@ -66,6 +68,9 @@ const FileUpload = () => {
     } catch (error) {
       console.error('Error al enviar el archivo:', error);
     }
+    finally {
+      setIsSubmit(false); // Volver a habilitar el botón después de completar la carga
+    }
   };
 
   const handleLabelClick = () => {
@@ -87,7 +92,7 @@ const FileUpload = () => {
               <option value="CANDIDATE">Candidato</option>
               <option value="COMPANY">Empresa</option>
             </select>
-            <button type="sumbit" className="btn-attachment">Enviar</button>
+            <button type="sumbit" className="btn-attachment" disabled={isSubmit}>Enviar</button>
         </form>
         {uploadMessage && <p id="upload-message">{uploadMessage}</p>}    
     </div>
