@@ -12,6 +12,7 @@ const Estadisticas = () => {
   const [dataCandidatosDiscapacidad, setCandidatosDiscapacidad] = useState([]);
   const [dataCandidatosEducacion, setCandidatosEducacion] = useState([]);
   const [dataCandidatosCargaHoraria, setCandidatosCargaHoraria] = useState([]);
+  const [dataCandidatosTrabajando, setCandidatosTrabajando] = useState([]);
   const [selectedStatCandidato, setSelectedStatCandidato] = useState('candidatoGenero'); 
   const [selectedStatEmpleo, setSelectedStatEmpleo] = useState('empleosDepartamento'); 
 
@@ -19,6 +20,20 @@ const Estadisticas = () => {
     '#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AA336A', '#FF9999', '#FF6666', '#CCCC00', '#CC00CC', '#9900CC',
     '#FF5733', '#C70039', '#900C3F', '#581845', '#2ECC71', '#AF7AC5', '#5499C7', '#F4D03F', '#E74C3C', '#45B39D'
   ];
+
+  const CustomLegend = ({ data, colors, title }) => (
+    <div style={{ marginTop: '20px' }}>
+      <h4>{title}</h4>
+      <ul style={{ listStyleType: 'none', padding: 0 }}>
+        {data.map((entry, index) => (
+          <li key={`item-${index}`} style={{ marginBottom: '5px', display: 'flex', alignItems: 'center' }}>
+            <div style={{ backgroundColor: colors[index % colors.length], width: '20px', height: '20px', marginRight: '10px' }}></div>
+            <span>{entry.name}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 
   useEffect(() => {
     fetchCantidadOperadoresPorRol();
@@ -31,6 +46,7 @@ const Estadisticas = () => {
     fetchCandidatosDiscapacidad();
     fetchCandidatosEducacion();
     fetchCandidatosHoras();
+    fetchCandidatosTrabajando();
   }, []);
   
   const fetchCantidadOperadoresPorRol = async () => {
@@ -302,6 +318,34 @@ const fetchCandidatosHoras = async () => {
 };
 
 
+const fetchCandidatosTrabajando = async () => {
+  const token = localStorage.getItem('token');
+  try {
+      const response = await fetch('http://localhost:8080/estadisticas/candidatosTrabajando', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+          }
+      });
+
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      const transformedData = Object.keys(data).map(key => ({
+          empleados: key,
+          cantidad: data[key]
+      }));
+      setCandidatosTrabajando(transformedData);
+  } catch (error) {
+      console.error('Error al obtener los candidatos:', error);
+  }
+};
+
+
 
   return (
     <div>
@@ -335,6 +379,7 @@ const fetchCandidatosHoras = async () => {
         <option value="candidatoDiscapacidad">Distribución de candidatos por discapacidad</option>
         <option value="candidatoEducacion">Distribución de candidatos por nivel educativo</option>
         <option value="candidatoHoras">Distribución de candidatos por disposición de carga horaria</option>
+        <option value="candidatoTrabajando">Distribución de candidatos empleados</option>
   
       </select>
 
@@ -346,7 +391,7 @@ const fetchCandidatosHoras = async () => {
             <h3>Distribución de candidatos por género</h3>
             <ResponsiveContainer>
               <PieChart>
-                <Pie dataKey="cantidad" data={dataEntrevistasGenero} nameKey="genero" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label>
+                <Pie dataKey="cantidad" data={dataEntrevistasGenero} nameKey="genero" cx="50%" cy="50%" outerRadius={100} fill="#8884d8"   label={(entry) => `${entry.name}: ${entry.value}`}>
                   {
                     dataEntrevistasGenero.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -356,6 +401,7 @@ const fetchCandidatosHoras = async () => {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
+            
           </>
         )}
 
@@ -364,7 +410,7 @@ const fetchCandidatosHoras = async () => {
             <h3>Distribución de candidatos por edad</h3>
             <ResponsiveContainer>
               <PieChart>
-                <Pie dataKey="cantidad" data={dataCandidatosEdad} nameKey="edad" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label>
+                <Pie dataKey="cantidad" data={dataCandidatosEdad} nameKey="edad" cx="50%" cy="50%" outerRadius={100} fill="#8884d8"   label={(entry) => `${entry.name}: ${entry.value}`}>
                   {
                     dataCandidatosEdad.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -374,6 +420,7 @@ const fetchCandidatosHoras = async () => {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
+          
           </>
         )}
 
@@ -382,7 +429,7 @@ const fetchCandidatosHoras = async () => {
             <h3>Distribución de candidatos por discapacidad</h3>
             <ResponsiveContainer>
               <PieChart>
-                <Pie dataKey="cantidad" data={dataCandidatosDiscapacidad} nameKey="discapacidad" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label>
+                <Pie dataKey="cantidad" data={dataCandidatosDiscapacidad} nameKey="discapacidad" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label={(entry) => `${entry.name}: ${entry.value}`}>
                   {
                     dataCandidatosDiscapacidad.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -392,6 +439,7 @@ const fetchCandidatosHoras = async () => {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
+           
           </>
         )}
 
@@ -400,7 +448,7 @@ const fetchCandidatosHoras = async () => {
             <h3>Distribución de candidatos por nivel educativo</h3>
             <ResponsiveContainer>
               <PieChart>
-                <Pie dataKey="cantidad" data={dataCandidatosEducacion} nameKey="nivelEducativo" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label>
+                <Pie dataKey="cantidad" data={dataCandidatosEducacion} nameKey="nivelEducativo" cx="50%" cy="50%" outerRadius={100} fill="#8884d8"  label={(entry) => `${entry.name}: ${entry.value}`}>
                   {
                     dataCandidatosEducacion.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -410,6 +458,7 @@ const fetchCandidatosHoras = async () => {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
+           
           </>
         )}
 
@@ -418,7 +467,7 @@ const fetchCandidatosHoras = async () => {
             <h3>Distribución de candidatos por disposición de carga horaria</h3>
             <ResponsiveContainer>
               <PieChart>
-                <Pie dataKey="cantidad" data={dataCandidatosCargaHoraria} nameKey="horas" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label>
+                <Pie dataKey="cantidad" data={dataCandidatosCargaHoraria} nameKey="horas" cx="50%" cy="50%" outerRadius={100} fill="#8884d8"   label={(entry) => `${entry.name}: ${entry.value}`}>
                   {
                     dataCandidatosCargaHoraria.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -428,8 +477,30 @@ const fetchCandidatosHoras = async () => {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
+          
           </>
         )}
+
+        
+{selectedStatCandidato === 'candidatoTrabajando' && (
+          <>
+            <h3>Distribución de candidatos empleados</h3>
+            <ResponsiveContainer>
+              <PieChart>
+                <Pie dataKey="cantidad" data={dataCandidatosTrabajando} nameKey="empleados" cx="50%" cy="50%" outerRadius={100} fill="#8884d8"   label={(entry) => `${entry.name}: ${entry.value}`}>
+                  {
+                    dataCandidatosTrabajando.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))
+                  }
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+           
+          </>
+        )}
+
 
 
       </div>
@@ -450,7 +521,7 @@ const fetchCandidatosHoras = async () => {
             <h3>Distribución de empleos por departamento</h3>
             <ResponsiveContainer>
               <PieChart>
-                <Pie dataKey="cantidad" data={dataEmpleosEnMontevideo} nameKey="departamento" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label>
+                <Pie dataKey="cantidad" data={dataEmpleosEnMontevideo} nameKey="departamento" cx="50%" cy="50%" outerRadius={100} fill="#8884d8"   label={(entry) => `${entry.name}: ${entry.value}`}>
                   {
                     dataEmpleosEnMontevideo.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -460,6 +531,7 @@ const fetchCandidatosHoras = async () => {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
+           
           </>
         )}
 
@@ -468,7 +540,7 @@ const fetchCandidatosHoras = async () => {
             <h3>Distribución de empleos por formación académica requerida</h3>
             <ResponsiveContainer>
               <PieChart>
-                <Pie dataKey="cantidad" data={dataEmpleosFormacion} nameKey="formacion" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label>
+                <Pie dataKey="cantidad" data={dataEmpleosFormacion} nameKey="formacion" cx="50%" cy="50%" outerRadius={100} fill="#8884d8"   label={(entry) => `${entry.name}: ${entry.value}`}>
                   {
                     dataEmpleosFormacion.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -478,6 +550,7 @@ const fetchCandidatosHoras = async () => {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
+          
           </>
         )}
 
@@ -486,16 +559,17 @@ const fetchCandidatosHoras = async () => {
             <h3>Distribución de empleos por carga horaria</h3>
             <ResponsiveContainer>
               <PieChart>
-                <Pie dataKey="cantidad" data={dataEmpleosCargaHoraria} nameKey="carga" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label>
+                <Pie dataKey="cantidad" data={dataEmpleosCargaHoraria} nameKey="carga" cx="50%" cy="50%" outerRadius={100} fill="#8884d8"   label={(entry) => `${entry.name}: ${entry.value}`}>
                   {
                     dataEmpleosCargaHoraria.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length] }  />
                     ))
                   }
                 </Pie>
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
+           
           </>
         )}
       </div>
