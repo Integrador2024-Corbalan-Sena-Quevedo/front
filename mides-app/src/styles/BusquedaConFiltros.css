@@ -1,9 +1,6 @@
 
 
-.custom-modal {
-  max-width: 50%; /* Ajusta el tamaño según tus necesidades */
-  width: 70%;
-}
+
 
 .contenedor {
   max-width: 600px;
@@ -280,16 +277,14 @@ h2, h3 {
   
 }
 
-.unCandidato {
-  border: 1px solid #074180;
-  border-radius: 8px;
-  padding: 8px;
-  margin: 5px;
+.fondoAnim {
+  background-color: #ffffff; /* Color de fondo del div */
+  padding: 10px; /* Espacio interno del div */
+  border-radius: 10px; /* Esquinas redondeadas */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), 
+              -5px -5px 10px rgba(255, 255, 255, 0.7);
 }
 
-.unCandidato span {
-  margin-left: 10px;
-}
 
 .masDetalles {
   color: #006bb3;
@@ -320,17 +315,11 @@ h2, h3 {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.titulosListas {
-  color: #ffffff;
-}
 
-.modalHeder {
-  background-color: #074180;
-}
 
-.modalBody {
-  background-color: #f0f2f5;
-}
+
+
+
 
 .encabezado {
   margin-left: 50px;
@@ -349,7 +338,6 @@ h2, h3 {
 }
 
 .ulEditable img {
-  
   width: 15px;
   height: 15px;
   display: block;
@@ -365,9 +353,19 @@ h2, h3 {
 .ulEditable button{
   padding: 8px;
   border-radius: 10px;
-  margin-right: 5px;
-  margin-top: 5px;
+  margin-right: 8px;
+  margin-top: 8px;
 }
+
+.ulEditable .agregar{
+  background-color: #3fb851;
+  
+}
+.ulEditable .agregar:hover{
+  background-color: #0e671c;
+  
+}
+
 
 .ulEditable .eliminar{
   background-color: #ff1a1a;
@@ -391,3 +389,22 @@ h2, h3 {
 }
 
 
+/*CSS Modal*/
+
+.custom-modal{
+  z-index: 10;
+  max-width: 80%; /* Ajusta el tamaño según tus necesidades */
+}
+
+
+.modalHeder {
+  background-color: #074180;
+}
+
+.titulosListas {
+  color: #040404;
+}
+
+.modalBody {
+  background-color: #f0f2f5;
+}

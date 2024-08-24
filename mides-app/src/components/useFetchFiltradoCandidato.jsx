@@ -5,6 +5,7 @@ const useFetchFiltradoCandidato = ()=> {
 
     const [messageFetchCandidato, setMessageFetchCandidato] =  useState('');
     const token = localStorage.getItem('token');
+    const usuario = localStorage.getItem('user');
 
 
     const enviarFiltros = async (filtros) => {
@@ -54,13 +55,8 @@ const useFetchFiltradoCandidato = ()=> {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({candidatoId:candidatoId, campo:campo, datoAct:datoAct, datoAnt:datoAnt, lista:lista, subLista:subLista})
+        body: JSON.stringify({candidatoId:candidatoId, campo:campo, userName:usuario, datoAct:datoAct, datoAnt:datoAnt, lista:lista, subLista:subLista})
       });
-
-      if (!response.ok) {
-        throw new Error('Error al actualizar');
-      }
-      setMessageFetchCandidato('Actulizacion existosa');
 
       return response;
     } catch (error) {
@@ -81,19 +77,14 @@ const useFetchFiltradoCandidato = ()=> {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({candidatoId:candidatoId, lista:lista, subLista:subLista, id:idAEliminar})
+        body: JSON.stringify({candidatoId:candidatoId,userName:usuario, lista:lista, subLista:subLista, id:idAEliminar})
       });
+
+      return response;
   
-      if (response.status === 200) {
-        console.log('Correcto');
-        return setMessageFetchCandidato('Eliminado correctamente');
-      } else {
-        console.error('Error');
-        return setMessageFetchCandidato('Error al eliminar');
-      }
     } catch (error) {
       console.error('Error:', error);
-      return setMessageFetchCandidato('Error al eliminar');
+      return error;
     }
   };
 
@@ -121,9 +112,31 @@ const useFetchFiltradoCandidato = ()=> {
     
   }
 
-  const agregarALista = async (candidatoId, lista, subLista, id) => {
-    
+  const traerIdiomas = async () => {
+    debugger
+    try {
+      const response = await fetch(`http://localhost:8080/actualizar/idiomasAll`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Error al obtener los idiomas');
+      }
+      
+      const idiomas = await response.json();
+      return idiomas
+    } catch (error) {
+      console.error('Error al obtener los idiomas', error);
+    }
 
+
+    
+  }
+
+  const agregarALista = async (candidatoId, lista, subLista, id) => {
     try {
       const response = await fetch(`http://localhost:8080/actualizar/agregarSubLista`, {
         method: 'POST',
@@ -131,18 +144,14 @@ const useFetchFiltradoCandidato = ()=> {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({candidatoId:candidatoId, lista:lista, subLista:subLista, id:id}), 
+        body: JSON.stringify({candidatoId:candidatoId, userName:usuario, lista:lista, subLista:subLista, id:id}), 
       });
 
-      if (response.ok) {
-        const result = await response.text();
-        return setMessageFetchCandidato(result);
-      } else {
-        return setMessageFetchCandidato('Error al agregar');
-      }
+      return response;
+
     } catch (error) {
       console.error('Error al agregar', error);
-      return setMessageFetchCandidato('Error al agregar');
+      return error
     }
   };
 
@@ -150,7 +159,7 @@ const useFetchFiltradoCandidato = ()=> {
    
 
     return{
-        enviarFiltros, actualizarCampo, messageFetchCandidato, eliminarDatoLista, agregarALista, actualizarCandidato
+      messageFetchCandidato, enviarFiltros, actualizarCampo, eliminarDatoLista, agregarALista, actualizarCandidato, traerIdiomas
     }
 
 }
