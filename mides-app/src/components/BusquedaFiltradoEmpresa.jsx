@@ -57,7 +57,7 @@ const BusquedaConFiltrosEmpleos = () => {
   const inputRef = useRef(null);
 
   const [idAEliminar, setIdAEliminar] = useState(null);
-  const [isConfirming, setIsConfirming] = useState(false); // Nuevo estado para mostrar el popup de confirmación
+  const [isConfirming, setIsConfirming] = useState(false); 
   const [estadoSelect, setEstadoSelect]= useState(null);
   const [nombreAEliminar, setNombreAEliminar]= useState(null);
   const [selectedListaElim, setSelectedListaElim] = useState('');
@@ -67,44 +67,39 @@ const BusquedaConFiltrosEmpleos = () => {
 
 
   const eliminarDeLista = async (lista, sublista, idAEliminar, nombreAEliminar, pos) => {
-    debugger
+    
     setIdAEliminar(idAEliminar);
     setNombreAEliminar(nombreAEliminar);
     setSelectedListaElim(lista);
     setSelectedSubListaElim(sublista);
     setPosAElim(pos);
-    console.log("Id a eliminar :"+ idAEliminar);
-    console.log("Dato a borrar "+ nombreAEliminar);
-    console.log("lista: "+ lista);
-    console.log("Sub Lista: "+ sublista);
+    setIsConfirming(true); 
     
-    setIsConfirming(true); // Mostrar el popup de confirmación
     
-    debugger
   };
 
   const handleConfirm = async () => {
-    setIsConfirming(false); // Ocultar el popup de confirmación
+    setIsConfirming(false); 
     const response = await eliminarDatoLista(`${selectedEmpresa.id}`,`${selectedEmpleo.id}`,  selectedListaElim, selectedSubListaElim, `${idAEliminar}`, nombreAEliminar, `${posAElim}`);
     handleBlur();
     if (response.status != 200) {
       alert('Error al eliminar');
     } else {
       alert('Eliminado correctamente');
-      //actualizarLista(idAEliminar, selectedListaElim, selectedSubListaElim);
+      actualizarLista(selectedEmpresa.id, "Eliminacion-Agregacion", selectedSubListaElim);
       
     }
 
-    // handleShowPopup(estadoSelect, selectedEmpleo);
+     
   };
 
   const handleCancel = () => {
-    setIsConfirming(false); // Ocultar el popup de confirmación
-    // handleShowPopup(estadoSelect, selectedEmpleo);
+    setIsConfirming(false);
+
   };
 
   const ConfirmPopUp = ({show, onHide, eliminar, selectedSubLista}) => {
-    debugger
+    
     return (
       <Modal show = {show} onHide={onHide}>
         <Modal.Header closeButton className='modalHeder'>
@@ -148,7 +143,7 @@ const BusquedaConFiltrosEmpleos = () => {
 
 
   const handleEditable = (empresa, campo) => {
-    console.log('Llegue')
+    
     setEditable(true);
     setEmpresaEditable(empresa);
     setCampoEditable(campo);
@@ -156,7 +151,7 @@ const BusquedaConFiltrosEmpleos = () => {
 
   const eliminarDatoLista = async (empresaId, empleoId, lista, subLista, idAEliminar, nombreAEliminar, posAElim) => {
 
-    console.log(token);
+    
     try {
       const response = await fetch(`http://localhost:8080/actualizar/eliminarSubListaEmpresa`, {
         method: 'DELETE',
@@ -180,9 +175,9 @@ const BusquedaConFiltrosEmpleos = () => {
   const actualizarCampo = async (empresaId, empleoId, campo, datoAct, datoAnt, lista, subLista) => {
     try {
 
-      console.log(JSON.stringify(empresaId,empleoId, usuario,  campo, datoAct, datoAnt, lista, subLista))
+      
 
-      console.log(token);
+      
       const response = await fetch(`http://localhost:8080/actualizar/empresa`, {
         method: 'PUT',
         headers: {
@@ -206,23 +201,18 @@ const BusquedaConFiltrosEmpleos = () => {
   };
 
   const guardarCampo = async (lista, subLista, datoAnt) =>{
-    debugger
+    
     const nuevoValor = inputRef.current.value;
-    console.log('Nuevo Valor: '+nuevoValor);
-    console.log('Nombre de cabezal a editar: '+campoEditable);
-    console.log('Nombre del candidato: '+empresaEditable.nombre);
-    console.log('Nuevo lista: '+lista);
-    console.log('Nuevo subLista: '+subLista);
-    console.log('Dato anteriror: '+datoAnt);
+    
     
     const response = await actualizarCampo(`${selectedEmpresa.id}`, `${selectedEmpleo.id}`, campoEditable, nuevoValor, datoAnt, lista, subLista);
     alert(messageFetchCandidato);
-    debugger
+    
     handleBlur();
-    debugger
+    
     actualizarLista(nuevoValor, lista, subLista);
     setShowPopup(true);
-    debugger
+    
   }
 
   const agregarALista = async (empresaId, empleoId, lista, subLista, id) => {
@@ -247,12 +237,9 @@ const BusquedaConFiltrosEmpleos = () => {
   const guardarAgregarALista = async (lista, subLista) => {
     const nuevoValor = inputRef.current.value;
 
-      console.log('Nombre lista: '+lista);
-      console.log('Nombre Sublista: '+subLista);
-      console.log('Nombre a agregar: '+ nuevoValor);
-      console.log('id candidadto: '+ empresaAgregarALista.id);
+      
 
-      debugger
+      
     const response = await agregarALista(`${empresaAgregarALista.id}`,`${selectedEmpleo.id}`, lista, subLista, nuevoValor);
     handleBlur();
     handleBlurAgregarALista();
@@ -260,186 +247,223 @@ const BusquedaConFiltrosEmpleos = () => {
       alert('Error al agregar');
     }else{
       alert('Agregado correctamente');
-      //actualizarLista(nuevoValor, lista, subLista);
+      actualizarLista(empresaAgregarALista.id, "Eliminacion-Agregacion", subLista);
       //setShowPopup(true);
     }
+  }
+
+  const actualizarUnaEmpresa = async (empresaId) => {
+    
+    try {
+      const response = await fetch(`http://localhost:8080/filtro/unaEmpresa`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(empresaId), 
+      });
+      if (!response.ok) {
+        throw new Error('Error al obtener empresa');
+      }
+      const candidato = await response.json();
+      return candidato;
+    } catch (error) {
+      console.error('Error al obtener la empresa', error);
+    }
+
+
+    
   }
 
   const actualizarLista = async (nuevoValor, lista, subLista) =>{
     let empresaActualizado = null;
     let empleoActualizado = null;
 
-    debugger
+    
 
-    if (lista == "" && subLista == "") {
-      debugger
+    if (lista == "Eliminacion-Agregacion") {
+      const respuesta = await actualizarUnaEmpresa(nuevoValor);
+
       empresaActualizado = {
-        ...selectedEmpresa, 
-        [campoEditable] : nuevoValor,
-      };
+        ...respuesta
+      }
+
+      empleoActualizado = empresaActualizado["empleo"].find((item) => item.id === selectedEmpleo.id);
+
+      
     }else{
-      debugger
-      if (lista != "" && subLista == "") {
-        if (lista == "empleo") {
-          debugger
-          empresaActualizado = {
-            ...selectedEmpresa, 
-            [lista]: selectedEmpresa[lista].map((item, index)=>
-              item.id === selectedEmpleo.id ? {...item, 
-                [campoEditable] : nuevoValor
-              } : item
-            )
-          };
-          empleoActualizado = empresaActualizado[lista].find((item) => item.id === selectedEmpleo.id);
-          debugger
-        }else{
-          debugger
-          if(lista == 'telefonos'){
-            empresaActualizado = {
-              ...selectedEmpresa,
-              [lista]: 
-                selectedEmpresa[lista].map((item, index) => 
-                  index === 0 ? { ...item, [campoEditable]: nuevoValor } : item
-                )
-              }
-          }else{
-            empresaActualizado = {
-              ...selectedEmpresa,
-              [lista]: {
-                ...selectedEmpresa[lista],
-                [campoEditable]: nuevoValor,
-              }
-            };
-          }
-        }
+      if (lista == "" && subLista == "") {
+        
+        empresaActualizado = {
+          ...selectedEmpresa, 
+          [campoEditable] : nuevoValor,
+        };
       }else{
-        debugger
-        if(subLista == "conocimientosEspecificosEmpleo"){
-          empresaActualizado = {
-            ...selectedEmpresa, 
-            [lista]: 
-            selectedEmpresa[lista].map((item, index)=>
-              item.id === selectedEmpleo.id ? {...item,
-                [subLista]: {
-                  ...item[subLista],
-                  [campoEditable] :nuevoValor,
-                }
-              } : item
-            )
-          };
-          empleoActualizado = empresaActualizado[lista].find((item) => item.id === selectedEmpleo.id);
-        }else{
-          debugger
-            const partes = campoEditable.split("-");
-            const largo = partes.length;
-          if (subLista == "tareas") {
-            debugger
+        
+        if (lista != "" && subLista == "") {
+          if (lista == "empleo") {
             
-
-            debugger
-
-            if (lista == "empleo" && subLista == "tareas") {
-              debugger
-              //lista:empleo
-              //subLista:tareas
-              const indexpos = partes[0];
-              const nombreCampo = partes[1];
-
-              const indexPos = Number(indexpos);
-            
-
-              debugger
-              empresaActualizado = {
-                ...selectedEmpresa, 
-                [lista]: 
-                  selectedEmpresa[lista].map((item, index) =>
-                    item.id === selectedEmpleo.id ? {
-                      ...item,
-                      [subLista]: item[subLista].map((item2, index2) =>
-                        indexPos === index2 ? {
-                          ...item2,
-                          [nombreCampo]: nuevoValor
-                        } : item2
-                      )
-                    } : item
-                  )
-              };
-              empleoActualizado = empresaActualizado[lista].find((item) => item.id === selectedEmpleo.id);
-              debugger
-            }
+            empresaActualizado = {
+              ...selectedEmpresa, 
+              [lista]: selectedEmpresa[lista].map((item, index)=>
+                item.id === selectedEmpleo.id ? {...item, 
+                  [campoEditable] : nuevoValor
+                } : item
+              )
+            };
+            empleoActualizado = empresaActualizado[lista].find((item) => item.id === selectedEmpleo.id);
             
           }else{
-            debugger
-              if (lista == "tareas" && subLista == "detalleTarea") {
-                //lista: tareas 
-                //subLista: detalleTarea 
-                debugger
-
-                const posTarea = partes[0];
-                const posdetalle = partes[1];
-                const idDetalle = partes[2];
-
-                const postarea = Number(posTarea);
-                const posDetalle = Number(posdetalle);
-
-
-                debugger
-
+            
+            if(lista == 'telefonos'){
+              empresaActualizado = {
+                ...selectedEmpresa,
+                [lista]: 
+                  selectedEmpresa[lista].map((item, index) => 
+                    index === 0 ? { ...item, [campoEditable]: nuevoValor } : item
+                  )
+                }
+            }else{
+              empresaActualizado = {
+                ...selectedEmpresa,
+                [lista]: {
+                  ...selectedEmpresa[lista],
+                  [campoEditable]: nuevoValor,
+                }
+              };
+            }
+          }
+        }else{
+          
+          if(subLista == "conocimientosEspecificosEmpleo"){
+            empresaActualizado = {
+              ...selectedEmpresa, 
+              [lista]: 
+              selectedEmpresa[lista].map((item, index)=>
+                item.id === selectedEmpleo.id ? {...item,
+                  [subLista]: {
+                    ...item[subLista],
+                    [campoEditable] :nuevoValor,
+                  }
+                } : item
+              )
+            };
+            empleoActualizado = empresaActualizado[lista].find((item) => item.id === selectedEmpleo.id);
+          }else{
+            
+              const partes = campoEditable.split("-");
+              const largo = partes.length;
+            if (subLista == "tareas") {
+              
+              
+  
+              
+  
+              if (lista == "empleo" && subLista == "tareas") {
+                
+                
+                const indexpos = partes[0];
+                const nombreCampo = partes[1];
+  
+                const indexPos = Number(indexpos);
+              
+  
+                
                 empresaActualizado = {
                   ...selectedEmpresa, 
-                  ["empleo"]: 
-                    selectedEmpresa["empleo"].map((item, index) =>
+                  [lista]: 
+                    selectedEmpresa[lista].map((item, index) =>
                       item.id === selectedEmpleo.id ? {
                         ...item,
-                        [lista]: item[lista].map((item2, index2) =>
-                          postarea === index2 ? {
+                        [subLista]: item[subLista].map((item2, index2) =>
+                          indexPos === index2 ? {
                             ...item2,
-                            [subLista] : item2[subLista].map((item3, index3)=>
-                              posDetalle === index3 ? {
-                                ...item3,
-                                ["detalle"] : nuevoValor
-                              } : item3
-                            )
+                            [nombreCampo]: nuevoValor
                           } : item2
                         )
                       } : item
                     )
                 };
-                empleoActualizado = empresaActualizado["empleo"].find((item) => item.id === selectedEmpleo.id);
-                debugger
+                empleoActualizado = empresaActualizado[lista].find((item) => item.id === selectedEmpleo.id);
+                
               }
+              
+            }else{
+              
+                if (lista == "tareas" && subLista == "detalleTarea") {
+                   
+                  
+  
+                  const posTarea = partes[0];
+                  const posdetalle = partes[1];
+                  const idDetalle = partes[2];
+  
+                  const postarea = Number(posTarea);
+                  const posDetalle = Number(posdetalle);
+  
+  
+                  
+  
+                  empresaActualizado = {
+                    ...selectedEmpresa, 
+                    ["empleo"]: 
+                      selectedEmpresa["empleo"].map((item, index) =>
+                        item.id === selectedEmpleo.id ? {
+                          ...item,
+                          [lista]: item[lista].map((item2, index2) =>
+                            postarea === index2 ? {
+                              ...item2,
+                              [subLista] : item2[subLista].map((item3, index3)=>
+                                posDetalle === index3 ? {
+                                  ...item3,
+                                  ["detalle"] : nuevoValor
+                                } : item3
+                              )
+                            } : item2
+                          )
+                        } : item
+                      )
+                  };
+                  empleoActualizado = empresaActualizado["empleo"].find((item) => item.id === selectedEmpleo.id);
+                  
+                }
+            }
           }
+            
         }
-          
       }
+
     }
 
+    
 
 
 
-    // Actualizar la lista de candidatos
-    debugger
+
+    
+    
     const listaActualizada = empresas.map(empresa =>
       empresa === selectedEmpresa ? empresaActualizado : empresa
     );
 
-    debugger
+    
     
     setSelectedEmpresa(empresaActualizado);
-    setEmpresas(listaActualizada); // Actualiza la lista de candidatos
+    setEmpresas(listaActualizada); 
     if (empleoActualizado != null) {
       setSelectedEmpleo(empleoActualizado);
     }
-    debugger
     
-    debugger
+    
+    
   }
 
   
 
 
   const handleBlur = () => {
-    console.log('Estoy');
+    
     setEditable(false);
     setEmpresaEditable(null);
     setCampoEditable("");
@@ -549,7 +573,7 @@ const BusquedaConFiltrosEmpleos = () => {
     const datos = {
       filtros: filtrosSeleccionados
     };
-    console.log(JSON.stringify(datos));
+   
 
     
     fetch('http://localhost:8080/filtro/empleos', {
@@ -567,13 +591,8 @@ const BusquedaConFiltrosEmpleos = () => {
     .then(response => response.json())
     .then(candidatos=> {
       
-      const resultados = Object.values(candidatos);
+          const resultados = Object.values(candidatos);
          
-        
-        console.log("Cantidad: "+ resultados.length);
-
-        console.log(resultados);
-
          const todosLosEmpleos = resultados.flatMap(empresa => empresa.empleo);
 
          setEmpelos(todosLosEmpleos);
@@ -1953,7 +1972,7 @@ const BusquedaConFiltrosEmpleos = () => {
 
         }else{
 
-          debugger
+          
 
           switch (selectedSubLista) {
 
@@ -2249,7 +2268,12 @@ const BusquedaConFiltrosEmpleos = () => {
                             {
                                 selectedEmpleo[selectedSubLista] && Object.values(selectedEmpleo[selectedSubLista]).map((item, index) => (
                                   <ul >
+
                                     <section className='fondoAnim'>
+                                      <section className='tituloTareas'>
+                                        <strong >{index == 0 ? "Tareas Esenciales" : "Tareas No Esenciales"}</strong>
+                                      </section>
+                                      
                                     <section>
                                     <button onClick={()=>handleEditable(selectedEmpresa, `${index}-nombre`)}>
                                       <img src={editLogo} alt="Edit"/>
@@ -2346,46 +2370,8 @@ const BusquedaConFiltrosEmpleos = () => {
                                   </ul>
                                 ))
                             }
-                            {showAgregarALista &&  empresaAgregarALista == selectedEmpresa && abrirAgregarALista === `${selectedSubLista}-Esencial` &&(
-                          
-                          <div>
-                            <div>
-                              <strong>Agregar nueva tarea esencial:</strong>
-                            </div>
-                                <Form.Control
-                                  type="text"
-                                  placeholder="Ingrese un nuevo valor"
-                                  autoFocus
-                                  ref={inputRef}
-                                  />
-
-                            <button onClick={() => guardarAgregarALista(selectedLista, `${selectedSubLista}-Esencial`)}>OK</button>
-                            <button onClick={handleBlurAgregarALista}>Cancelar</button>
-                          </div>                       
-                        )}
-                        {!showAgregarALista && (
-                        <button className='agregar' onClick={() => showSelectAgregar(selectedEmpresa, `${selectedSubLista}-Esencial`)}>Tarea Esencial</button>
-                        )} 
-                        {showAgregarALista &&  empresaAgregarALista == selectedEmpresa && abrirAgregarALista === `${selectedSubLista}-NoEsencial` &&(
-                          
-                          <div>
-                            <div>
-                              <strong>Agregar nueva tarea no esencial:</strong>
-                            </div>
-                                <Form.Control
-                                  type="text"
-                                  placeholder="Ingrese un nuevo valor"
-                                  autoFocus
-                                  ref={inputRef}
-                                  />
-
-                            <button onClick={() => guardarAgregarALista(selectedLista, `${selectedSubLista}-NoEsencial`)}>OK</button>
-                            <button onClick={handleBlurAgregarALista}>Cancelar</button>
-                          </div>                       
-                        )}
-                        {!showAgregarALista && (
-                        <button className='agregar' onClick={() => showSelectAgregar(selectedEmpresa, `${selectedSubLista}-NoEsencial`)}>Tarea No Esencial</button>
-                        )}
+                            
+                       
                           </div>
                               
                         }
