@@ -848,7 +848,7 @@ const BusquedaConFiltrosEmpleos = () => {
                 </ListaPopup>
               );
               break;
-            case "dirreccion":
+            case "direccion":
               return(
                 <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Dirección de empresa para el empleo'} nombreEmpleo={selectedEmpleo.nombrePuesto}>
                   {
@@ -2514,22 +2514,24 @@ const BusquedaConFiltrosEmpleos = () => {
         <h4>Resultados</h4>
 
     <table>
-          <thead>
+            <thead>
               <tr>
                   <th>Empleo</th>
-                  <th>Localidad</th>
-                  <th>Edad Preferente</th>
-                  <th>Cantidad de puestos</th>
+                  <th>Formación</th>
+                  {/* <th>Edad Preferente</th> */}
+                  <th>Localidad</th>   
+                  <th>Cantidad de puestos</th>           
                   <th>Acciones</th>
               </tr>
-          </thead>
-          <tbody>
+            </thead>
 
+          <tbody>
               {empleos.map((empleo) => (
                   <tr key={empleo.id}>
                       <td>{empleo.nombrePuesto}</td>
+                      <td className="wrap-text">{empleo.formacionAcademica}</td>
+                      {/* <td>{empleo.edadPreferente}</td> */}                      
                       <td>{empleo.localidades}</td>
-                      <td>{empleo.edadPreferente}</td>
                       <td>{empleo.nroPuestosDisponible}</td>
                       <td>
                           <span class="masDetalles" onClick={() => handleSelectShow(empleo)}>Mas detalles</span>
@@ -2544,7 +2546,7 @@ const BusquedaConFiltrosEmpleos = () => {
                                   <option disabled value="">Datos de las empresas</option>
                                   <option value="|">Empresa</option>
                                   <option value="datosAdicionalesEmpresa|">Datos adicionales</option>
-                                  <option value="dirreccion|">Direccion</option>
+                                  <option value="direccion|">Direccion</option>
                                   <option value="emails|">Emails</option>
                                   <option value="encuestaEmpresa|">Encuenta</option>
                                   <option value="telefonos|">Telefonos</option>

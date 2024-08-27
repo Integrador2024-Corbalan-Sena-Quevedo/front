@@ -1460,7 +1460,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
 
 
 
-      if(selectedNombreLista == 'dirreccion'){
+      if(selectedNombreLista == 'direccion'){
         return(
           <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Direccion'} nombreCandidato={SelectedCandidato.nombre}>
               {
@@ -3075,7 +3075,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                                   <option value="discapacidad|tipoDiscapacidades">Discapacidades</option>
                                   <option value="|datosAdicionalesCandidato">Datos Adicionales</option>
                                   <option value="candidatoIdiomas|idioma">Idiomas</option>
-                                  <option value="|dirreccion">Dirección</option>
+                                  <option value="|direccion">Dirección</option>
                                   <option value="disponibilidadHoraria|turnos">Disponibilidad Horaria</option>
                                   <option value="educacion|institucionesDeseo">Educación</option>
                                   <option value="|emails">Emails</option>

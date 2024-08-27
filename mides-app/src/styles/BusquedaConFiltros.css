@@ -408,3 +408,9 @@ h2, h3 {
 .modalBody {
   background-color: #f0f2f5;
 }
+
+.wrap-text {
+   white-space: normal;
+   word-wrap: break-word;
+   max-width: auto;
+  }
