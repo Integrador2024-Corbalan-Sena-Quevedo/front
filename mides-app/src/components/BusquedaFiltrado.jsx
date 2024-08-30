@@ -72,28 +72,28 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
   
 
   const actualizarListaCandidatos = async (nuevoValor, lista, subLista) =>{
-    debugger
+    
     let candidatoActualizado = null;
     
     if (lista != '' && subLista !='') {
 
 
-      debugger
+      
       if (subLista == "experienciaLaboral" || subLista == "discapacidad" || subLista == "idioma" || subLista == "candidatoIdiomas") {
-        debugger
+        
         const respuesta = await actualizarCandidato(SelectedCandidato.id);
-            debugger
+            
             
         candidatoActualizado = {
           ...respuesta
         } 
-        debugger
+        
       }else{
         candidatoActualizado = {
           ...SelectedCandidato,
           [lista]: {
             ...SelectedCandidato[subLista],
-            [campoEditable]: nuevoValor, // Asigna el nuevo valor
+            [campoEditable]: nuevoValor, 
           }
         };
 
@@ -110,7 +110,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
           const mes = parseInt(partesFecha[1]); 
           const dia = parseInt(partesFecha[2]);
       
-          // Crear el nuevo array de fecha en el formato [Año, Mes, Día, Hora, Minuto]
+          
           const nuevaFecha = [año, mes, dia, 0, 0]; 
 
           if (campoEditable === 'fechaCreacion') {
@@ -140,7 +140,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
       if(subLista =='emails'){
         if (subLista =='emails') {
           const respuesta = await actualizarCandidato(SelectedCandidato.id);
-            debugger
+            
             
             candidatoActualizado = {
               ...respuesta
@@ -151,18 +151,18 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
 
         if(subLista !='' && lista == ''){
           if (subLista == "apoyos" || subLista == "ayudaTecnicas" || subLista == "prestaciones" || subLista == "areas") {
-            debugger
+            
 
             const respuesta = await actualizarCandidato(SelectedCandidato.id);
-            debugger
+            
             
             candidatoActualizado = {
               ...respuesta
             }
-            debugger
+            
             
           }else{
-            debugger
+            
           if(subLista == 'telefonos'){
             candidatoActualizado = {
               ...SelectedCandidato,
@@ -186,7 +186,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
         if (lista == "experienciaLaboral") {
         
           const respuesta = await actualizarCandidato(SelectedCandidato.id);
-              debugger
+              
               
           candidatoActualizado = {
             ...respuesta
@@ -199,16 +199,16 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
     
     
 
-    // Actualizar la lista de candidatos
-    debugger
+    
+    
     const listaActualizada = candidatos.map(candidato =>
       candidato === SelectedCandidato ? candidatoActualizado : candidato
     );
 
 
-    setCandidatos(listaActualizada); // Actualiza la lista de candidatos
+    setCandidatos(listaActualizada); 
     setSelectedCandidato(candidatoActualizado);
-    debugger
+    
   }
 
 
@@ -226,13 +226,6 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
 
   const guardarAgregarALista = async (lista, sublista) => {
     const nuevoValor = selectRefAgregarALista.current.value;
-
-      console.log('Nombre lista: '+lista);
-      console.log('Nombre Sublista: '+sublista);
-      console.log('Nombre a agregar: '+ nuevoValor);
-      console.log('id candidadto: '+ candidatoAgregarALista.id);
-
-      debugger
     const response = await agregarALista(`${SelectedCandidato.id}`, lista, sublista, nuevoValor);
     handleBlur();
     handleBlurAgregarALista();
@@ -254,25 +247,17 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
  
 
   const handleBlur = () => {
-    console.log('Estoy');
     setEditable(false);
     setCandidatoEditable(null);
     setCampoEditable('');
   }
 
   const handleEditable = (candidato, campo) => {
-    console.log('Llegue')
     setEditable(true);
     setCandidatoEditable(candidato);
     setCampoEditable(campo);
   }
 
-  const handleEliminar = (candidato, rama, campo, aEliminar) => {
-    console.log(candidato);
-    console.log(rama);
-    console.log(campo);
-    console.log(aEliminar);
-  }
 
   const handleCIClick = async (candidatoId, nombre, apellido, documento) => {
 
@@ -319,14 +304,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
   
 
   const guardarCampo = async (lista, subLista, datoAnt) =>{
-    debugger
-    const nuevoValor = inputRef.current.value;
-    console.log('Nuevo Valor: '+nuevoValor);
-    console.log('Nombre de cabezal a editar: '+campoEditable);
-    console.log('Nombre del candidato: '+candidatoEditable.nombre);
-    console.log('Nuevo lista: '+lista);
-    console.log('Nuevo subLista: '+subLista);
     
+    const nuevoValor = inputRef.current.value;
     const response = await actualizarCampo(`${SelectedCandidato.id}`, campoEditable, nuevoValor, datoAnt, lista, subLista);
     handleBlur();
     if (!response.ok) {
@@ -343,25 +322,25 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
   }
 
   const [idAEliminar, setIdAEliminar] = useState(null);
-  const [isConfirming, setIsConfirming] = useState(false); // Nuevo estado para mostrar el popup de confirmación
+  const [isConfirming, setIsConfirming] = useState(false); 
   const [estadoSelect, setEstadoSelect]= useState(null);
   const [nombreAEliminar, setNombreAEliminar]= useState(null);
 
 
   const eliminarDeLista = async (lista, sublista, idAEliminar, nombreAEliminar) => {
-    debugger
+    
     setIdAEliminar(idAEliminar);
     setNombreAEliminar(nombreAEliminar)
     setSelectedRama(lista);
     setSelectedNombreLista(sublista);
     
-    setIsConfirming(true); // Mostrar el popup de confirmación
+    setIsConfirming(true); 
     
-    debugger
+    
   };
 
   const handleConfirm = async () => {
-    setIsConfirming(false); // Ocultar el popup de confirmación
+    setIsConfirming(false); 
     const response = await eliminarDatoLista(`${SelectedCandidato.id}`, selectedRama, selectedNombreLista, `${idAEliminar}`);
     handleBlur();
     if (response.status != 200) {
@@ -376,12 +355,12 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
   };
 
   const handleCancel = () => {
-    setIsConfirming(false); // Ocultar el popup de confirmación
+    setIsConfirming(false); 
     handleShowPopup(estadoSelect, SelectedCandidato);
   };
 
   const ConfirmPopUp = ({show, onHide, eliminar, nombreEliminar}) => {
-    debugger
+    
     return (
       <Modal show = {show} onHide={onHide}>
         <Modal.Header closeButton className='modalHeder'>
@@ -491,17 +470,12 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
   };
 
   const obtenerCandidados = async () => {
-    debugger
     const response = await enviarFiltros(filtros);
-    console.log(filtros);
     const resultados = Object.values(response);
-    console.log("Cantidad: " + resultados.length);
     setCandidatos(resultados);
     const idiomasResp = await traerIdiomas();
     const idiomas = Object.values(idiomasResp);
     setIdiomas(idiomas);
-    console.log(resultados);
-    console.log(idiomas);
   };
 
   
@@ -2784,8 +2758,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
   }
 
   const ListaPopup = ({ show, onHide, nombreLista, nombreCandidato, children}) => {
-    // const datos = lista[sub];
-    debugger
+    
+    
     
     return (
       <Modal show = {show} onHide={onHide} dialogClassName="custom-modal">

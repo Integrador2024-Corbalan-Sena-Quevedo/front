@@ -393,7 +393,7 @@ h2, h3 {
 
 .custom-modal{
   z-index: 10;
-  max-width: 80%; /* Ajusta el tamaño según tus necesidades */
+  max-width: 80%; 
 }
 
 
@@ -413,4 +413,11 @@ h2, h3 {
    white-space: normal;
    word-wrap: break-word;
    max-width: auto;
+  }
+
+  .tituloTareas{
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    color: #034c8c;
   }
