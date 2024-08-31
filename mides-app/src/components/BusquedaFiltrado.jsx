@@ -580,18 +580,35 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
 
                       <strong>Nivel educativo: </strong>
                       <span>{SelectedCandidato[selectedRama].nivelEducativo}</span>
-                      { editable && candidatoEditable === SelectedCandidato && campoEditable === 'nivelEducativo' && (
-
-                          <div>
-                            <Form.Control
-                              type="text"
-                              placeholder="Ingrese texto aquí"
-                              autoFocus
-                              ref={inputRef}
-                              />
-                            <button onClick={() => guardarCampo('', selectedRama, SelectedCandidato[selectedRama].nivelEducativo)}>OK</button>
-                            <button onClick={handleBlur}>Cancelar</button>
-                         </div>
+                      { editable && candidatoEditable === SelectedCandidato && campoEditable === 'nivelEducativo' &&(
+                          <div >
+                            <div>
+                              <strong>Cambiar nivel educativo:</strong>
+                            </div>
+                          <select class="form-select" ref={inputRef}>
+                            <option value="">Seleccionar...</option>
+                            <option value="SIN_INSTRUCCION">SIN INSTRUCCION</option>
+                            <option value="PREESCOLAR">PREESCOLAR</option>
+                            <option value="PRIMARIA_INCOMPLETA">PRIMARIA INCOMPLETA</option>
+                            <option value="PRIMARIA_COMPLETA">PRIMARIA COMPLETA</option>
+                            <option value="CICLO_BASICO_INCOMPLETO">CICLO BASICO INCOMPLETO</option>
+                            <option value="CICLO_BASICO_COMPLETO">CICLO BASICO COMPLETO</option>
+                            <option value="BACHILLERATO_INCOMPLETO">BACHILLERATO INCOMPLETO</option>
+                            <option value="BACHILLERATO_COMPLETO">BACHILLERATO COMPLETO</option>
+                            <option value="EDUCACION_TECNICA_INCOMPLETA">EDUCACION TECNICA INCOMPLETA</option>
+                            <option value="EDUCACION_TECNICA_COMPLETA">EDUCACION TECNICA COMPLETA</option>
+                            <option value="EDUCACION_MILITAR_INCOMPLETA">EDUCACION MILITAR INCOMPLETA</option>
+                            <option value="EDUCACION_MILITAR_COMPLETA">EDUCACION MILITAR COMPLETA</option>
+                            <option value="EDUCACION_POLICIAL_INCOMPLETA">EDUCACION POLICIAL INCOMPLETA</option>
+                            <option value="EDUCACION_POLICIAL_COMPLETA">EDUCACION POLICIAL COMPLETA</option>
+                            <option value="TERCIARIA_NO_UNIVERSITARIA_INCOMPLETA">TERCIARIA NO UNIVERSITARIA INCOMPLETA</option>
+                            <option value="TERCIARIA_NO_UNIVERSITARIA_COMPLETA">TERCIARIA NO UNIVERSITARIA COMPLETA</option>
+                            <option value="UNIVERSIDAD_O_SIMILAR_INCOMPLETA">UNIVERSIDAD O SIMILAR INCOMPLETA</option>
+                            <option value="UNIVERSIDAD_O_SIMILAR_COMPLETA">UNIVERSIDAD O SIMILAR COMPLETA</option>
+                          </select> 
+                          <button onClick={() => guardarCampo('', selectedRama, SelectedCandidato[selectedRama].nivelEducativo)}>OK</button>
+                          <button onClick={handleBlur}>Cancelar</button>
+                        </div>
                         )}
                     </li>
                     <li>
@@ -2798,11 +2815,12 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
       <div className="agregar-filtro">
         <select value={nuevoFiltro} onChange={manejarCambioNuevoFiltro}>
           <option value="">Seleccionar filtro...</option>
-          <option value="mayores a">Mayores a...(edad)</option>
-          <option value="menores a">Menores a...(edad)</option>
+          <option value="mayores a">Mayor o igual a [edad]</option>
+          <option value="menores a">enor o igual a [edad]</option>
           <option value="departamento">Departamento</option>
           <option value="libreta_Conducir">Libreta de conducir</option>
           <option value="idioma">Idioma</option>
+          <option value="nivel_Educativo">Nivel educativo</option>
           <option value="tipo_discapicidad">Tipo de discapacidad</option>
           <option value="documento">Documento</option>
           <option value="Registro Nacional de Persona con Discapacidad">Registro Nacional de Persona con Discapacidad</option>
@@ -2829,6 +2847,29 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                 <option value={item.nombre}>{item.nombre}</option>
               )
             }
+          </select>
+        )}
+        {nuevoFiltro === 'nivel_Educativo' && (
+          <select value={subFiltro} onChange={manejarCambioSubFiltro}>
+            <option value="">Seleccionar un nivel...</option>
+            <option value="SIN_INSTRUCCION">SIN INSTRUCCION</option>
+            <option value="PREESCOLAR">PREESCOLAR</option>
+            <option value="PRIMARIA_INCOMPLETA">PRIMARIA INCOMPLETA</option>
+            <option value="PRIMARIA_COMPLETA">PRIMARIA COMPLETA</option>
+            <option value="CICLO_BASICO_INCOMPLETO">CICLO BASICO INCOMPLETO</option>
+            <option value="CICLO_BASICO_COMPLETO">CICLO BASICO COMPLETO</option>
+            <option value="BACHILLERATO_INCOMPLETO">BACHILLERATO INCOMPLETO</option>
+            <option value="BACHILLERATO_COMPLETO">BACHILLERATO COMPLETO</option>
+            <option value="EDUCACION_TECNICA_INCOMPLETA">EDUCACION TECNICA INCOMPLETA</option>
+            <option value="EDUCACION_TECNICA_COMPLETA">EDUCACION TECNICA COMPLETA</option>
+            <option value="EDUCACION_MILITAR_INCOMPLETA">EDUCACION MILITAR INCOMPLETA</option>
+            <option value="EDUCACION_MILITAR_COMPLETA">EDUCACION MILITAR COMPLETA</option>
+            <option value="EDUCACION_POLICIAL_INCOMPLETA">EDUCACION POLICIAL INCOMPLETA</option>
+            <option value="EDUCACION_POLICIAL_COMPLETA">EDUCACION POLICIAL COMPLETA</option>
+            <option value="TERCIARIA_NO_UNIVERSITARIA_INCOMPLETA">TERCIARIA NO UNIVERSITARIA INCOMPLETA</option>
+            <option value="TERCIARIA_NO_UNIVERSITARIA_COMPLETA">TERCIARIA NO UNIVERSITARIA COMPLETA</option>
+            <option value="UNIVERSIDAD_O_SIMILAR_INCOMPLETA">UNIVERSIDAD O SIMILAR INCOMPLETA</option>
+            <option value="UNIVERSIDAD_O_SIMILAR_COMPLETA">UNIVERSIDAD O SIMILAR COMPLETA</option>
           </select>
         )}
         {nuevoFiltro === 'departamento' && (
