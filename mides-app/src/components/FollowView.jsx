@@ -26,7 +26,7 @@ const FollowView = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
+            
                 setFollows(Array.isArray(data) ? data : []);
             }
         } catch (error) {
@@ -43,7 +43,7 @@ const FollowView = () => {
 
     const handleView = (follow) => {
         setSelectedFollow(follow);
-        console.log(follow)
+       
         setIsViewModalOpen(true);
     };
  
@@ -59,7 +59,7 @@ const FollowView = () => {
                 seguimientoId: selectedFollow.seguimientoId
             };
             
-            console.log(newDetalle)
+         
             try {
                 const response = await fetch(`http://localhost:8080/updateSeguimiento`, {
                     method: 'PATCH',
