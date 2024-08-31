@@ -94,7 +94,7 @@ const useFetchJobs = () => {
 
     }
 
-    const fetchSendEmailToCompany = async (companyId, companyMail, candidates) => {
+    const fetchSendEmailToCompany = async (companyId, companyMail, candidates, jobId) => {
         try {
             const candidateIds = candidates.map(candidate => candidate.id);
             const response = await fetch('http://localhost:8080/sendEmail',{
@@ -103,7 +103,7 @@ const useFetchJobs = () => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({candidatosId: candidateIds, empresaId: companyId, empresaMail:companyMail })
+                body: JSON.stringify({candidatosId: candidateIds, empresaId: companyId, empresaMail:companyMail, empleoId: jobId })
             })
             console.log(response)
             if(response.status === 200){

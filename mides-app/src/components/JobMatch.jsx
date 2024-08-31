@@ -62,7 +62,8 @@ const JobMatch = () => {
         console.log(emailEmpresa)
         const companyId = job.empresaId;
         const candidatesList = candidatesMap[job.id] || [];
-        const response = await fetchSendEmailToCompany(companyId,emailEmpresa, candidatesList)
+        const jobId = job.id;
+        const response = await fetchSendEmailToCompany(companyId,emailEmpresa, candidatesList, jobId)
         setIsSendingEmail(false)
         setIsPopupVisible(true);
         setPopupJobId(job.id);
