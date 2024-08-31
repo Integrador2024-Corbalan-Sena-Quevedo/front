@@ -75,56 +75,52 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
     
     let candidatoActualizado = null;
     
-    if (lista != '' && subLista !='') {
-
-
+    if (subLista == "datosPrincipalesCandidato") {
+      candidatoActualizado = {
+            ...SelectedCandidato, [campoEditable]: nuevoValor,
+          };
       
-      if (subLista == "experienciaLaboral" || subLista == "discapacidad" || subLista == "idioma" || subLista == "candidatoIdiomas") {
-        
-        const respuesta = await actualizarCandidato(SelectedCandidato.id);
-            
-            
-        candidatoActualizado = {
-          ...respuesta
-        } 
-        
-      }else{
-        candidatoActualizado = {
-          ...SelectedCandidato,
-          [lista]: {
-            ...SelectedCandidato[subLista],
-            [campoEditable]: nuevoValor, 
-          }
-        };
-
-      }
-
-       
     }else{
+      if (lista != '' && subLista !='') {
 
-      if (subLista =='encuestaCandidato') {
-        if (campoEditable === 'fechaCreacion' || campoEditable === 'fechaFinalizacion') {
-              
-          const partesFecha = nuevoValor.split('-');
-          const año = parseInt(partesFecha[0]);
-          const mes = parseInt(partesFecha[1]); 
-          const dia = parseInt(partesFecha[2]);
+
       
+        if (subLista == "experienciaLaboral" || subLista == "discapacidad" || subLista == "idioma" || subLista == "candidatoIdiomas") {
           
-          const nuevaFecha = [año, mes, dia, 0, 0]; 
-
-          if (campoEditable === 'fechaCreacion') {
-
-            candidatoActualizado = {
-                ...SelectedCandidato,
-                [subLista]: {
-                    ...SelectedCandidato[subLista],
-                    [campoEditable]: nuevaFecha, 
-                }
-            };
-          }else{
-            if (campoEditable === 'fechaFinalizacion') {
-
+          const respuesta = await actualizarCandidato(SelectedCandidato.id);
+              
+              
+          candidatoActualizado = {
+            ...respuesta
+          } 
+          
+        }else{
+          candidatoActualizado = {
+            ...SelectedCandidato,
+            [lista]: {
+              ...SelectedCandidato[subLista],
+              [campoEditable]: nuevoValor, 
+            }
+          };
+  
+        }
+  
+         
+      }else{
+  
+        if (subLista =='encuestaCandidato') {
+          if (campoEditable === 'fechaCreacion' || campoEditable === 'fechaFinalizacion') {
+                
+            const partesFecha = nuevoValor.split('-');
+            const año = parseInt(partesFecha[0]);
+            const mes = parseInt(partesFecha[1]); 
+            const dia = parseInt(partesFecha[2]);
+        
+            
+            const nuevaFecha = [año, mes, dia, 0, 0]; 
+  
+            if (campoEditable === 'fechaCreacion') {
+  
               candidatoActualizado = {
                   ...SelectedCandidato,
                   [subLista]: {
@@ -132,70 +128,84 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       [campoEditable]: nuevaFecha, 
                   }
               };
-            }
-          }
-          
-        } 
-      }
-      if(subLista =='emails'){
-        if (subLista =='emails') {
-          const respuesta = await actualizarCandidato(SelectedCandidato.id);
-            
-            
-            candidatoActualizado = {
-              ...respuesta
-            }
-          }
-          
-      }else{
-
-        if(subLista !='' && lista == ''){
-          if (subLista == "apoyos" || subLista == "ayudaTecnicas" || subLista == "prestaciones" || subLista == "areas") {
-            
-
-            const respuesta = await actualizarCandidato(SelectedCandidato.id);
-            
-            
-            candidatoActualizado = {
-              ...respuesta
-            }
-            
-            
-          }else{
-            
-          if(subLista == 'telefonos'){
-            candidatoActualizado = {
-              ...SelectedCandidato,
-              [subLista]: 
-                SelectedCandidato[subLista].map((item, index) => 
-                  index === 0 ? { ...item, [campoEditable]: nuevoValor } : item
-                )
+            }else{
+              if (campoEditable === 'fechaFinalizacion') {
+  
+                candidatoActualizado = {
+                    ...SelectedCandidato,
+                    [subLista]: {
+                        ...SelectedCandidato[subLista],
+                        [campoEditable]: nuevaFecha, 
+                    }
+                };
               }
-          }else{
-            candidatoActualizado = {
-              ...SelectedCandidato,
-              [subLista]: {
-                ...SelectedCandidato[subLista],
-                [campoEditable]: nuevoValor,
-              }
-            };
-           }  
-
-          }
-       } else{
-        if (lista == "experienciaLaboral") {
-        
-          const respuesta = await actualizarCandidato(SelectedCandidato.id);
-              
-              
-          candidatoActualizado = {
-            ...respuesta
+            }
+            
           } 
         }
-        
-       }
-      } 
+        if(subLista =='emails'){
+          if (subLista =='emails') {
+            const respuesta = await actualizarCandidato(SelectedCandidato.id);
+              
+              
+              candidatoActualizado = {
+                ...respuesta
+              }
+            }
+            
+        }else{
+  
+          if(subLista !='' && lista == ''){
+            if (subLista == "apoyos" || subLista == "ayudaTecnicas" || subLista == "prestaciones" || subLista == "areas") {
+              
+  
+              const respuesta = await actualizarCandidato(SelectedCandidato.id);
+              
+              
+              candidatoActualizado = {
+                ...respuesta
+              }
+              
+              
+            }else{
+              
+            if(subLista == 'telefonos'){
+              candidatoActualizado = {
+                ...SelectedCandidato,
+                [subLista]: 
+                  SelectedCandidato[subLista].map((item, index) => 
+                    index === 0 ? { ...item, [campoEditable]: nuevoValor } : item
+                  )
+                }
+            }else{
+              candidatoActualizado = {
+                ...SelectedCandidato,
+                [subLista]: {
+                  ...SelectedCandidato[subLista],
+                  [campoEditable]: nuevoValor,
+                }
+              };
+             }  
+  
+            }
+         } else{
+          if (lista == "experienciaLaboral") {
+          
+            const respuesta = await actualizarCandidato(SelectedCandidato.id);
+                
+                
+            candidatoActualizado = {
+              ...respuesta
+            } 
+          }
+          
+         }
+        } 
+      }
+
     }
+    
+    
     
     
 
@@ -473,6 +483,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
     const response = await enviarFiltros(filtros);
     const resultados = Object.values(response);
     setCandidatos(resultados);
+    console.log(resultados);
     const idiomasResp = await traerIdiomas();
     const idiomas = Object.values(idiomasResp);
     setIdiomas(idiomas);
@@ -1728,6 +1739,177 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                } 
           </ListaPopup>
         );
+      }
+
+      if(selectedNombreLista == 'datosPrincipalesCandidato'){
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Datos Principales'} nombreCandidato={SelectedCandidato.nombre} handleEditable={handleEditable} handleBlur = {handleBlur} >
+          {
+            <div>
+              {
+                <ul className='ulEditable'>
+                  <li>
+                    <button onClick={()=>handleEditable(SelectedCandidato, 'nombre')}>
+                      <img src={editLogo} alt="Edit"/>
+                    </button>
+                    <strong>Nombre: </strong>
+                    <span>{SelectedCandidato.nombre}</span> 
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'nombre' && (
+
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.nombre)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}     
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'apellido')}>
+                      <img src={editLogo} alt="Edit"/>
+                    </button>
+                    <strong>Apellido: </strong>
+                    <span>{SelectedCandidato.apellido}</span>  
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'apellido' && (
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.apellido)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'documento')}>
+                      <img src={editLogo} alt="Edit"/>
+                  </button>
+                    <strong>Documento: </strong>
+                    <span>{SelectedCandidato.documento}</span>  
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'documento' && (
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.documento)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'tipoDocumento')}>
+                      <img src={editLogo} alt="Edit"/>
+                  </button>
+                    <strong>Tipo Documento: </strong>
+                    <span>{SelectedCandidato.tipoDocumento}</span>  
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'tipoDocumento' && (
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.tipoDocumento)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'fecha_de_nacimiento')}>
+                      <img src={editLogo} alt="Edit"/>
+                  </button>
+                    <strong>Nacimeinto: </strong>
+                    <span>{SelectedCandidato.fecha_de_nacimiento}</span> 
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'fecha_de_nacimiento' && (
+                      <div>
+                        <Form.Control
+                          type="date"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista,SelectedCandidato.fecha_de_nacimiento)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'sexo')}>
+                      <img src={editLogo} alt="Edit"/>
+                  </button>
+                    <strong>Sexo: </strong>
+                    <span>{SelectedCandidato.sexo}</span> 
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'sexo' && (
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.sexo)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'identidadGenero')}>
+                      <img src={editLogo} alt="Edit"/>
+                  </button>
+                    <strong>Identidad de genero: </strong>
+                    <span>{SelectedCandidato.identidadGenero}</span> 
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'identidadGenero' && (
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.identidadGenero)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'estadoCivil')}>
+                      <img src={editLogo} alt="Edit"/>
+                  </button>
+                    <strong>Estado Civil: </strong>
+                    <span>{SelectedCandidato.estadoCivil}</span> 
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'estadoCivil' && (
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.estadoCivil)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                </ul>
+              }
+            </div>
+           } 
+      </ListaPopup>
+
+        );
+
+
       }
 
       
@@ -3082,6 +3264,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                             <div className="selectContainer">
                               <select className="selectDropdown" onChange={(e) => handleShowPopup(e, candidato)}>
                                   <option value="">Seleccionar...</option>
+                                  <option value="|datosPrincipalesCandidato">Datos Principales</option>
                                   <option value="|apoyos">Apoyos</option>
                                   <option value="|ayudaTecnicas">Ayudas Técnicas</option>
                                   <option value="experienciaLaboral|">Experiencia Laboral</option>
