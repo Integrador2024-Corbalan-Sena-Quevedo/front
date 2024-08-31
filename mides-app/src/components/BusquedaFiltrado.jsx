@@ -75,56 +75,52 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
     
     let candidatoActualizado = null;
     
-    if (lista != '' && subLista !='') {
-
-
+    if (subLista == "datosPrincipalesCandidato") {
+      candidatoActualizado = {
+            ...SelectedCandidato, [campoEditable]: nuevoValor,
+          };
       
-      if (subLista == "experienciaLaboral" || subLista == "discapacidad" || subLista == "idioma" || subLista == "candidatoIdiomas") {
-        
-        const respuesta = await actualizarCandidato(SelectedCandidato.id);
-            
-            
-        candidatoActualizado = {
-          ...respuesta
-        } 
-        
-      }else{
-        candidatoActualizado = {
-          ...SelectedCandidato,
-          [lista]: {
-            ...SelectedCandidato[subLista],
-            [campoEditable]: nuevoValor, 
-          }
-        };
-
-      }
-
-       
     }else{
+      if (lista != '' && subLista !='') {
 
-      if (subLista =='encuestaCandidato') {
-        if (campoEditable === 'fechaCreacion' || campoEditable === 'fechaFinalizacion') {
-              
-          const partesFecha = nuevoValor.split('-');
-          const año = parseInt(partesFecha[0]);
-          const mes = parseInt(partesFecha[1]); 
-          const dia = parseInt(partesFecha[2]);
+
       
+        if (subLista == "experienciaLaboral" || subLista == "discapacidad" || subLista == "idioma" || subLista == "candidatoIdiomas") {
           
-          const nuevaFecha = [año, mes, dia, 0, 0]; 
-
-          if (campoEditable === 'fechaCreacion') {
-
-            candidatoActualizado = {
-                ...SelectedCandidato,
-                [subLista]: {
-                    ...SelectedCandidato[subLista],
-                    [campoEditable]: nuevaFecha, 
-                }
-            };
-          }else{
-            if (campoEditable === 'fechaFinalizacion') {
-
+          const respuesta = await actualizarCandidato(SelectedCandidato.id);
+              
+              
+          candidatoActualizado = {
+            ...respuesta
+          } 
+          
+        }else{
+          candidatoActualizado = {
+            ...SelectedCandidato,
+            [lista]: {
+              ...SelectedCandidato[subLista],
+              [campoEditable]: nuevoValor, 
+            }
+          };
+  
+        }
+  
+         
+      }else{
+  
+        if (subLista =='encuestaCandidato') {
+          if (campoEditable === 'fechaCreacion' || campoEditable === 'fechaFinalizacion') {
+                
+            const partesFecha = nuevoValor.split('-');
+            const año = parseInt(partesFecha[0]);
+            const mes = parseInt(partesFecha[1]); 
+            const dia = parseInt(partesFecha[2]);
+        
+            
+            const nuevaFecha = [año, mes, dia, 0, 0]; 
+  
+            if (campoEditable === 'fechaCreacion') {
+  
               candidatoActualizado = {
                   ...SelectedCandidato,
                   [subLista]: {
@@ -132,70 +128,84 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       [campoEditable]: nuevaFecha, 
                   }
               };
-            }
-          }
-          
-        } 
-      }
-      if(subLista =='emails'){
-        if (subLista =='emails') {
-          const respuesta = await actualizarCandidato(SelectedCandidato.id);
-            
-            
-            candidatoActualizado = {
-              ...respuesta
-            }
-          }
-          
-      }else{
-
-        if(subLista !='' && lista == ''){
-          if (subLista == "apoyos" || subLista == "ayudaTecnicas" || subLista == "prestaciones" || subLista == "areas") {
-            
-
-            const respuesta = await actualizarCandidato(SelectedCandidato.id);
-            
-            
-            candidatoActualizado = {
-              ...respuesta
-            }
-            
-            
-          }else{
-            
-          if(subLista == 'telefonos'){
-            candidatoActualizado = {
-              ...SelectedCandidato,
-              [subLista]: 
-                SelectedCandidato[subLista].map((item, index) => 
-                  index === 0 ? { ...item, [campoEditable]: nuevoValor } : item
-                )
+            }else{
+              if (campoEditable === 'fechaFinalizacion') {
+  
+                candidatoActualizado = {
+                    ...SelectedCandidato,
+                    [subLista]: {
+                        ...SelectedCandidato[subLista],
+                        [campoEditable]: nuevaFecha, 
+                    }
+                };
               }
-          }else{
-            candidatoActualizado = {
-              ...SelectedCandidato,
-              [subLista]: {
-                ...SelectedCandidato[subLista],
-                [campoEditable]: nuevoValor,
-              }
-            };
-           }  
-
-          }
-       } else{
-        if (lista == "experienciaLaboral") {
-        
-          const respuesta = await actualizarCandidato(SelectedCandidato.id);
-              
-              
-          candidatoActualizado = {
-            ...respuesta
+            }
+            
           } 
         }
-        
-       }
-      } 
+        if(subLista =='emails'){
+          if (subLista =='emails') {
+            const respuesta = await actualizarCandidato(SelectedCandidato.id);
+              
+              
+              candidatoActualizado = {
+                ...respuesta
+              }
+            }
+            
+        }else{
+  
+          if(subLista !='' && lista == ''){
+            if (subLista == "apoyos" || subLista == "ayudaTecnicas" || subLista == "prestaciones" || subLista == "areas") {
+              
+  
+              const respuesta = await actualizarCandidato(SelectedCandidato.id);
+              
+              
+              candidatoActualizado = {
+                ...respuesta
+              }
+              
+              
+            }else{
+              
+            if(subLista == 'telefonos'){
+              candidatoActualizado = {
+                ...SelectedCandidato,
+                [subLista]: 
+                  SelectedCandidato[subLista].map((item, index) => 
+                    index === 0 ? { ...item, [campoEditable]: nuevoValor } : item
+                  )
+                }
+            }else{
+              candidatoActualizado = {
+                ...SelectedCandidato,
+                [subLista]: {
+                  ...SelectedCandidato[subLista],
+                  [campoEditable]: nuevoValor,
+                }
+              };
+             }  
+  
+            }
+         } else{
+          if (lista == "experienciaLaboral") {
+          
+            const respuesta = await actualizarCandidato(SelectedCandidato.id);
+                
+                
+            candidatoActualizado = {
+              ...respuesta
+            } 
+          }
+          
+         }
+        } 
+      }
+
     }
+    
+    
     
     
 
@@ -473,6 +483,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
     const response = await enviarFiltros(filtros);
     const resultados = Object.values(response);
     setCandidatos(resultados);
+    console.log(resultados);
     const idiomasResp = await traerIdiomas();
     const idiomas = Object.values(idiomasResp);
     setIdiomas(idiomas);
@@ -580,18 +591,35 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
 
                       <strong>Nivel educativo: </strong>
                       <span>{SelectedCandidato[selectedRama].nivelEducativo}</span>
-                      { editable && candidatoEditable === SelectedCandidato && campoEditable === 'nivelEducativo' && (
-
-                          <div>
-                            <Form.Control
-                              type="text"
-                              placeholder="Ingrese texto aquí"
-                              autoFocus
-                              ref={inputRef}
-                              />
-                            <button onClick={() => guardarCampo('', selectedRama, SelectedCandidato[selectedRama].nivelEducativo)}>OK</button>
-                            <button onClick={handleBlur}>Cancelar</button>
-                         </div>
+                      { editable && candidatoEditable === SelectedCandidato && campoEditable === 'nivelEducativo' &&(
+                          <div >
+                            <div>
+                              <strong>Cambiar nivel educativo:</strong>
+                            </div>
+                          <select class="form-select" ref={inputRef}>
+                            <option value="">Seleccionar...</option>
+                            <option value="SIN_INSTRUCCION">SIN INSTRUCCION</option>
+                            <option value="PREESCOLAR">PREESCOLAR</option>
+                            <option value="PRIMARIA_INCOMPLETA">PRIMARIA INCOMPLETA</option>
+                            <option value="PRIMARIA_COMPLETA">PRIMARIA COMPLETA</option>
+                            <option value="CICLO_BASICO_INCOMPLETO">CICLO BASICO INCOMPLETO</option>
+                            <option value="CICLO_BASICO_COMPLETO">CICLO BASICO COMPLETO</option>
+                            <option value="BACHILLERATO_INCOMPLETO">BACHILLERATO INCOMPLETO</option>
+                            <option value="BACHILLERATO_COMPLETO">BACHILLERATO COMPLETO</option>
+                            <option value="EDUCACION_TECNICA_INCOMPLETA">EDUCACION TECNICA INCOMPLETA</option>
+                            <option value="EDUCACION_TECNICA_COMPLETA">EDUCACION TECNICA COMPLETA</option>
+                            <option value="EDUCACION_MILITAR_INCOMPLETA">EDUCACION MILITAR INCOMPLETA</option>
+                            <option value="EDUCACION_MILITAR_COMPLETA">EDUCACION MILITAR COMPLETA</option>
+                            <option value="EDUCACION_POLICIAL_INCOMPLETA">EDUCACION POLICIAL INCOMPLETA</option>
+                            <option value="EDUCACION_POLICIAL_COMPLETA">EDUCACION POLICIAL COMPLETA</option>
+                            <option value="TERCIARIA_NO_UNIVERSITARIA_INCOMPLETA">TERCIARIA NO UNIVERSITARIA INCOMPLETA</option>
+                            <option value="TERCIARIA_NO_UNIVERSITARIA_COMPLETA">TERCIARIA NO UNIVERSITARIA COMPLETA</option>
+                            <option value="UNIVERSIDAD_O_SIMILAR_INCOMPLETA">UNIVERSIDAD O SIMILAR INCOMPLETA</option>
+                            <option value="UNIVERSIDAD_O_SIMILAR_COMPLETA">UNIVERSIDAD O SIMILAR COMPLETA</option>
+                          </select> 
+                          <button onClick={() => guardarCampo('', selectedRama, SelectedCandidato[selectedRama].nivelEducativo)}>OK</button>
+                          <button onClick={handleBlur}>Cancelar</button>
+                        </div>
                         )}
                     </li>
                     <li>
@@ -1713,6 +1741,177 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
         );
       }
 
+      if(selectedNombreLista == 'datosPrincipalesCandidato'){
+        return(
+          <ListaPopup show={showPopup} onHide={handleClosePopup} nombreLista={'Datos Principales'} nombreCandidato={SelectedCandidato.nombre} handleEditable={handleEditable} handleBlur = {handleBlur} >
+          {
+            <div>
+              {
+                <ul className='ulEditable'>
+                  <li>
+                    <button onClick={()=>handleEditable(SelectedCandidato, 'nombre')}>
+                      <img src={editLogo} alt="Edit"/>
+                    </button>
+                    <strong>Nombre: </strong>
+                    <span>{SelectedCandidato.nombre}</span> 
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'nombre' && (
+
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.nombre)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}     
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'apellido')}>
+                      <img src={editLogo} alt="Edit"/>
+                    </button>
+                    <strong>Apellido: </strong>
+                    <span>{SelectedCandidato.apellido}</span>  
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'apellido' && (
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.apellido)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'documento')}>
+                      <img src={editLogo} alt="Edit"/>
+                  </button>
+                    <strong>Documento: </strong>
+                    <span>{SelectedCandidato.documento}</span>  
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'documento' && (
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.documento)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'tipoDocumento')}>
+                      <img src={editLogo} alt="Edit"/>
+                  </button>
+                    <strong>Tipo Documento: </strong>
+                    <span>{SelectedCandidato.tipoDocumento}</span>  
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'tipoDocumento' && (
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.tipoDocumento)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'fecha_de_nacimiento')}>
+                      <img src={editLogo} alt="Edit"/>
+                  </button>
+                    <strong>Nacimeinto: </strong>
+                    <span>{SelectedCandidato.fecha_de_nacimiento}</span> 
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'fecha_de_nacimiento' && (
+                      <div>
+                        <Form.Control
+                          type="date"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista,SelectedCandidato.fecha_de_nacimiento)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'sexo')}>
+                      <img src={editLogo} alt="Edit"/>
+                  </button>
+                    <strong>Sexo: </strong>
+                    <span>{SelectedCandidato.sexo}</span> 
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'sexo' && (
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.sexo)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'identidadGenero')}>
+                      <img src={editLogo} alt="Edit"/>
+                  </button>
+                    <strong>Identidad de genero: </strong>
+                    <span>{SelectedCandidato.identidadGenero}</span> 
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'identidadGenero' && (
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.identidadGenero)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                  <li>
+                  <button onClick={()=>handleEditable(SelectedCandidato, 'estadoCivil')}>
+                      <img src={editLogo} alt="Edit"/>
+                  </button>
+                    <strong>Estado Civil: </strong>
+                    <span>{SelectedCandidato.estadoCivil}</span> 
+                    { editable && candidatoEditable === SelectedCandidato && campoEditable === 'estadoCivil' && (
+                      <div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese texto aquí"
+                          autoFocus
+                          ref={inputRef}
+                          />
+                        <button onClick={() => guardarCampo(selectedRama, selectedNombreLista, SelectedCandidato.estadoCivil)}>OK</button>
+                        <button onClick={handleBlur}>Cancelar</button>
+                     </div>
+                    )}  
+                  </li>
+                </ul>
+              }
+            </div>
+           } 
+      </ListaPopup>
+
+        );
+
+
+      }
+
       
 
       if(selectedNombreLista == 'datosAdicionalesCandidato'){
@@ -2798,11 +2997,12 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
       <div className="agregar-filtro">
         <select value={nuevoFiltro} onChange={manejarCambioNuevoFiltro}>
           <option value="">Seleccionar filtro...</option>
-          <option value="mayores a">Mayores a...(edad)</option>
-          <option value="menores a">Menores a...(edad)</option>
+          <option value="mayores a">Mayor o igual a [edad]</option>
+          <option value="menores a">enor o igual a [edad]</option>
           <option value="departamento">Departamento</option>
           <option value="libreta_Conducir">Libreta de conducir</option>
           <option value="idioma">Idioma</option>
+          <option value="nivel_Educativo">Nivel educativo</option>
           <option value="tipo_discapicidad">Tipo de discapacidad</option>
           <option value="documento">Documento</option>
           <option value="Registro Nacional de Persona con Discapacidad">Registro Nacional de Persona con Discapacidad</option>
@@ -2829,6 +3029,29 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                 <option value={item.nombre}>{item.nombre}</option>
               )
             }
+          </select>
+        )}
+        {nuevoFiltro === 'nivel_Educativo' && (
+          <select value={subFiltro} onChange={manejarCambioSubFiltro}>
+            <option value="">Seleccionar un nivel...</option>
+            <option value="SIN_INSTRUCCION">SIN INSTRUCCION</option>
+            <option value="PREESCOLAR">PREESCOLAR</option>
+            <option value="PRIMARIA_INCOMPLETA">PRIMARIA INCOMPLETA</option>
+            <option value="PRIMARIA_COMPLETA">PRIMARIA COMPLETA</option>
+            <option value="CICLO_BASICO_INCOMPLETO">CICLO BASICO INCOMPLETO</option>
+            <option value="CICLO_BASICO_COMPLETO">CICLO BASICO COMPLETO</option>
+            <option value="BACHILLERATO_INCOMPLETO">BACHILLERATO INCOMPLETO</option>
+            <option value="BACHILLERATO_COMPLETO">BACHILLERATO COMPLETO</option>
+            <option value="EDUCACION_TECNICA_INCOMPLETA">EDUCACION TECNICA INCOMPLETA</option>
+            <option value="EDUCACION_TECNICA_COMPLETA">EDUCACION TECNICA COMPLETA</option>
+            <option value="EDUCACION_MILITAR_INCOMPLETA">EDUCACION MILITAR INCOMPLETA</option>
+            <option value="EDUCACION_MILITAR_COMPLETA">EDUCACION MILITAR COMPLETA</option>
+            <option value="EDUCACION_POLICIAL_INCOMPLETA">EDUCACION POLICIAL INCOMPLETA</option>
+            <option value="EDUCACION_POLICIAL_COMPLETA">EDUCACION POLICIAL COMPLETA</option>
+            <option value="TERCIARIA_NO_UNIVERSITARIA_INCOMPLETA">TERCIARIA NO UNIVERSITARIA INCOMPLETA</option>
+            <option value="TERCIARIA_NO_UNIVERSITARIA_COMPLETA">TERCIARIA NO UNIVERSITARIA COMPLETA</option>
+            <option value="UNIVERSIDAD_O_SIMILAR_INCOMPLETA">UNIVERSIDAD O SIMILAR INCOMPLETA</option>
+            <option value="UNIVERSIDAD_O_SIMILAR_COMPLETA">UNIVERSIDAD O SIMILAR COMPLETA</option>
           </select>
         )}
         {nuevoFiltro === 'departamento' && (
@@ -3041,6 +3264,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                             <div className="selectContainer">
                               <select className="selectDropdown" onChange={(e) => handleShowPopup(e, candidato)}>
                                   <option value="">Seleccionar...</option>
+                                  <option value="|datosPrincipalesCandidato">Datos Principales</option>
                                   <option value="|apoyos">Apoyos</option>
                                   <option value="|ayudaTecnicas">Ayudas Técnicas</option>
                                   <option value="experienciaLaboral|">Experiencia Laboral</option>

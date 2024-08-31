@@ -1534,20 +1534,38 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'formacionAcademica')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                                <strong>Formacion academica: </strong>
+                                <strong>Formación académica: </strong>
                                 <span>{selectedEmpleo.formacionAcademica}</span>
-                                { editable && empresaEditable === selectedEmpresa && campoEditable === 'formacionAcademica' && (
-
-                              <div>
-                                <Form.Control
-                                 type="text"
-                                  placeholder="Ingrese un nuevo valor"
-                                  autoFocus
-                                  ref={inputRef}
-                                  />
-                                <button onClick={() => guardarCampo(selectedLista, selectedSubLista, selectedEmpleo.formacionAcademica)}>OK</button>
-                                <button onClick={handleBlur}>Cancelar</button>
-                              </div>
+                                
+                              { editable && empresaEditable === selectedEmpresa && campoEditable === 'formacionAcademica' &&(
+                                <div >
+                                    <div>
+                                      <strong>Cambiar Formación académica:</strong>
+                                    </div>
+                                  <select class="form-select" ref={inputRef}>
+                                    <option value="">Seleccionar...</option>
+                                    <option value="SIN_INSTRUCCION">SIN INSTRUCCION</option>
+                                    <option value="PREESCOLAR">PREESCOLAR</option>
+                                    <option value="PRIMARIA_INCOMPLETA">PRIMARIA INCOMPLETA</option>
+                                    <option value="PRIMARIA_COMPLETA">PRIMARIA COMPLETA</option>
+                                    <option value="CICLO_BASICO_INCOMPLETO">CICLO BASICO INCOMPLETO</option>
+                                    <option value="CICLO_BASICO_COMPLETO">CICLO BASICO COMPLETO</option>
+                                    <option value="BACHILLERATO_INCOMPLETO">BACHILLERATO INCOMPLETO</option>
+                                    <option value="BACHILLERATO_COMPLETO">BACHILLERATO COMPLETO</option>
+                                    <option value="EDUCACION_TECNICA_INCOMPLETA">EDUCACION TECNICA INCOMPLETA</option>
+                                    <option value="EDUCACION_TECNICA_COMPLETA">EDUCACION TECNICA COMPLETA</option>
+                                    <option value="EDUCACION_MILITAR_INCOMPLETA">EDUCACION MILITAR INCOMPLETA</option>
+                                    <option value="EDUCACION_MILITAR_COMPLETA">EDUCACION MILITAR COMPLETA</option>
+                                    <option value="EDUCACION_POLICIAL_INCOMPLETA">EDUCACION POLICIAL INCOMPLETA</option>
+                                    <option value="EDUCACION_POLICIAL_COMPLETA">EDUCACION POLICIAL COMPLETA</option>
+                                    <option value="TERCIARIA_NO_UNIVERSITARIA_INCOMPLETA">TERCIARIA NO UNIVERSITARIA INCOMPLETA</option>
+                                    <option value="TERCIARIA_NO_UNIVERSITARIA_COMPLETA">TERCIARIA NO UNIVERSITARIA COMPLETA</option>
+                                    <option value="UNIVERSIDAD_O_SIMILAR_INCOMPLETA">UNIVERSIDAD O SIMILAR INCOMPLETA</option>
+                                    <option value="UNIVERSIDAD_O_SIMILAR_COMPLETA">UNIVERSIDAD O SIMILAR COMPLETA</option>
+                                  </select> 
+                                  <button onClick={() => guardarCampo(selectedLista, selectedSubLista, selectedEmpleo.formacionAcademica)}>OK</button>
+                                  <button onClick={handleBlur}>Cancelar</button>
+                                </div>
                               )}
                               </li>
                               <li>
@@ -2443,6 +2461,8 @@ const BusquedaConFiltrosEmpleos = () => {
           <option value="rama_economica">Rama economica</option>
           <option value="rut">Rut</option>
           <option value="" disabled>Empleos</option>
+          <option value="formacion_Academica">Formación académica</option>
+
           <option value="departamento">Departamento</option>
           <option value="nombre_puesto">Nombre del puesto</option>
 
@@ -2465,6 +2485,29 @@ const BusquedaConFiltrosEmpleos = () => {
         
         {nuevoFiltro === 'nombre_puesto' && (
           <input type='text' value={subFiltro} onChange={manejarCambioSubFiltro}/>
+        )}
+        {nuevoFiltro === 'formacion_Academica' && (
+          <select value={subFiltro} onChange={manejarCambioSubFiltro}>
+            <option value="">Seleccionar una formación...</option>
+            <option value="SIN_INSTRUCCION">SIN INSTRUCCION</option>
+            <option value="PREESCOLAR">PREESCOLAR</option>
+            <option value="PRIMARIA_INCOMPLETA">PRIMARIA INCOMPLETA</option>
+            <option value="PRIMARIA_COMPLETA">PRIMARIA COMPLETA</option>
+            <option value="CICLO_BASICO_INCOMPLETO">CICLO BASICO INCOMPLETO</option>
+            <option value="CICLO_BASICO_COMPLETO">CICLO BASICO COMPLETO</option>
+            <option value="BACHILLERATO_INCOMPLETO">BACHILLERATO INCOMPLETO</option>
+            <option value="BACHILLERATO_COMPLETO">BACHILLERATO COMPLETO</option>
+            <option value="EDUCACION_TECNICA_INCOMPLETA">EDUCACION TECNICA INCOMPLETA</option>
+            <option value="EDUCACION_TECNICA_COMPLETA">EDUCACION TECNICA COMPLETA</option>
+            <option value="EDUCACION_MILITAR_INCOMPLETA">EDUCACION MILITAR INCOMPLETA</option>
+            <option value="EDUCACION_MILITAR_COMPLETA">EDUCACION MILITAR COMPLETA</option>
+            <option value="EDUCACION_POLICIAL_INCOMPLETA">EDUCACION POLICIAL INCOMPLETA</option>
+            <option value="EDUCACION_POLICIAL_COMPLETA">EDUCACION POLICIAL COMPLETA</option>
+            <option value="TERCIARIA_NO_UNIVERSITARIA_INCOMPLETA">TERCIARIA NO UNIVERSITARIA INCOMPLETA</option>
+            <option value="TERCIARIA_NO_UNIVERSITARIA_COMPLETA">TERCIARIA NO UNIVERSITARIA COMPLETA</option>
+            <option value="UNIVERSIDAD_O_SIMILAR_INCOMPLETA">UNIVERSIDAD O SIMILAR INCOMPLETA</option>
+            <option value="UNIVERSIDAD_O_SIMILAR_COMPLETA">UNIVERSIDAD O SIMILAR COMPLETA</option>
+          </select>
         )}
         {nuevoFiltro === 'departamento' && (
           <select value={subFiltro} onChange={manejarCambioSubFiltro}>
