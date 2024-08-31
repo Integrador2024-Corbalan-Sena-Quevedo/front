@@ -170,7 +170,7 @@ const fetchEntrevistas = async () => {
       }
 
       const data = await response.json();
-      console.log(data);
+    
       const transformedData = Object.keys(data).map(key => ({
           anio: key,
           cantidad: data[key]
@@ -198,7 +198,7 @@ const fetchEntrevistasPorGenero = async () => {
       }
 
       const data = await response.json();
-      console.log(data);
+      
       const transformedData = Object.keys(data).map(key => ({
           genero: key,
           cantidad: data[key]
@@ -225,7 +225,7 @@ const fetchCandidatosEdad = async () => {
       }
 
       const data = await response.json();
-      console.log(data);
+   
       const transformedData = Object.keys(data).map(key => ({
           edad: key,
           cantidad: data[key]
@@ -252,7 +252,7 @@ const fetchCandidatosDiscapacidad = async () => {
       }
 
       const data = await response.json();
-      console.log(data);
+     
       const transformedData = Object.keys(data).map(key => ({
           discapacidad: key,
           cantidad: data[key]
@@ -279,7 +279,7 @@ const fetchCandidatosEducacion = async () => {
       }
 
       const data = await response.json();
-      console.log(data);
+      
       const transformedData = Object.keys(data).map(key => ({
           nivelEducativo: key,
           cantidad: data[key]
@@ -306,7 +306,7 @@ const fetchCandidatosHoras = async () => {
       }
 
       const data = await response.json();
-      console.log(data);
+     
       const transformedData = Object.keys(data).map(key => ({
           horas: key,
           cantidad: data[key]
@@ -334,7 +334,7 @@ const fetchCandidatosTrabajando = async () => {
       }
 
       const data = await response.json();
-      console.log(data);
+     
       const transformedData = Object.keys(data).map(key => ({
           empleados: key,
           cantidad: data[key]

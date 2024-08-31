@@ -66,7 +66,7 @@ const PdfModal = ({ show, onHide, pdfUrl, candidatoDTO}) => {
     };
 
     const onDeletePdf = async () => {
-        console.log(candidatoDTO.candidatoId);
+       
         try {
             const response = await fetch('http://localhost:8080/deleteCv', {
                 method: 'PATCH',

@@ -20,7 +20,7 @@ const useFetchFiltradoCandidato = ()=> {
           const datos = {
             filtros: filtrosSeleccionados
           };
-          console.log(JSON.stringify(datos));
+       
           
           const response = await fetch('http://localhost:8080/filtro/candidatos', {
             method: 'POST',
@@ -46,9 +46,9 @@ const useFetchFiltradoCandidato = ()=> {
     const actualizarCampo = async (candidatoId, campo, datoAct, datoAnt, lista, subLista) => {
     try {
 
-      console.log(JSON.stringify(candidatoId, campo, datoAct, datoAnt, lista, subLista))
+    
 
-      console.log(token);
+    
       const response = await fetch(`http://localhost:8080/actualizar/candidato`, {
         method: 'PUT',
         headers: {
@@ -69,7 +69,7 @@ const useFetchFiltradoCandidato = ()=> {
 
   const eliminarDatoLista = async (candidatoId, lista, subLista, idAEliminar) => {
 
-    console.log(token);
+   
     try {
       const response = await fetch(`http://localhost:8080/actualizar/eliminarSubLista`, {
         method: 'DELETE',

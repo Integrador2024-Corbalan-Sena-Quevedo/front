@@ -14,7 +14,7 @@ const FileUpload = () => {
 
 
   const handleFileChange = (e) => {
-    console.log(e.target.files[0].name)
+  
     setUploadMessage(e.target.files[0].name)
     setFile(e.target.files[0]);
   };
@@ -41,11 +41,10 @@ const FileUpload = () => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('type', selectedOptionTypeFile);
-    console.log('file: '+ file)
-    console.log('type: '+ selectedOptionTypeFile)
+
 
     try {
-      console.log(token)
+    
       const response = await fetch('http://localhost:8080/upload-csv', {
         method: 'POST',
         headers: {
@@ -54,7 +53,7 @@ const FileUpload = () => {
         body: formData
       })
 
-      console.log(response)
+     
       if(response.status === 200){
        const data = await response.text()
         setUploadMessage(data)

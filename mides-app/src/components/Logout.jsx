@@ -4,7 +4,7 @@ const Logout = () => {
   const navigate = useNavigate();
     const borrarSesion = () => {
       localStorage.clear();
-      console.log("Sesión cerrada");
+      
       navigate("/");
       
     };

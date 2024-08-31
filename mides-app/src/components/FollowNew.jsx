@@ -51,7 +51,7 @@ const Follow = () => {
       telefonoEmpleado: "091732443"
     };
     
-    console.log(seguimientoDTO)
+    
     try {
       const response = await fetch('http://localhost:8080/newSeguimiento', {
         method: 'POST',
