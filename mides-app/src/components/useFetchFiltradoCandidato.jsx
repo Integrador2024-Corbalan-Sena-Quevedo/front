@@ -89,7 +89,6 @@ const useFetchFiltradoCandidato = ()=> {
   };
 
   const actualizarCandidato = async (candidadtoId) => {
-    debugger
     try {
       const response = await fetch(`http://localhost:8080/filtro/unCandidato`, {
         method: 'POST',
@@ -113,7 +112,6 @@ const useFetchFiltradoCandidato = ()=> {
   }
 
   const traerIdiomas = async () => {
-    debugger
     try {
       const response = await fetch(`http://localhost:8080/actualizar/idiomasAll`, {
         method: 'POST',

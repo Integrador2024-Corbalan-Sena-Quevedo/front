@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import useFetchFiltradoCandidato from './useFetchFiltradoCandidato';
 import 'bootstrap/dist/css/bootstrap.css'
 import '../styles/TableMatch.css'
@@ -68,6 +68,15 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
   const selectRefAgregarALista = useRef(null); 
 
   
+  useEffect(() => {
+   const fetchIdioma = async () =>{
+    const idiomasResp = await traerIdiomas();
+    const idiomas = Object.values(idiomasResp);
+    setIdiomas(idiomas)
+   };
+   fetchIdioma()
+},[] )
+ 
 
   
 
@@ -483,10 +492,6 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
     const response = await enviarFiltros(filtros);
     const resultados = Object.values(response);
     setCandidatos(resultados);
-    console.log(resultados);
-    const idiomasResp = await traerIdiomas();
-    const idiomas = Object.values(idiomasResp);
-    setIdiomas(idiomas);
   };
 
   
@@ -3024,7 +3029,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
         )}
         {nuevoFiltro === 'idioma' && (
           <select value={subFiltro} onChange={manejarCambioSubFiltro}>
-            <option value="">Seleccionar Departamento...</option>
+            <option value="">Seleccionar Idioma...</option>
             {idiomas.map((item, index) =>
                 <option value={item.nombre}>{item.nombre}</option>
               )
