@@ -123,6 +123,7 @@ const JobMatch = () => {
                     <tr>
                         <th className="th">Empleo</th>
                         <th className="th">Empresa</th>
+                        <th className="th">Educación minima</th>
                         <th className="th">Tareas</th>
                         <th className="th">Candidatos</th>
                         <th className="th">Sugerencias</th>
@@ -134,6 +135,7 @@ const JobMatch = () => {
                         <tr key={job.id}>
                             <td className="td"> <strong>{job.nombrePuesto}</strong></td>
                             <td className="td"> <strong>{job.empresaNombre}</strong></td>
+                            <td className="td educacion-minima-column"> <strong>{job.nivelEducativo}</strong></td>
                             <td className="td">
                             <button className="button" onClick={() => openModalTaskDetails(job)}>
                                     Ver tareas

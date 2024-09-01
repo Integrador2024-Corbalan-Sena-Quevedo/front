@@ -134,7 +134,7 @@ const ListaOperadores = () => {
     onChange={(e) => handleChangeRole(operator.id, e.target.value)} 
     value={editRol[operator.id] || operator.rol} 
   >
-    <option value="OPERADOR_LABORAL_NOVATO">Operador Laboral Novato</option>
+    <option value="OPERADOR_LABORAL_BASICO">Operador Laboral Básico</option>
     <option value="OPERADOR_LABORAL_SUPERIOR">Operador Laboral Superior</option>
     <option value="ADMIN">Administrador</option>
   </select>

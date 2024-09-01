@@ -2375,7 +2375,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                           <option value="Tarjeta Uruguay Social (TUS)">Tarjeta Uruguay Social (TUS)</option>
                           <option value="Pensión de BPS por discapacidad">Pensión de BPS por discapacidad</option>
                           <option value="Jubilación BPS">Jubilación BPS</option>
-                          <option value="Asignaciones Familiares - Plan de Equidad (AFAM-PE)">Asignaciones Familiares - Plan de Equidad (AFAM-PE)</option>
+                          <option value="Asignaciones Familiares   - Plan de Equidad (AFAM-PE)">Asignaciones Familiares - Plan de Equidad (AFAM-PE)</option>
                           <option value="Pensión de BPS por invalidez">Pensión de BPS por invalidez</option>
                           <option value="Jubilación de otras cajas">Jubilación de otras cajas</option>
                         </select>
@@ -2998,7 +2998,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
         <select value={nuevoFiltro} onChange={manejarCambioNuevoFiltro}>
           <option value="">Seleccionar filtro...</option>
           <option value="mayores a">Mayor o igual a [edad]</option>
-          <option value="menores a">enor o igual a [edad]</option>
+          <option value="menores a">Menor o igual a [edad]</option>
           <option value="departamento">Departamento</option>
           <option value="libreta_Conducir">Libreta de conducir</option>
           <option value="idioma">Idioma</option>

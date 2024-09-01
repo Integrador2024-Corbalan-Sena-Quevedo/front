@@ -128,7 +128,17 @@ const FollowView = () => {
     const handleShowAll = () => {
         setSelectedFollow(null);
     };
-    
+
+    const formatDate = (dateArray) => {
+        if (Array.isArray(dateArray) && dateArray.length === 3) {
+            const [year, month, day] = dateArray;
+            const formattedMonth = month.toString().padStart(2, '0');
+            const formattedDay = day.toString().padStart(2, '0');
+            return `${year}-${formattedMonth}-${formattedDay}`;
+        }
+        return dateArray;
+    };
+
     return (
         <>
             <h2>Lista de Seguimientos</h2>
@@ -169,7 +179,7 @@ const FollowView = () => {
                                 <td className="td"><strong>{follow.nombreEncargado}</strong></td>
                                 <td className="td"><strong>{follow.emailEncargado}</strong></td>
                                 <td className="td"><strong>{follow.localidad}</strong></td>
-                                <td className="td"><strong>{follow.fechaIngresoEmpleado}</strong></td>
+                                <td className="td"><strong>{formatDate(follow.fechaIngresoEmpleado)}</strong></td>
                                 <td className="td">
                                     <button className="follow-button" onClick={() => handleView(follow)}>Ver</button>
                                     <button className="follow-button" onClick={() => handleNew(follow)}>Nuevo</button>
@@ -219,7 +229,7 @@ const FollowView = () => {
                         cols="50"
                     />
                     <div className="follow-modal-buttons">
-                        <button className="follow-button" onClick={() => setIsFollowModalOpen(false)}>Cerrar</button>
+                        <button className="follow-button-save" onClick={() => setIsFollowModalOpen(false)}>Cerrar</button>
                         <button className="follow-button-save" onClick={handleFollowSave}>Guardar Seguimiento</button>
                     </div>
                 </Modal>

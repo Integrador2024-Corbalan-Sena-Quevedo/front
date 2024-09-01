@@ -62,3 +62,8 @@ button:focus {
 .td, .th {
     text-align: center;
 }
+
+.educacion-minima-column {
+    white-space: normal; 
+    word-wrap: break-word;
+}

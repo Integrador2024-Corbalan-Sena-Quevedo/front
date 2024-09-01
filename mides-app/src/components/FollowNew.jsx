@@ -127,7 +127,7 @@ const Follow = () => {
 
   return (
     <>
-    <h2>Asignar candido a empleo</h2>
+    <h2>Asignar candidato a empleo</h2>
       <table className="follow-table">
         <thead>
           <tr>
@@ -168,7 +168,6 @@ const Follow = () => {
                   name="encargado"
                   value={olValues[`encargado${job.id}`] || ''}
                   onChange={(e) => handleInputChange(e, job.id)}
-                  style={{ width: "90px" }}
                 />
               </td>
               <td className="td">
@@ -178,7 +177,6 @@ const Follow = () => {
                   name="mailEncargado"
                   value={olValues[`mailEncargado${job.id}`] || ''}
                   onChange={(e) => handleInputChange(e, job.id)}
-                  style={{ width: "90px" }}
                 />
               </td>
               <td className="td"><strong>{job.localidad}</strong></td>
@@ -242,7 +240,7 @@ const Follow = () => {
           cols="50"
         />
         <div className="follow-modal-buttons">
-          <button className="follow-button" onClick={() => setIsFollowModalOpen(false)}>Cerrar</button>
+          <button className="follow-button-save" onClick={() => setIsFollowModalOpen(false)}>Cerrar</button>
           <button className="follow-button-save" onClick={handleFollowSave}>Guardar Seguimiento</button>
         </div>
       </Modal>
