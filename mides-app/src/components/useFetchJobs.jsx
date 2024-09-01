@@ -69,7 +69,7 @@ const useFetchJobs = () => {
     const fetchCandidatesIA = async (jobId, candidates) => {
         try{ 
             const candidateIds = candidates.map(candidate => candidate.id);
-            console.log(candidateIds)
+            
             const response = await fetch('http://localhost:8080/filtroIA',{
                 method: 'POST',
                 headers: {
@@ -105,7 +105,7 @@ const useFetchJobs = () => {
                 },
                 body: JSON.stringify({candidatosId: candidateIds, empresaId: companyId, empresaMail:companyMail, empleoId: jobId })
             })
-            console.log(response)
+        
             if(response.status === 200){
                 const data = await response.text()
                 setLoading(false);

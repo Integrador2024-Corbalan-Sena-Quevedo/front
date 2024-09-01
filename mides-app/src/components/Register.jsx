@@ -6,7 +6,6 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('')
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -21,8 +20,7 @@ const Register = () => {
     const nuevoUsuario = {
       username,
       password,
-      name,
-      email
+      name
     };
 
     try {
@@ -35,6 +33,13 @@ const Register = () => {
       });
 
       if (response.status === 200) {
+        const data = await response.json();
+       
+
+   
+        localStorage.setItem('registrationSuccess', 'Registrado exitosamente');
+
+        
         navigate('/');
       } else {
         setError('Error al registrar el usuario.');
@@ -55,7 +60,7 @@ const Register = () => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required/>
+          />
         </div>
         <div className="form-group">
           <label>Usuario:</label>
@@ -63,23 +68,15 @@ const Register = () => {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required/>
-        </div>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required/>
+          />
         </div>
         <div className="form-group">
           <label>Contraseña:</label>
-          <input 
+          <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required/>
+          />
         </div>
         <button type="submit" className="btn-register">Registrarse</button>
         <div className="error-container">

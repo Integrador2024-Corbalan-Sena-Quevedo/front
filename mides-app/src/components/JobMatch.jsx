@@ -59,7 +59,7 @@ const JobMatch = () => {
         setIsSendingEmail(true);
         
         const emailEmpresa = job.correoEmpresa;
-        console.log(emailEmpresa)
+      
         const companyId = job.empresaId;
         const candidatesList = candidatesMap[job.id] || [];
         const jobId = job.id;
@@ -87,7 +87,7 @@ const JobMatch = () => {
     const openModalTaskDetails = (job) => {
         setTaskDetailsEssential(job.tareas[0]?.detalleTarea || [])
         setTaskDetailsNotEssential(job.tareas[1]?.detalleTarea || [])
-        console.log(taskDetailsEssential)
+       
         setIsTaskDetailsModalOpen(true)
     }
 

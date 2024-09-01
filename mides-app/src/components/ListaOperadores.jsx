@@ -70,7 +70,7 @@ const ListaOperadores = () => {
 
   const handleSaveRole = async (id) => {
     const newRole = `"${editRol[id]}"`; 
-    console.log(newRole);
+   
     const token = localStorage.getItem('token');
     try {
       const response = await fetch(`http://localhost:8080/operadores/${id}/rol`, {
