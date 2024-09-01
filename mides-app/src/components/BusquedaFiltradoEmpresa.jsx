@@ -2548,7 +2548,7 @@ const BusquedaConFiltrosEmpleos = () => {
                   <th>Empleo</th>
                   <th>Formación</th>
                   {/* <th>Edad Preferente</th> */}
-                  <th>Localidad</th>   
+                  <th>Departamento</th>   
                   <th>Cantidad de puestos</th>           
                   <th>Acciones</th>
               </tr>
@@ -2560,7 +2560,7 @@ const BusquedaConFiltrosEmpleos = () => {
                       <td>{empleo.nombrePuesto}</td>
                       <td className="wrap-text">{empleo.formacionAcademica}</td>
                       {/* <td>{empleo.edadPreferente}</td> */}                      
-                      <td>{empleo.localidades}</td>
+                      <td>{empleo.departamento}</td>
                       <td>{empleo.nroPuestosDisponible}</td>
                       <td>
                           <span class="masDetalles" onClick={() => handleSelectShow(empleo)}>Mas detalles</span>
@@ -2568,7 +2568,7 @@ const BusquedaConFiltrosEmpleos = () => {
                             <div className="selectContainer">
                               <select className="selectDropdown" onChange={(e) => handleShowPopup(e, empleo)}>
                                   <option value="">Seleccionar...</option>
-                                  <option disabled value="">Datos de las empelos</option>
+                                  <option disabled value="">Datos de los empelos</option>
                                   <option value="empleo|">Datos adicionales del empelo</option>
                                   <option value="empleo|conocimientosEspecificosEmpleo">Requisitos</option>
                                   <option value="empleo|tareas">Tareas</option>

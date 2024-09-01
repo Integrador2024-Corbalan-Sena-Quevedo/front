@@ -7,6 +7,7 @@ const useFetchJobs = () => {
     const [loading, setLoading] = useState(true);
     const [messageFetchJobs, setMessageFetchJobs] =  useState('')
     const token = localStorage.getItem('token');
+    const email = localStorage.getItem("email")
     const [filtros, setFiltros] = useState([]);
     
     useEffect(() => {
@@ -94,7 +95,7 @@ const useFetchJobs = () => {
 
     }
 
-    const fetchSendEmailToCompany = async (companyId, companyMail, candidates) => {
+    const fetchSendEmailToCompany = async (companyId, companyMail, candidates, jobId) => {
         try {
             const candidateIds = candidates.map(candidate => candidate.id);
             const response = await fetch('http://localhost:8080/sendEmail',{
@@ -103,7 +104,7 @@ const useFetchJobs = () => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({candidatosId: candidateIds, empresaId: companyId, empresaMail:companyMail })
+                body: JSON.stringify({candidatosId: candidateIds, empresaId: companyId, empresaMail:companyMail, empleoId: jobId, emailUser: email })
             })
         
             if(response.status === 200){

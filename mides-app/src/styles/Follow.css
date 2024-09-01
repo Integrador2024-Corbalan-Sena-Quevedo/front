@@ -36,7 +36,7 @@
 .follow-table th {
     background-color: #034C8C;
     color: #ffffff;
-    font-size: 10px; /* Tamaño de fuente de encabezado más pequeño */
+    font-size: 10px;
   }
 
   .follow-table td {
@@ -48,8 +48,8 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    padding: 5px; /* Ajuste de padding */
-    height: 20px; /* Ajuste de altura */
+    padding: 5px;
+    height: 20px;
     margin: 0 auto; 
     display: block;
     margin-left: -3px;
@@ -65,10 +65,11 @@
     cursor: pointer;
     transition: 0.4s;
     font-size: 13px;
-    width: 60px;
+    width: 100%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     text-align: center;
   }
 

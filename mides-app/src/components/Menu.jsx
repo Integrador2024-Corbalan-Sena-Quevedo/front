@@ -35,7 +35,7 @@ const Menu = ({ onLogout }) => {
   const menuItems = {
     'ADMIN': ['Home', 'Subir archivo', 'Match', 'Lista de Operadores', 'Filtro de candidatos','Filtro empresas','Nuevo seguimiento', 'Ver seguimientos', 'Estadísticas y reportes', 'Logout'],
     'OPERADOR_LABORAL_SUPERIOR': ['Home', 'Subir archivo','Filtro de candidatos', 'Filtro empresas', 'Nuevo seguimiento', 'Ver seguimientos', 'Estadísticas y reportes','Logout'],
-    'OPERADOR_LABORAL_NOVATO': ['Home', 'Logout']
+    'OPERADOR_LABORAL_BASICO': ['Home', 'Filtro de candidatos', 'Filtro empresas', 'Ver seguimientos','Logout']
   };
 
   const handleItemClick = (item) => {

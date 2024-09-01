@@ -16,6 +16,7 @@ table {
     margin: 20px 0;
     font-size: 16px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
 }
 
 th, td {
@@ -34,7 +35,7 @@ th {
 }
 
 .button {
-    width: 180px;
+    width: 100%;
     height: 40px;
     background-color: #034C8C;
     color: white;
@@ -46,6 +47,7 @@ th {
     cursor: pointer;
     border-radius: 5px;
     transition: 0.3s ease;
+    overflow: hidden;
 }
 
 .button:hover:enabled  {
@@ -59,4 +61,9 @@ button:focus {
 
 .td, .th {
     text-align: center;
+}
+
+.educacion-minima-column {
+    white-space: normal; 
+    word-wrap: break-word;
 }
