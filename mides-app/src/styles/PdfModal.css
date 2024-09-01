@@ -1,0 +1,56 @@
+
+.custom-modal-size {
+    max-width: 1000px;
+    width: 100%;
+}
+.custom-modal-size .modal-body {
+    height: 510px; /* Ajusta la altura del modal */
+}
+
+
+button {
+    margin-top: 10px;
+}
+
+button:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+}
+
+button[disabled]:hover {
+    cursor: not-allowed;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.upload-container-cv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto;
+    max-width: 900px;
+    height: 450px;
+    padding: 1rem;
+    border: 3px solid #000000;
+    border-radius: 15px;
+    background-color: #cde4f3;
+    background-image: url("../img/midelogo.png");
+    background-repeat: no-repeat; 
+    background-size: 200px;
+    background-position: center 99%;
+}
+
+
+
+.upload-icon-cv {
+    width: 110px; 
+    height: 150px;
+    object-fit: contain; 
+    padding-top: 10px;
+}
+
+.upload-icon-cv:hover{
+    transform: translateY(-5px);
+  }

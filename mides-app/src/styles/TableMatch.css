@@ -1,0 +1,69 @@
+div {
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #dae9f3;
+    border: black 1px;
+    position: relative;
+}
+
+th {
+    background-color: #034C8C;
+    color: white;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+.button {
+    width: 100%;
+    height: 40px;
+    background-color: #034C8C;
+    color: white;
+    border: none;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s ease;
+    overflow: hidden;
+}
+
+.button:hover:enabled  {
+    background-color: #F2CB05;
+    transform: translateY(-2px);
+}
+
+button:focus {
+    outline: none;
+}
+
+.td, .th {
+    text-align: center;
+}
+
+.educacion-minima-column {
+    white-space: normal; 
+    word-wrap: break-word;
+}

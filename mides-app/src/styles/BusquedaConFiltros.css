@@ -1,0 +1,423 @@
+
+
+
+
+.contenedor {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #074180;
+  border-radius: 8px;
+  background-color: #f5f0f0;
+}
+
+h2, h3 {
+  color: #074180;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #074180;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.filtro {
+  display: inline-block;
+  font-size: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  
+}
+
+.filtro label {
+  display: inline-block;
+  padding: 2px 2px;
+  border-radius: 5px;
+  padding: 5px 5px;
+  background-color: #074180;
+  margin-left: 8px;
+  color: white;
+}
+
+.filtro button {
+  background-color: #074180;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 8px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.filtro button:hover {
+  background-color: #006bb3;
+}
+
+.agregar-filtro {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  
+}
+
+.agregar-filtro select {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid #074180;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  color: #074180;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.agregar-filtro select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.agregar-filtro input[type="text"] {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.agregar-filtro button {
+  background-color: #074180;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.agregar-filtro button:hover {
+  background-color: #006bb3;
+}
+
+.filtros-seleccionados span {
+  display: inline-block;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  
+}
+
+.resultados {
+  border-top: 1px solid #074180;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.contenedor {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #074180;
+  border-radius: 8px;
+  background-color: #f0f2f5;
+}
+
+.result {
+  max-width: 100%;
+  margin: 1% auto;
+  padding: 20px;
+  border: 1px solid #074180;
+  border-radius: 8px;
+  background-color: #ffffffc4;
+}
+
+h2, h3 {
+  color: #074180;
+}
+
+.inputText{
+  width: 5%;
+  padding: 10px;
+  margin-top: 9px;
+  margin-bottom: 2px;
+  border: 1px solid #074180;
+  border-radius: 4px;
+  height: 20px;
+  box-sizing: border-box;
+}
+
+.filtro {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  background-color: #074180;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+.filtro label {
+  color: white;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  margin-right: 4px;
+}
+
+.filtro button {
+  background-color: #074180;
+  border: none;
+  color: white;
+  padding: 1px 5px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.filtro button:hover {
+  background-color: #006bb3;
+}
+
+.agregar-filtro {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.agregar-filtro select {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid #074180;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  color: #074180;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.agregar-filtro select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.agregar-filtro input[type="text"] {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid #074180;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.agregar-filtro button {
+  background-color: #074180;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.agregar-filtro button:hover {
+  background-color: #006bb3;
+}
+
+.filtros-seleccionados span {
+  display: inline-block;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.subFiltro {
+  color: white;
+}
+
+.buttonEnviar {
+  background-color: #074180;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.buttonEnviar:hover {
+  background-color: #006bb3;
+}
+
+.resultados {
+  border-top: 1px solid #074180;
+  padding-top: 10px;
+  margin-top: 10px;
+  
+}
+
+.fondoAnim {
+  background-color: #ffffff; /* Color de fondo del div */
+  padding: 10px; /* Espacio interno del div */
+  border-radius: 10px; /* Esquinas redondeadas */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), 
+              -5px -5px 10px rgba(255, 255, 255, 0.7);
+}
+
+
+.masDetalles {
+  color: #006bb3;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-right: 10px;
+  position: relative;
+}
+
+.masDetalles:hover {
+  color: #ff1a1a;
+}
+
+
+.selectDropdown {
+  width: 110px;
+  border-radius: 5px;
+  margin-left: -55px;
+  border: 1px solid #ccc;
+  position: absolute;
+  top: 40px; /* Ajusta esta distancia según sea necesario */
+  background-color: white;
+}
+
+.selectDropdown:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+
+
+
+
+
+.encabezado {
+  margin-left: 50px;
+}
+
+.encabezado span {
+  margin-left: 5px;
+}
+
+.ulEditable li {
+  margin-bottom: 10px;
+}
+
+.ulEditable li strong {
+  margin-left: 5px;
+}
+
+.ulEditable img {
+  width: 15px;
+  height: 15px;
+  display: block;
+
+}
+
+.ulEditable img:hover {
+  width: 20px;
+  height: 20px;
+  
+}
+
+.ulEditable button{
+  padding: 8px;
+  border-radius: 10px;
+  margin-right: 8px;
+  margin-top: 8px;
+}
+
+.ulEditable .agregar{
+  background-color: #3fb851;
+  
+}
+.ulEditable .agregar:hover{
+  background-color: #0e671c;
+  
+}
+
+
+.ulEditable .eliminar{
+  background-color: #ff1a1a;
+  
+}
+.ulEditable .eliminar:hover{
+  background-color: #be1e1e;
+  
+}
+
+.modal-header button:hover {
+  transition: 0.4s;
+}
+
+.button-add-candidate{
+  padding: 8px;
+  border-radius: 10px;
+  margin-right: 5px;
+  margin-top: 5px;
+  background-color: #074180;
+}
+
+
+/*CSS Modal*/
+
+.custom-modal{
+  z-index: 10;
+  max-width: 80%; 
+}
+
+
+.modalHeder {
+  background-color: #074180;
+}
+
+.titulosListas {
+  color: #040404;
+}
+
+.modalBody {
+  background-color: #f0f2f5;
+}
+
+.wrap-text {
+   white-space: normal;
+   word-wrap: break-word;
+   max-width: auto;
+  }
+
+  .tituloTareas{
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    color: #034c8c;
+  }

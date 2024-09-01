@@ -1,0 +1,138 @@
+.operator-list-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.operator-list-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.operator-list-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.operator-list-container li {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.operator-list-container button {
+  margin-left: 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.operator-list-container button:hover {
+  background-color: #d32f2f;
+}
+
+.operator-list-container select {
+  margin-left: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.operator-list-container .error {
+  color: #f44336;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+table {
+  table-layout: fixed;
+  margin: auto;
+  width: 70%;
+  border-collapse: collapse;
+  border: 2px solid #074180;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+table th {
+  background-color: #074180;
+  color: white;
+  font-weight: bold;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+ 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #007bff;
+  background-color: #ffffff;
+  color: #007bff;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.pagination button:hover:not(.active) {
+  background-color: #e7f0ff;
+  color: #007bff;
+}
+
+#guardarButton {
+  background-color: #074180; 
+  color: white; 
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#guardarButton:hover {
+  background-color: #052a60; 
+}
