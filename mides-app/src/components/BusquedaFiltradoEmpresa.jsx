@@ -453,6 +453,8 @@ const BusquedaConFiltrosEmpleos = () => {
     setEmpresas(listaActualizada); 
     if (empleoActualizado != null) {
       setSelectedEmpleo(empleoActualizado);
+      const todosLosEmpleos = listaActualizada.flatMap(empresa => empresa.empleo);
+      setEmpelos(todosLosEmpleos);
     }
     
     
