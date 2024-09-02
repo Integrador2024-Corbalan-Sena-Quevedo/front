@@ -73,7 +73,7 @@ const Register = () => {
           <input
             type="email"
             value={email}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           required/>
         </div>
         <div className="form-group">
