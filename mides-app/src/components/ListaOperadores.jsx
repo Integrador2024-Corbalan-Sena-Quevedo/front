@@ -13,7 +13,7 @@ const ListaOperadores = () => {
   const fetchOperadores = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('http://localhost:8080/operadores', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/operadores', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ const ListaOperadores = () => {
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:8080/operadores/${id}`, {
+      const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/operadores/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -73,7 +73,7 @@ const ListaOperadores = () => {
    
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:8080/operadores/${id}/rol`, {
+      const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/operadores/${id}/rol`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -17,7 +17,7 @@ const FollowView = () => {
 
     const fetchAllFollow = async () => {
         try {
-            const response = await fetch('http://localhost:8080/allSeguimientos', {
+            const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/allSeguimientos', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -61,7 +61,7 @@ const FollowView = () => {
             
          
             try {
-                const response = await fetch(`http://localhost:8080/updateSeguimiento`, {
+                const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/updateSeguimiento`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

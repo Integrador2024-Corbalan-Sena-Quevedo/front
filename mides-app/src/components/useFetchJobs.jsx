@@ -13,7 +13,7 @@ const useFetchJobs = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try{
-                const response = await fetch('http://localhost:8080/empleos',{
+                const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/empleos',{
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ const useFetchJobs = () => {
     const fetchCandidates = async (jobId) => {
 
        try{
-            const response = await fetch('http://localhost:8080/preFilto',{
+            const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/preFilto',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', 
@@ -71,7 +71,7 @@ const useFetchJobs = () => {
         try{ 
             const candidateIds = candidates.map(candidate => candidate.id);
             
-            const response = await fetch('http://localhost:8080/filtroIA',{
+            const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/filtroIA',{
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -98,7 +98,7 @@ const useFetchJobs = () => {
     const fetchSendEmailToCompany = async (companyId, companyMail, candidates, jobId) => {
         try {
             const candidateIds = candidates.map(candidate => candidate.id);
-            const response = await fetch('http://localhost:8080/sendEmail',{
+            const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/sendEmail',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ const useFetchJobs = () => {
     }
 
     const fetchAllCandidates = async () => {
-        const response = await fetch('http://localhost:8080/filtro/candidatos',{
+        const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/filtro/candidatos',{
         method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

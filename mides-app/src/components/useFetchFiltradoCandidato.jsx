@@ -22,7 +22,7 @@ const useFetchFiltradoCandidato = ()=> {
           };
        
           
-          const response = await fetch('http://localhost:8080/filtro/candidatos', {
+          const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/filtro/candidatos', {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -49,7 +49,7 @@ const useFetchFiltradoCandidato = ()=> {
     
 
     
-      const response = await fetch(`http://localhost:8080/actualizar/candidato`, {
+      const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/candidato`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -71,7 +71,7 @@ const useFetchFiltradoCandidato = ()=> {
 
    
     try {
-      const response = await fetch(`http://localhost:8080/actualizar/eliminarSubLista`, {
+      const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/eliminarSubLista`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -90,7 +90,7 @@ const useFetchFiltradoCandidato = ()=> {
 
   const actualizarCandidato = async (candidadtoId) => {
     try {
-      const response = await fetch(`http://localhost:8080/filtro/unCandidato`, {
+      const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/filtro/unCandidato`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -113,7 +113,7 @@ const useFetchFiltradoCandidato = ()=> {
 
   const traerIdiomas = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/actualizar/idiomasAll`, {
+      const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/idiomasAll`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -136,7 +136,7 @@ const useFetchFiltradoCandidato = ()=> {
 
   const agregarALista = async (candidatoId, lista, subLista, id) => {
     try {
-      const response = await fetch(`http://localhost:8080/actualizar/agregarSubLista`, {
+      const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/agregarSubLista`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

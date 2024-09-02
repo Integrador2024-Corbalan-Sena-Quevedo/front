@@ -33,7 +33,7 @@ const Login = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/auth/login', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
