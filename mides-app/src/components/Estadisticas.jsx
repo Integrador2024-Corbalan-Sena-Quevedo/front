@@ -52,7 +52,7 @@ const Estadisticas = () => {
   const fetchCantidadOperadoresPorRol = async () => {
     const token = localStorage.getItem('token');
     try {
-        const response = await fetch('http://localhost:8080/estadisticas/operadoresPorRol', {
+        const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/operadoresPorRol', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ const Estadisticas = () => {
 const fetchEmpleosEnMontevideo= async () => {
   const token = localStorage.getItem('token');
   try {
-      const response = await fetch('http://localhost:8080/estadisticas/empleosDepartamento', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/empleosDepartamento', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ const fetchEmpleosEnMontevideo= async () => {
 const fetchEmpleosFormacion = async () => {
   const token = localStorage.getItem('token');
   try {
-      const response = await fetch('http://localhost:8080/estadisticas/empleosNivelFormacion', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/empleosNivelFormacion', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -131,7 +131,7 @@ const fetchEmpleosFormacion = async () => {
 const fetchEmpleosCargaHoraria = async () => {
   const token = localStorage.getItem('token');
   try {
-      const response = await fetch('http://localhost:8080/estadisticas/empleosCargaHoraria', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/empleosCargaHoraria', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ const fetchEmpleosCargaHoraria = async () => {
 const fetchEntrevistas = async () => {
   const token = localStorage.getItem('token');
   try {
-      const response = await fetch('http://localhost:8080/estadisticas/entrevistasPorAnio', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/entrevistasPorAnio', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ const fetchEntrevistas = async () => {
 const fetchEntrevistasPorGenero = async () => {
   const token = localStorage.getItem('token');
   try {
-      const response = await fetch('http://localhost:8080/estadisticas/entrevistasPorGenero', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/entrevistasPorGenero', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -212,7 +212,7 @@ const fetchEntrevistasPorGenero = async () => {
 const fetchCandidatosEdad = async () => {
   const token = localStorage.getItem('token');
   try {
-      const response = await fetch('http://localhost:8080/estadisticas/candidatosPorEdad', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/candidatosPorEdad', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -239,7 +239,7 @@ const fetchCandidatosEdad = async () => {
 const fetchCandidatosDiscapacidad = async () => {
   const token = localStorage.getItem('token');
   try {
-      const response = await fetch('http://localhost:8080/estadisticas/candidatosPorDiscapacidad', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/candidatosPorDiscapacidad', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -266,7 +266,7 @@ const fetchCandidatosDiscapacidad = async () => {
 const fetchCandidatosEducacion = async () => {
   const token = localStorage.getItem('token');
   try {
-      const response = await fetch('http://localhost:8080/estadisticas/candidatosNivelFormacion', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/candidatosNivelFormacion', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -293,7 +293,7 @@ const fetchCandidatosEducacion = async () => {
 const fetchCandidatosHoras = async () => {
   const token = localStorage.getItem('token');
   try {
-      const response = await fetch('http://localhost:8080/estadisticas/candidatosCargaHoraria', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/candidatosCargaHoraria', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -321,7 +321,7 @@ const fetchCandidatosHoras = async () => {
 const fetchCandidatosTrabajando = async () => {
   const token = localStorage.getItem('token');
   try {
-      const response = await fetch('http://localhost:8080/estadisticas/candidatosTrabajando', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/candidatosTrabajando', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',

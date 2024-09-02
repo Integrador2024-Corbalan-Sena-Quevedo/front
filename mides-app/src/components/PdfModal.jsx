@@ -40,7 +40,7 @@ const PdfModal = ({ show, onHide, pdfUrl, candidatoDTO}) => {
                 data.append('file', file)
                 data.append('candidatoId', candidatoDTO.candidatoId)
 
-                const response = await fetch('http://localhost:8080/uploadCV', {
+                const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/uploadCV', {
                     method:"POST",
                     headers:{
                         'Authorization' : `Bearer ${token}`
@@ -68,7 +68,7 @@ const PdfModal = ({ show, onHide, pdfUrl, candidatoDTO}) => {
     const onDeletePdf = async () => {
        
         try {
-            const response = await fetch('http://localhost:8080/deleteCv', {
+            const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/deleteCv', {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,

@@ -53,7 +53,7 @@ const Follow = () => {
     
     
     try {
-      const response = await fetch('http://localhost:8080/newSeguimiento', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/newSeguimiento', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

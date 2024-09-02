@@ -290,7 +290,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
     setCandidatoDTO(candidatoDTO);
 
     try {
-        const response = await fetch('http://localhost:8080/getCv', {
+        const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/getCv', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

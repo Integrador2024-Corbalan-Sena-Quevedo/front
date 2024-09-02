@@ -24,7 +24,7 @@ const Register = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/auth/register', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

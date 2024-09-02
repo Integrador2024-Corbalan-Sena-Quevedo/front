@@ -153,7 +153,7 @@ const BusquedaConFiltrosEmpleos = () => {
 
     
     try {
-      const response = await fetch(`http://localhost:8080/actualizar/eliminarSubListaEmpresa`, {
+      const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/eliminarSubListaEmpresa`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -178,7 +178,7 @@ const BusquedaConFiltrosEmpleos = () => {
       
 
       
-      const response = await fetch(`http://localhost:8080/actualizar/empresa`, {
+      const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/empresa`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -217,7 +217,7 @@ const BusquedaConFiltrosEmpleos = () => {
 
   const agregarALista = async (empresaId, empleoId, lista, subLista, id) => {
     try {
-      const response = await fetch(`http://localhost:8080/actualizar/agregarASubListaEmpresa`, {
+      const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/agregarASubListaEmpresa`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -255,7 +255,7 @@ const BusquedaConFiltrosEmpleos = () => {
   const actualizarUnaEmpresa = async (empresaId) => {
     
     try {
-      const response = await fetch(`http://localhost:8080/filtro/unaEmpresa`, {
+      const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/filtro/unaEmpresa`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -578,7 +578,7 @@ const BusquedaConFiltrosEmpleos = () => {
    
 
     
-    fetch('http://localhost:8080/filtro/empleos', {
+    fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/filtro/empleos', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,

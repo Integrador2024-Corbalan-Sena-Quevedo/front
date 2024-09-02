@@ -45,7 +45,7 @@ const FileUpload = () => {
 
     try {
     
-      const response = await fetch('http://localhost:8080/upload-csv', {
+      const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/upload-csv', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
