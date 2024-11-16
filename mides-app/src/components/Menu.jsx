@@ -13,6 +13,7 @@ import  Follow from './FollowNew';
 import FollowView from './FollowView';
 import BusquedaConFiltrosEmpleos from './BusquedaFiltradoEmpresa';
 import AuditoriasCandidato from './AuditoriasCandidato';
+import AuditoriasEmpresa from './AuditoriasEmpresa';
 
 
 const Menu = ({ onLogout }) => {
@@ -26,6 +27,7 @@ const Menu = ({ onLogout }) => {
     'Match' : <JobMatch />,
     'Lista de Operadores' : <ListaOperadores />,
     'Auditorias de candidatos' : <AuditoriasCandidato />,
+    'Auditorias de empresas' : <AuditoriasEmpresa />,
     'Filtro de candidatos': <BusquedaConFiltros />,
     'Estadísticas y reportes' : <Estadisticas/>,
     'Nuevo seguimiento': <Follow/>,
@@ -35,7 +37,7 @@ const Menu = ({ onLogout }) => {
   };
 
   const menuItems = {
-    'ADMIN': ['Home', 'Subir archivo', 'Match', 'Lista de Operadores', 'Auditorias de candidatos', 'Filtro de candidatos','Filtro empresas','Nuevo seguimiento', 'Ver seguimientos', 'Estadísticas y reportes', 'Logout'],
+    'ADMIN': ['Home', 'Subir archivo', 'Match', 'Lista de Operadores', 'Auditorias de candidatos', 'Auditorias de empresas', 'Filtro de candidatos','Filtro empresas','Nuevo seguimiento', 'Ver seguimientos', 'Estadísticas y reportes', 'Logout'],
     'OPERADOR_LABORAL_SUPERIOR': ['Home', 'Subir archivo','Filtro de candidatos', 'Filtro empresas', 'Nuevo seguimiento', 'Ver seguimientos', 'Estadísticas y reportes','Logout'],
     'OPERADOR_LABORAL_BASICO': ['Home', 'Filtro de candidatos', 'Filtro empresas', 'Ver seguimientos','Logout']
   };

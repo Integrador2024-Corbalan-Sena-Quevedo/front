@@ -22,6 +22,7 @@ const useFetchJobs = () => {
                 if(response.status === 200){
                     const data = await response.json()
                     setJobs(data)
+                    console.log(data);
                     const activeJobs = data.filter(job => job.activo === 0);                   
                     setJobsActives(activeJobs);
                     setLoading(false);
