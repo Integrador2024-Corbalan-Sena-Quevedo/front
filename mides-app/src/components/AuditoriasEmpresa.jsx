@@ -109,7 +109,8 @@ const AuditoriasEmpresa = () => {
               <td>{audit.tipo}</td>
               
               <td>{typeof audit.empresa === 'object' ? audit.empresa.nombre : obtenerEmpresa(audit.empresa, "nombre")}</td>
-              <td>{typeof audit.empresa === 'object' ? audit.empresa.empleo.nombrePuesto : obtenerEmpresa(audit.empresa, "puesto")}</td>
+              <td>{typeof audit.empresa === 'object' ? audit.empresa.empleo.map((empleo) => (empleo.nombrePuesto)) : obtenerEmpresa(audit.empresa, "puesto")}</td>
+ 
               <td>{audit.usuario.name}</td>
 
               
