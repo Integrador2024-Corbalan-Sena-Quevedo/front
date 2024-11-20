@@ -23,7 +23,6 @@ const AuditoriasCandidato = () => {
           const audi = Object.values(audiResp);
           setAudits(audi);
     
-          console.log(audi);
         } catch (error) {
           console.error('Error al auditorias de candidatos', error);
         }

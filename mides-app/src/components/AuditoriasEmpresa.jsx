@@ -18,7 +18,6 @@ const AuditoriasEmpresa = () => {
             if(response.status === 200){
                 const data = await response.json()
                 setEmpleos(data)
-                console.log(data);
             }
             else{
                 const data = await response.text()
@@ -51,8 +50,6 @@ const AuditoriasEmpresa = () => {
           const audiResp = await response.json();
           const audi = Object.values(audiResp);
           setAudits(audi);
-    
-          console.log(audi);
         } catch (error) {
           console.error('Error al auditorias de Empresas', error);
         }
