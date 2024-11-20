@@ -723,7 +723,7 @@ const BusquedaConFiltrosEmpleos = () => {
                     <button onClick={()=>handleEditable(selectedEmpresa, 'actividadEconomica')}>
                       <img src={editLogo} alt="Edit"/>
                     </button>
-                      <strong>Actividad Economica: </strong>
+                      <strong>Actividad Económica: </strong>
                       <span>{selectedEmpresa.actividadEconomica}</span>
                       { editable && empresaEditable === selectedEmpresa && campoEditable === 'actividadEconomica' && (
 
@@ -1041,7 +1041,7 @@ const BusquedaConFiltrosEmpleos = () => {
                           <button onClick={()=>handleEditable(selectedEmpresa, 'kilometro')}>
                             <img src={editLogo} alt="Edit"/>
                           </button>
-                            <strong>Kilometro: </strong> 
+                            <strong>Kilómetro: </strong> 
                             <span>{selectedEmpresa[selectedLista].kilometro} </span>  
                             { editable && empresaEditable === selectedEmpresa && campoEditable === 'kilometro' && (
 
@@ -1159,7 +1159,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'calificacionEncuesta')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                              <strong>Calificacion encuesta: </strong>
+                              <strong>Calificación encuesta: </strong>
                               <span>{selectedEmpresa[selectedLista].calificacionEncuesta}</span>
                               { editable && empresaEditable === selectedEmpresa && campoEditable === 'calificacionEncuesta' && (
 
@@ -1199,7 +1199,7 @@ const BusquedaConFiltrosEmpleos = () => {
                             <button onClick={()=>handleEditable(selectedEmpresa, 'fechaDeCreacion')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                              <strong>Fecha de creacion: </strong>
+                              <strong>Fecha de creación: </strong>
                               <span>{selectedEmpresa[selectedLista].fechaDeCreacion[2]}/{selectedEmpresa[selectedLista].fechaDeCreacion[1]}/{selectedEmpresa[selectedLista].fechaDeCreacion[0]} </span>
                               { editable && empresaEditable === selectedEmpresa && campoEditable === 'fechaDeCreacion' && (
 
@@ -1295,7 +1295,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'categoria')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                                <strong>Categoria: </strong> 
+                                <strong>Categoría: </strong> 
                                 <span>{selectedEmpleo.categoria} </span> 
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'categoria' && (
 
@@ -1315,7 +1315,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'categoriaLibretaConducir')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                                <strong>Categoria Libreta Conducir: </strong>
+                                <strong>Categoría Libreta Conducir: </strong>
                                 <span>{selectedEmpleo.categoriaLibretaConducir} </span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'categoriaLibretaConducir' && (
 
@@ -1335,7 +1335,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'codigo')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                                <strong>Codigo: </strong>
+                                <strong>Código: </strong>
                                 <span>{selectedEmpleo.codigo}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'codigo' && (
 
@@ -1375,7 +1375,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'contratoATermino')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                                <strong>Contrato a termino: </strong>
+                                <strong>Contrato a término: </strong>
                                 <span>{selectedEmpleo.contratoATermino}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'contratoATermino' && (
 
@@ -1436,7 +1436,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'diasDeSemanaParaCubrirPuesto')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                                <strong>Dias de semana para cubrir puesto: </strong>
+                                <strong>Días de semana para cubrir puesto: </strong>
                                 <span>{selectedEmpleo.diasDeSemanaParaCubrirPuesto}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'diasDeSemanaParaCubrirPuesto' && (
 
@@ -1456,7 +1456,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'diasDeSemanaParaCubrirPuestoOtro')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                                <strong>Dias de semana para cubrir puesto otro: </strong>
+                                <strong>Días de semana para cubrir puesto otro: </strong>
                                 <span>{selectedEmpleo.diasDeSemanaParaCubrirPuestoOtro}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'diasDeSemanaParaCubrirPuestoOtro' && (
 
@@ -1714,7 +1714,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'remuneracionOfrecida')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                                <strong>Remuneracion ofrecida: </strong>
+                                <strong>Remuneración ofrecida: </strong>
                                 <span>{selectedEmpleo.remuneracionOfrecida}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'rangremuneracionOfrecidaoDeEdad' && (
 
@@ -1794,7 +1794,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'tiempoDeExperienciaMinima')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                                <strong>Tiempo de experiencia minima: </strong>
+                                <strong>Tiempo de experiencia mínima: </strong>
                                 <span>{selectedEmpleo.tiempoDeExperienciaMinima}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'tiempoDeExperienciaMinima' && (
 
@@ -1814,7 +1814,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'tipoRemuneracion')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                                <strong>Tipo remuneracion: </strong>
+                                <strong>Tipo remuneración: </strong>
                                 <span>{selectedEmpleo.tipoRemuneracion}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'tipoRemuneracion' && (
 
@@ -1834,7 +1834,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'tipoRemuneracionOtro')}>
                                 <img src={editLogo} alt="Edit"/>
                               </button>
-                                <strong>Tipo remuneracion otro: </strong>
+                                <strong>Tipo remuneración otro: </strong>
                                 <span>{selectedEmpleo.tipoRemuneracionOtro}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'tipoRemuneracionOtro' && (
 
@@ -1914,7 +1914,7 @@ const BusquedaConFiltrosEmpleos = () => {
                                       <button onClick={()=>handleEditable(selectedEmpresa, 'duenioUno')}>
                                         <img src={editLogo} alt="Edit"/>
                                       </button>
-                                        <strong>Duenio uno: </strong>
+                                        <strong>Dueño uno: </strong>
                                         <span >{item.duenioUno}</span>
                                         { editable && empresaEditable === selectedEmpresa && campoEditable === 'duenioUno' && (
 
@@ -1954,7 +1954,7 @@ const BusquedaConFiltrosEmpleos = () => {
                                       <button onClick={()=>handleEditable(selectedEmpresa, 'duenioDos')}>
                                         <img src={editLogo} alt="Edit"/>
                                       </button>
-                                        <strong>Duenio dos: </strong>
+                                        <strong>Dueño dos: </strong>
                                         <span >{item.duenioDos}</span>
                                         { editable && empresaEditable === selectedEmpresa && campoEditable === 'duenioDos' && (
 
@@ -2007,7 +2007,7 @@ const BusquedaConFiltrosEmpleos = () => {
                                <button onClick={()=>handleEditable(selectedEmpresa, 'computacion')}>
                                   <img src={editLogo} alt="Edit"/>
                                 </button>
-                                <strong>Computacion: </strong> 
+                                <strong>Computación: </strong> 
                                 <span>{selectedEmpleo[selectedSubLista].computacion} </span> 
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'computacion' && (
 
@@ -2027,7 +2027,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'otrosComputacion')}>
                                   <img src={editLogo} alt="Edit"/>
                                 </button>
-                                <strong>Otros computacion: </strong>
+                                <strong>Otros computación: </strong>
                                 <span>{selectedEmpleo[selectedSubLista].otrosComputacion}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'otrosComputacion' && (
 
@@ -2108,7 +2108,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'ingles')}>
                                   <img src={editLogo} alt="Edit"/>
                                 </button>
-                                <strong>Ingles: </strong>
+                                <strong>Inglés: </strong>
                                 <span>{selectedEmpleo[selectedSubLista].ingles} </span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'ingles' && (
 
@@ -2128,7 +2128,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'nivelIdiomasRequeridosEscrituraIngles')}>
                                   <img src={editLogo} alt="Edit"/>
                                 </button>
-                                <strong>Nivel Requeridos Escritura Ingles: </strong>
+                                <strong>Nivel Requeridos Escritura Inglés: </strong>
                                 <span>{selectedEmpleo[selectedSubLista].nivelIdiomasRequeridosEscrituraIngles}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'nivelIdiomasRequeridosEscrituraIngles' && (
 
@@ -2148,7 +2148,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'nivelIdiomasRequeridosHablaIngles')}>
                                   <img src={editLogo} alt="Edit"/>
                                 </button>
-                                <strong>Nivel requeridos habla ingles: </strong>
+                                <strong>Nivel requeridos habla inglés: </strong>
                                 <span>{selectedEmpleo[selectedSubLista].nivelIdiomasRequeridosHablaIngles}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'nivelIdiomasRequeridosHablaIngles' && (
 
@@ -2168,7 +2168,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'nivelIdiomasRequeridosLecturaIngles')}>
                                   <img src={editLogo} alt="Edit"/>
                                 </button>
-                                <strong>Nivel requeridos lectura ingles: </strong>
+                                <strong>Nivel requeridos lectura inglés: </strong>
                                 <span>{selectedEmpleo[selectedSubLista].nivelIdiomasRequeridosLecturaIngles}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'nivelIdiomasRequeridosLecturaIngles' && (
 
@@ -2188,7 +2188,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'portgues')}>
                                   <img src={editLogo} alt="Edit"/>
                                 </button>
-                                <strong>Portgues: </strong>
+                                <strong>Portugués: </strong>
                                 <span>{selectedEmpleo[selectedSubLista].portgues}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'portgues' && (
 
@@ -2208,7 +2208,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'nivelIdiomasRequeridosEscrituraPortugues')}>
                                   <img src={editLogo} alt="Edit"/>
                                 </button>
-                                <strong>Nivel requeridos escritura portugues: </strong>
+                                <strong>Nivel requeridos escritura portugués: </strong>
                                 <span>{selectedEmpleo[selectedSubLista].nivelIdiomasRequeridosEscrituraPortugues}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'nivelIdiomasRequeridosEscrituraPortugues' && (
 
@@ -2228,7 +2228,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'nivelIdiomasRequeridosHablaPortugues')}>
                                   <img src={editLogo} alt="Edit"/>
                                 </button>
-                                <strong>Nivel requeridos habla portugues: </strong>
+                                <strong>Nivel requeridos habla portugués: </strong>
                                 <span>{selectedEmpleo[selectedSubLista].nivelIdiomasRequeridosHablaPortugues}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'nivelIdiomasRequeridosHablaPortugues' && (
 
@@ -2249,7 +2249,7 @@ const BusquedaConFiltrosEmpleos = () => {
                               <button onClick={()=>handleEditable(selectedEmpresa, 'nivelIdiomasRequeridosLecturaPortugues')}>
                                   <img src={editLogo} alt="Edit"/>
                                 </button>
-                                <strong>Nivel idiomas requeridos lectura portugues: </strong>
+                                <strong>Nivel idiomas requeridos lectura portugués: </strong>
                                 <span>{selectedEmpleo[selectedSubLista].nivelIdiomasRequeridosLecturaPortugues}</span>
                                 { editable && empresaEditable === selectedEmpresa && campoEditable === 'nivelIdiomasRequeridosLecturaPortugues' && (
 
@@ -2565,22 +2565,22 @@ const BusquedaConFiltrosEmpleos = () => {
                       <td>{empleo.departamento}</td>
                       <td>{empleo.nroPuestosDisponible}</td>
                       <td>
-                          <span class="masDetalles" onClick={() => handleSelectShow(empleo)}>Mas detalles</span>
+                          <span class="masDetalles" onClick={() => handleSelectShow(empleo)}>Más detalles</span>
                           {showSelect && selectedEmpleoCombo === empleo.id && (
                             <div className="selectContainer">
                               <select className="selectDropdown" onChange={(e) => handleShowPopup(e, empleo)}>
                                   <option value="">Seleccionar...</option>
-                                  <option disabled value="">Datos de los empelos</option>
-                                  <option value="empleo|">Datos adicionales del empelo</option>
+                                  <option disabled value="">Datos de los empleos</option>
+                                  <option value="empleo|">Datos adicionales del empleo</option>
                                   <option value="empleo|conocimientosEspecificosEmpleo">Requisitos</option>
                                   <option value="empleo|tareas">Tareas</option>
                                   <option disabled value="">Datos de las empresas</option>
                                   <option value="|">Empresa</option>
                                   <option value="datosAdicionalesEmpresa|">Datos adicionales</option>
-                                  <option value="direccion|">Direccion</option>
+                                  <option value="direccion|">Dirección</option>
                                   <option value="emails|">Emails</option>
-                                  <option value="encuestaEmpresa|">Encuenta</option>
-                                  <option value="telefonos|">Telefonos</option>
+                                  <option value="encuestaEmpresa|">Encuesta</option>
+                                  <option value="telefonos|">Teléfonos</option>
                               </select>
                             </div>
                           )}

@@ -513,7 +513,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'aniosEducacion')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                      <strong>Años de educacion: </strong>
+                      <strong>Años de educación: </strong>
                       <span>{SelectedCandidato[selectedRama].aniosEducacion}</span>  
                         { editable && candidatoEditable === SelectedCandidato && campoEditable === 'aniosEducacion' && (
 
@@ -533,7 +533,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'deseaParticiparEnAlgunaInstitucion')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                      <strong>Desea participar en alguna institucion: </strong>
+                      <strong>Desea participar en alguna institución: </strong>
                       <span>{SelectedCandidato[selectedRama].deseaParticiparEnAlgunaInstitucion}</span> 
                       { editable && candidatoEditable === SelectedCandidato && campoEditable === 'deseaParticiparEnAlgunaInstitucion' &&(
 
@@ -573,7 +573,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'educacionNoFormal')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                      <strong>Educacion no formal: </strong>
+                      <strong>Educación no formal: </strong>
                       <span>{SelectedCandidato[selectedRama].educacionNoFormal}</span> 
                       { editable && candidatoEditable === SelectedCandidato && campoEditable === 'educacionNoFormal' && (
 
@@ -631,7 +631,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                     <button onClick={()=>handleEditable(SelectedCandidato, 'nombreInstitucion')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                      <strong>Nombre institucion: </strong>
+                      <strong>Nombre institución: </strong>
                       <span>{SelectedCandidato[selectedRama].nombreInstitucion}</span> 
                       { editable && candidatoEditable === SelectedCandidato && campoEditable === 'nombreInstitucion' && (
 
@@ -651,7 +651,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                     <button onClick={()=>handleEditable(SelectedCandidato, 'participacionInstitucion')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                      <strong>Participacion institucion: </strong>
+                      <strong>Participacion institución: </strong>
                       <span>{SelectedCandidato[selectedRama].participacionInstitucion}</span>
                       { editable && candidatoEditable === SelectedCandidato && campoEditable === 'participacionInstitucion' &&(
 
@@ -773,7 +773,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'diasDeLaSemana')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                      <strong>Dias de la semana: </strong>
+                      <strong>Días de la semana: </strong>
                       <span>{SelectedCandidato[selectedRama].diasDeLaSemana}</span>  
                       { editable && candidatoEditable === SelectedCandidato && campoEditable === 'diasDeLaSemana' && (
 
@@ -853,7 +853,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
 
                             <option value="">Seleccionar...</option>
                             <option value="TARDE">TARDE</option>
-                            <option value="MANIANA">MANIANA</option>
+                            <option value="MANIANA">MAÑANA</option>
                             <option value="NOCHE">NOCHE</option>
                             <option value="INDIFERENTE">INDIFERENTE</option>
                             <option value="ROTATIVO">ROTATIVO</option>
@@ -1097,7 +1097,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'cualesMedicamentos')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                        <strong>Cuales medicamentos: </strong>
+                        <strong>Cuáles medicamentos: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].cualesMedicamentos}</span>
                         { editable && candidatoEditable === SelectedCandidato && campoEditable === 'cualesMedicamentos' && (
 
@@ -1159,7 +1159,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                           <button onClick={()=>handleEditable(SelectedCandidato, 'duenioUno')}>
                               <img src={editLogo} alt="Edit"/>
                           </button>
-                            <strong>Duenio uno: </strong>
+                            <strong>Dueño uno: </strong>
                             <span >{item.duenioUno}</span>
                             { editable && candidatoEditable === SelectedCandidato && campoEditable === 'duenioUno' && (
 
@@ -1199,7 +1199,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                           <button onClick={()=>handleEditable(SelectedCandidato, 'duenioDos')}>
                               <img src={editLogo} alt="Edit"/>
                           </button>
-                            <strong>Duenio dos: </strong>
+                            <strong>Dueño dos: </strong>
                             <span >{item.duenioDos}</span>
                             { editable && candidatoEditable === SelectedCandidato && campoEditable === 'duenioDos' && (
 
@@ -1279,7 +1279,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'autonomia_en_transporte_publico')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                        <strong>Autonomia en transporte público: </strong>
+                        <strong>Autonomía en transporte público: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].autonomia_en_transporte_publico}</span>
                         { editable && candidatoEditable === SelectedCandidato && campoEditable === 'autonomia_en_transporte_publico' && (
 
@@ -1598,7 +1598,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'kilometro')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                        <strong>Kilometro: </strong>
+                        <strong>Kilómetro: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].kilometro}</span>
                         { editable && candidatoEditable === SelectedCandidato && campoEditable === 'kilometro' && (
 
@@ -1638,7 +1638,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'numeroPuerta')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                        <strong>Numero de puerta: </strong>
+                        <strong>Número de puerta: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].numeroPuerta}</span>
                         { editable && candidatoEditable === SelectedCandidato && campoEditable === 'numeroPuerta' && (
 
@@ -1658,7 +1658,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'observacionesDireccion')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                        <strong>Observaciones Direccion: </strong>
+                        <strong>Observaciones Dirección: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].observacionesDireccion}</span>
                         { editable && candidatoEditable === SelectedCandidato && campoEditable === 'observacionesDireccion' && (
 
@@ -1834,7 +1834,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                   <button onClick={()=>handleEditable(SelectedCandidato, 'fecha_de_nacimiento')}>
                       <img src={editLogo} alt="Edit"/>
                   </button>
-                    <strong>Nacimeinto: </strong>
+                    <strong>Nacimiento: </strong>
                     <span>{SelectedCandidato.fecha_de_nacimiento}</span> 
                     { editable && candidatoEditable === SelectedCandidato && campoEditable === 'fecha_de_nacimiento' && (
                       <div>
@@ -1872,7 +1872,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                   <button onClick={()=>handleEditable(SelectedCandidato, 'identidadGenero')}>
                       <img src={editLogo} alt="Edit"/>
                   </button>
-                    <strong>Identidad de genero: </strong>
+                    <strong>Identidad de género: </strong>
                     <span>{SelectedCandidato.identidadGenero}</span> 
                     { editable && candidatoEditable === SelectedCandidato && campoEditable === 'identidadGenero' && (
                       <div>
@@ -1932,7 +1932,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                         <button onClick={()=>handleEditable(SelectedCandidato, 'autorizacionDarDatos')}>
                           <img src={editLogo} alt="Edit"/>
                         </button>
-                        <strong>Autorizacion a brindar datos: </strong>
+                        <strong>Autorización a brindar datos: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].autorizacionDarDatos}</span> 
                         { editable && candidatoEditable === SelectedCandidato && campoEditable === 'autorizacionDarDatos' && (
 
@@ -2028,7 +2028,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'enviaCV')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                        <strong>Envia CV: </strong>
+                        <strong>Envía CV: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].enviaCV}</span> 
                         { editable && candidatoEditable === SelectedCandidato && campoEditable === 'enviaCV' && (
                           <div>
@@ -2085,7 +2085,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'infomacionPersonal')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                        <strong>Informacion personal: </strong>
+                        <strong>Información personal: </strong>
                         <span>{SelectedCandidato[selectedNombreLista].infomacionPersonal}</span> 
                         { editable && candidatoEditable === SelectedCandidato && campoEditable === 'infomacionPersonal' && (
                           <div>
@@ -2431,7 +2431,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'descripcionSituacionLaboral')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                    <strong>Descripcion situacion laboral: </strong>
+                    <strong>Descripción situación laboral: </strong>
                     <span>{SelectedCandidato[selectedRama].descripcionSituacionLaboral}</span>
                     { editable && candidatoEditable === SelectedCandidato && campoEditable === 'descripcionSituacionLaboral' && (
                           <div>
@@ -2526,7 +2526,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                   <button onClick={()=>handleEditable(SelectedCandidato, 'situacionLaboral')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                    <strong>Situacion laboral: </strong>
+                    <strong>Situación laboral: </strong>
                     <span>{SelectedCandidato[selectedRama].situacionLaboral}</span>
                     { editable && candidatoEditable === SelectedCandidato && campoEditable === 'situacionLaboral' && (
                           <div>
@@ -2602,7 +2602,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                   <button onClick={()=>handleEditable(SelectedCandidato, 'trabajoAlgunaVez')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                    <strong>Trabajo alguna vez: </strong>
+                    <strong>Trabajó alguna vez: </strong>
                     <span>{SelectedCandidato[selectedRama].trabajoAlgunaVez}</span>
                     { editable && candidatoEditable === SelectedCandidato && campoEditable === 'trabajoAlgunaVez' && (
                           <div>
@@ -2621,7 +2621,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                   <button onClick={()=>handleEditable(SelectedCandidato, 'ultimoPuesto')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                    <strong>Ultimo puesto: </strong>
+                    <strong>Último puesto: </strong>
                     <span>{SelectedCandidato[selectedRama].ultimoPuesto}</span>
                     { editable && candidatoEditable === SelectedCandidato && campoEditable === 'ultimoPuesto' && (
                           <div>
@@ -2879,7 +2879,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <button onClick={()=>handleEditable(SelectedCandidato, 'diagnostico')}>
                           <img src={editLogo} alt="Edit"/>
                       </button>
-                    <strong>Diagnostico: </strong>
+                    <strong>Diagnóstico: </strong>
                     <span>{SelectedCandidato[selectedRama].diagnostico}</span>
                     
                     { editable && candidatoEditable === SelectedCandidato && campoEditable === 'diagnostico' && (
@@ -2897,7 +2897,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                     </li>
                     
                   </ul>
-                  <h5>Tipo de discapacidades: </h5>
+                  <h5>Tipos de discapacidades: </h5>
                   {
                     <ul className='ulEditable'>
                       {
@@ -3240,7 +3240,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                   <th>Documento tipo</th>
                   <th>Nacimiento</th>
                   <th>Sexo</th>
-                  <th>Estado Civil</th>
+                  <th>Tipo de discapacidad</th>
                   <th>Acciones</th>
               </tr>
           </thead>
@@ -3262,9 +3262,10 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <td>{candidato.tipoDocumento}</td>
                       <td>{candidato.fecha_de_nacimiento}</td>
                       <td>{candidato.sexo}</td>
-                      <td>{candidato.estadoCivil}</td>
+                      <td>{candidato.discapacidad.tipoDiscapacidades ?.map((tipo) => tipo.nombre) .join(', ')} </td>
+                      
                       <td>
-                          <span className="masDetalles" onClick={() => handleSelectShow(candidato)}>Mas detalles</span>
+                          <span className="masDetalles" onClick={() => handleSelectShow(candidato)}>Más detalles</span>
                           {showSelect && selectedCandidadoCombo === candidato.id && (
                             <div className="selectContainer">
                               <select className="selectDropdown" onChange={(e) => handleShowPopup(e, candidato)}>

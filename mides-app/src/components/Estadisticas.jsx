@@ -394,7 +394,7 @@ const fetchCandidatosTrabajando = async () => {
                 <Pie dataKey="cantidad" data={dataEntrevistasGenero} nameKey="genero" cx="50%" cy="50%" outerRadius={100} fill="#8884d8"   label={(entry) => `${entry.name}: ${entry.value}`}>
                   {
                     dataEntrevistasGenero.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length] } />
                     ))
                   }
                 </Pie>
@@ -470,7 +470,7 @@ const fetchCandidatosTrabajando = async () => {
                 <Pie dataKey="cantidad" data={dataCandidatosCargaHoraria} nameKey="horas" cx="50%" cy="50%" outerRadius={100} fill="#8884d8"   label={(entry) => `${entry.name}: ${entry.value}`}>
                   {
                     dataCandidatosCargaHoraria.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length] } />
                     ))
                   }
                 </Pie>

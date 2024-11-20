@@ -2,8 +2,10 @@ import React from 'react';
 import '../styles/Candidate.css';
 
 const Candidate = ({ candidato, onRemove  }) => {
+    const tieneSeguimiento = candidato.seguimientos && candidato.seguimientos.length > 0;
+
     return (
-        <div className="candidato">
+         <div className={`candidato ${tieneSeguimiento ? 'seguimiento' : ''}`}>
             <strong>{candidato.nombre} {candidato.apellido}</strong>
             <p><span className="campo">Documento:</span> {candidato.documento}</p>
             <p><span className="campo">Fecha de Nacimiento:</span> {candidato.fecha_de_nacimiento}</p>

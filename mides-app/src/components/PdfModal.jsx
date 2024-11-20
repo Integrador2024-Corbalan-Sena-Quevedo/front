@@ -15,6 +15,14 @@ const PdfModal = ({ show, onHide, pdfUrl, candidatoDTO}) => {
         setLocalPdfUrl(pdfUrl);
     }, [pdfUrl]);
 
+    useEffect(() => {
+        if (!show) {
+            setLocalPdfUrl(null); 
+            setFile(null);
+            setUploadMessage('');
+        }
+    }, [show]);
+
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
         setUploadMessage(event.target.files[0].name);
