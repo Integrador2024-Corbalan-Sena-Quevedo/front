@@ -3240,7 +3240,7 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                   <th>Documento tipo</th>
                   <th>Nacimiento</th>
                   <th>Sexo</th>
-                  <th>Estado Civil</th>
+                  <th>Tipo de discapacidad</th>
                   <th>Acciones</th>
               </tr>
           </thead>
@@ -3262,7 +3262,8 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
                       <td>{candidato.tipoDocumento}</td>
                       <td>{candidato.fecha_de_nacimiento}</td>
                       <td>{candidato.sexo}</td>
-                      <td>{candidato.estadoCivil}</td>
+                      <td>{candidato.discapacidad.tipoDiscapacidades ?.map((tipo) => tipo.nombre) .join(', ')} </td>
+                      
                       <td>
                           <span className="masDetalles" onClick={() => handleSelectShow(candidato)}>Mas detalles</span>
                           {showSelect && selectedCandidadoCombo === candidato.id && (

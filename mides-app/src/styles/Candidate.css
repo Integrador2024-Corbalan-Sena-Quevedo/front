@@ -38,3 +38,8 @@
     margin: 5px 0;
     color: #000000;
 }
+
+.candidato.seguimiento {
+    background-color: #aff0b1; 
+    color: white; 
+}
