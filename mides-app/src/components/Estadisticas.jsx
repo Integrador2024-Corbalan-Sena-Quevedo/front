@@ -52,7 +52,11 @@ const Estadisticas = () => {
   const fetchCantidadOperadoresPorRol = async () => {
     const token = localStorage.getItem('token');
     try {
+<<<<<<< Updated upstream
         const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/operadoresPorRol', {
+=======
+        const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/estadisticas/operadoresPorRol', {
+>>>>>>> Stashed changes
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -78,7 +82,11 @@ const Estadisticas = () => {
 const fetchEmpleosEnMontevideo= async () => {
   const token = localStorage.getItem('token');
   try {
+<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/empleosDepartamento', {
+=======
+      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/estadisticas/empleosDepartamento', {
+>>>>>>> Stashed changes
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -105,7 +113,11 @@ const fetchEmpleosEnMontevideo= async () => {
 const fetchEmpleosFormacion = async () => {
   const token = localStorage.getItem('token');
   try {
+<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/empleosNivelFormacion', {
+=======
+      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/estadisticas/empleosNivelFormacion', {
+>>>>>>> Stashed changes
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -131,7 +143,11 @@ const fetchEmpleosFormacion = async () => {
 const fetchEmpleosCargaHoraria = async () => {
   const token = localStorage.getItem('token');
   try {
+<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/empleosCargaHoraria', {
+=======
+      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/estadisticas/empleosCargaHoraria', {
+>>>>>>> Stashed changes
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -157,7 +173,11 @@ const fetchEmpleosCargaHoraria = async () => {
 const fetchEntrevistas = async () => {
   const token = localStorage.getItem('token');
   try {
+<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/entrevistasPorAnio', {
+=======
+      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/estadisticas/entrevistasPorAnio', {
+>>>>>>> Stashed changes
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -185,7 +205,11 @@ const fetchEntrevistas = async () => {
 const fetchEntrevistasPorGenero = async () => {
   const token = localStorage.getItem('token');
   try {
+<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/entrevistasPorGenero', {
+=======
+      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/estadisticas/entrevistasPorGenero', {
+>>>>>>> Stashed changes
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -212,7 +236,11 @@ const fetchEntrevistasPorGenero = async () => {
 const fetchCandidatosEdad = async () => {
   const token = localStorage.getItem('token');
   try {
+<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/candidatosPorEdad', {
+=======
+      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/estadisticas/candidatosPorEdad', {
+>>>>>>> Stashed changes
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -239,7 +267,11 @@ const fetchCandidatosEdad = async () => {
 const fetchCandidatosDiscapacidad = async () => {
   const token = localStorage.getItem('token');
   try {
+<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/candidatosPorDiscapacidad', {
+=======
+      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/estadisticas/candidatosPorDiscapacidad', {
+>>>>>>> Stashed changes
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -266,7 +298,11 @@ const fetchCandidatosDiscapacidad = async () => {
 const fetchCandidatosEducacion = async () => {
   const token = localStorage.getItem('token');
   try {
+<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/candidatosNivelFormacion', {
+=======
+      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/estadisticas/candidatosNivelFormacion', {
+>>>>>>> Stashed changes
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -293,7 +329,11 @@ const fetchCandidatosEducacion = async () => {
 const fetchCandidatosHoras = async () => {
   const token = localStorage.getItem('token');
   try {
+<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/candidatosCargaHoraria', {
+=======
+      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/estadisticas/candidatosCargaHoraria', {
+>>>>>>> Stashed changes
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -321,7 +361,11 @@ const fetchCandidatosHoras = async () => {
 const fetchCandidatosTrabajando = async () => {
   const token = localStorage.getItem('token');
   try {
+<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/estadisticas/candidatosTrabajando', {
+=======
+      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/estadisticas/candidatosTrabajando', {
+>>>>>>> Stashed changes
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',

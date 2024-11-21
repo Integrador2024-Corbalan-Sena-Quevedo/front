@@ -9,7 +9,7 @@ const AuditoriasCandidato = () => {
   useEffect(() => {
     const traerAuditoriasCandidato = async () => {
         try {
-          const response = await fetch(`http://localhost:8080/auditoriasCandidatos/obtener`, {
+          const response = await fetch(`http://mides-web.s3-website-us-east-1.amazonaws.com/auditoriasCandidatos/obtener`, {
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'

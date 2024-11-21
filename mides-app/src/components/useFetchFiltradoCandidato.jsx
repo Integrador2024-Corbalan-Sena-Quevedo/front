@@ -22,7 +22,11 @@ const useFetchFiltradoCandidato = ()=> {
           };
        
           
+<<<<<<< Updated upstream
           const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/filtro/candidatos', {
+=======
+          const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/filtro/candidatos', {
+>>>>>>> Stashed changes
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -49,7 +53,11 @@ const useFetchFiltradoCandidato = ()=> {
     
 
     
+<<<<<<< Updated upstream
       const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/candidato`, {
+=======
+      const response = await fetch(`http://mides-web.s3-website-us-east-1.amazonaws.com/actualizar/candidato`, {
+>>>>>>> Stashed changes
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -71,7 +79,11 @@ const useFetchFiltradoCandidato = ()=> {
 
    
     try {
+<<<<<<< Updated upstream
       const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/eliminarSubLista`, {
+=======
+      const response = await fetch(`http://mides-web.s3-website-us-east-1.amazonaws.com/actualizar/eliminarSubLista`, {
+>>>>>>> Stashed changes
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -90,7 +102,11 @@ const useFetchFiltradoCandidato = ()=> {
 
   const actualizarCandidato = async (candidadtoId) => {
     try {
+<<<<<<< Updated upstream
       const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/filtro/unCandidato`, {
+=======
+      const response = await fetch(`http://mides-web.s3-website-us-east-1.amazonaws.com/filtro/unCandidato`, {
+>>>>>>> Stashed changes
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -113,7 +129,11 @@ const useFetchFiltradoCandidato = ()=> {
 
   const traerIdiomas = async () => {
     try {
+<<<<<<< Updated upstream
       const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/idiomasAll`, {
+=======
+      const response = await fetch(`http://mides-web.s3-website-us-east-1.amazonaws.com/actualizar/idiomasAll`, {
+>>>>>>> Stashed changes
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -136,7 +156,11 @@ const useFetchFiltradoCandidato = ()=> {
 
   const agregarALista = async (candidatoId, lista, subLista, id) => {
     try {
+<<<<<<< Updated upstream
       const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/agregarSubLista`, {
+=======
+      const response = await fetch(`http://mides-web.s3-website-us-east-1.amazonaws.com/actualizar/agregarSubLista`, {
+>>>>>>> Stashed changes
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

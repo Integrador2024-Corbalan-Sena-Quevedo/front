@@ -290,7 +290,11 @@ const BusquedaConFiltros = ({ onAddCandidate,showAddButton  }) => {
     setCandidatoDTO(candidatoDTO);
 
     try {
+<<<<<<< Updated upstream
         const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/getCv', {
+=======
+        const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/getCv', {
+>>>>>>> Stashed changes
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

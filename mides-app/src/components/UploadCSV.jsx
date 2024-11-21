@@ -45,7 +45,11 @@ const FileUpload = () => {
 
     try {
     
+<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/upload-csv', {
+=======
+      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/upload-csv', {
+>>>>>>> Stashed changes
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`

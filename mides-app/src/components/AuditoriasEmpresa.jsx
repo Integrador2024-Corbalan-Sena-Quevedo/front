@@ -9,7 +9,7 @@ const AuditoriasEmpresa = () => {
 
     const fetchJobs = async () => {
         try{
-            const response = await fetch('http://localhost:8080/empleos',{
+            const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/empleos',{
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ const AuditoriasEmpresa = () => {
   useEffect(() => {
     const traerAuditoriasEmpresas = async () => {
         try {
-          const response = await fetch(`http://localhost:8080/auditoriasEmpresas/obtener`, {
+          const response = await fetch(`http://mides-web.s3-website-us-east-1.amazonaws.com/auditoriasEmpresas/obtener`, {
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'

@@ -53,7 +53,11 @@ const Follow = () => {
     
     
     try {
+<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/newSeguimiento', {
+=======
+      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/newSeguimiento', {
+>>>>>>> Stashed changes
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

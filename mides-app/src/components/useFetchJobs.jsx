@@ -13,7 +13,11 @@ const useFetchJobs = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try{
+<<<<<<< Updated upstream
                 const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/empleos',{
+=======
+                const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/empleos',{
+>>>>>>> Stashed changes
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
@@ -43,7 +47,11 @@ const useFetchJobs = () => {
     const fetchCandidates = async (jobId) => {
 
        try{
+<<<<<<< Updated upstream
             const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/preFilto',{
+=======
+            const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/preFilto',{
+>>>>>>> Stashed changes
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', 
@@ -71,7 +79,11 @@ const useFetchJobs = () => {
         try{ 
             const candidateIds = candidates.map(candidate => candidate.id);
             
+<<<<<<< Updated upstream
             const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/filtroIA',{
+=======
+            const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/filtroIA',{
+>>>>>>> Stashed changes
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -98,7 +110,11 @@ const useFetchJobs = () => {
     const fetchSendEmailToCompany = async (companyId, companyMail, candidates, jobId) => {
         try {
             const candidateIds = candidates.map(candidate => candidate.id);
+<<<<<<< Updated upstream
             const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/sendEmail',{
+=======
+            const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/sendEmail',{
+>>>>>>> Stashed changes
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -124,7 +140,11 @@ const useFetchJobs = () => {
     }
 
     const fetchAllCandidates = async () => {
+<<<<<<< Updated upstream
         const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/filtro/candidatos',{
+=======
+        const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/filtro/candidatos',{
+>>>>>>> Stashed changes
         method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
