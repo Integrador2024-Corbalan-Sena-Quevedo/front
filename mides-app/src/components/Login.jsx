@@ -33,11 +33,7 @@ const Login = () => {
     };
 
     try {
-<<<<<<< Updated upstream
       const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/auth/login', {
-=======
-      const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/auth/login', {
->>>>>>> Stashed changes
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

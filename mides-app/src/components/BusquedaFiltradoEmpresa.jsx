@@ -153,11 +153,7 @@ const BusquedaConFiltrosEmpleos = () => {
 
     
     try {
-<<<<<<< Updated upstream
       const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/eliminarSubListaEmpresa`, {
-=======
-      const response = await fetch(`http://mides-web.s3-website-us-east-1.amazonaws.com/actualizar/eliminarSubListaEmpresa`, {
->>>>>>> Stashed changes
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -182,11 +178,7 @@ const BusquedaConFiltrosEmpleos = () => {
       
 
       
-<<<<<<< Updated upstream
       const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/empresa`, {
-=======
-      const response = await fetch(`http://mides-web.s3-website-us-east-1.amazonaws.com/actualizar/empresa`, {
->>>>>>> Stashed changes
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -225,11 +217,7 @@ const BusquedaConFiltrosEmpleos = () => {
 
   const agregarALista = async (empresaId, empleoId, lista, subLista, id) => {
     try {
-<<<<<<< Updated upstream
       const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/actualizar/agregarASubListaEmpresa`, {
-=======
-      const response = await fetch(`http://mides-web.s3-website-us-east-1.amazonaws.com/actualizar/agregarASubListaEmpresa`, {
->>>>>>> Stashed changes
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -267,11 +255,7 @@ const BusquedaConFiltrosEmpleos = () => {
   const actualizarUnaEmpresa = async (empresaId) => {
     
     try {
-<<<<<<< Updated upstream
       const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/filtro/unaEmpresa`, {
-=======
-      const response = await fetch(`http://mides-web.s3-website-us-east-1.amazonaws.com/filtro/unaEmpresa`, {
->>>>>>> Stashed changes
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -594,11 +578,7 @@ const BusquedaConFiltrosEmpleos = () => {
    
 
     
-<<<<<<< Updated upstream
     fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/filtro/empleos', {
-=======
-    fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/filtro/empleos', {
->>>>>>> Stashed changes
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,

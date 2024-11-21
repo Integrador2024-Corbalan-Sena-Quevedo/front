@@ -17,11 +17,7 @@ const FollowView = () => {
 
     const fetchAllFollow = async () => {
         try {
-<<<<<<< Updated upstream
             const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/allSeguimientos', {
-=======
-            const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/allSeguimientos', {
->>>>>>> Stashed changes
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -65,11 +61,7 @@ const FollowView = () => {
             
          
             try {
-<<<<<<< Updated upstream
                 const response = await fetch(`http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/updateSeguimiento`, {
-=======
-                const response = await fetch(`http://mides-web.s3-website-us-east-1.amazonaws.com/updateSeguimiento`, {
->>>>>>> Stashed changes
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

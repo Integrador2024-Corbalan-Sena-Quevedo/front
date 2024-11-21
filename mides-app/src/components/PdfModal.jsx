@@ -48,11 +48,7 @@ const PdfModal = ({ show, onHide, pdfUrl, candidatoDTO}) => {
                 data.append('file', file)
                 data.append('candidatoId', candidatoDTO.candidatoId)
 
-<<<<<<< Updated upstream
                 const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/uploadCV', {
-=======
-                const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/uploadCV', {
->>>>>>> Stashed changes
                     method:"POST",
                     headers:{
                         'Authorization' : `Bearer ${token}`
@@ -80,11 +76,7 @@ const PdfModal = ({ show, onHide, pdfUrl, candidatoDTO}) => {
     const onDeletePdf = async () => {
        
         try {
-<<<<<<< Updated upstream
             const response = await fetch('http://midesuy-env.eba-bjxi9i8c.us-east-1.elasticbeanstalk.com/deleteCv', {
-=======
-            const response = await fetch('http://mides-web.s3-website-us-east-1.amazonaws.com/deleteCv', {
->>>>>>> Stashed changes
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,
